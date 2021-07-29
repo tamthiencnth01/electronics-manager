@@ -22,12 +22,12 @@ public class Store {
     private String storePhone;
     private String storeUserName;
 
-    @OneToMany(targetEntity = Customer.class,fetch = FetchType.EAGER)
-    private Set<Customer> customers;
-
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @OneToMany(targetEntity = Employee.class,fetch = FetchType.EAGER)
+    private Set<Employee> employees;
 
     public Store(String storeName, String storeAddress, String storePhone) {
         this.storeName = storeName;

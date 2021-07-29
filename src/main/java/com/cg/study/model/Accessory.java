@@ -22,14 +22,7 @@ public class Accessory {
     private double importPrice;
     private double retailPrice;
 
-    @OneToMany(targetEntity = Bill.class, fetch = FetchType.EAGER)
-    private Set<Bill> bills;
-
-    public Accessory(String accessoryName, Long quantity, double importPrice, double retailPrice, Set<Bill> bills) {
-        this.accessoryName = accessoryName;
-        this.quantity = quantity;
-        this.importPrice = importPrice;
-        this.retailPrice = retailPrice;
-        this.bills = bills;
-    }
+    @ManyToOne
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 }

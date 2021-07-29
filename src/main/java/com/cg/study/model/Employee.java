@@ -23,15 +23,16 @@ public class Employee {
     private String userNameEmp;
     private String reportTo;
 
+    @OneToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
     @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @JoinColumn(name = "store_id")
+    private Store store;
 
-    @OneToMany(targetEntity = Store.class, fetch = FetchType.EAGER)
-    private Set<Store> storeList;
-
-    @OneToMany(targetEntity = Bill.class,fetch = FetchType.EAGER)
-    private Set<Bill> bills;
+    @ManyToOne
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 
 
 }

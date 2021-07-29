@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,9 +28,6 @@ public class Product {
     @Column(nullable = false)
     private String purchaseDay;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-
-
+    @OneToMany(targetEntity = Customer.class, fetch = FetchType.EAGER)
+    private Set<Customer> customers;
 }

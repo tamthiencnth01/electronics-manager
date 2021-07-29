@@ -19,8 +19,9 @@ public class Role {
 
     private String roleName;
 
-    @OneToMany(targetEntity = Employee.class, fetch = FetchType.EAGER)
-    private Set<Employee> employeeList;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
 
 }

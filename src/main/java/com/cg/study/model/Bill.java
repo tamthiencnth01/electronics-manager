@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,27 +24,13 @@ public class Bill {
     private double kilometer;
     private double total;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @OneToMany(targetEntity = Employee.class, fetch = FetchType.EAGER)
+    private Set<Employee> employees;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @OneToMany(targetEntity = Customer.class, fetch = FetchType.EAGER)
+    private Set<Customer> customers;
 
-    @ManyToOne
-    @JoinColumn(name = "accessory_id")
-    private Accessory accessory;
+    @OneToMany(targetEntity = Accessory.class, fetch = FetchType.EAGER)
+    private Set<Accessory> accessories;
 
-    public Bill(String firstStatus, String startDate, String endDate, String repairOperation, double kilometer, double total, Employee employee, Customer customer, Accessory accessory) {
-        this.firstStatus = firstStatus;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.repairOperation = repairOperation;
-        this.kilometer = kilometer;
-        this.total = total;
-        this.employee = employee;
-        this.customer = customer;
-        this.accessory = accessory;
-    }
 }

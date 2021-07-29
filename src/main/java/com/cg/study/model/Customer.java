@@ -25,15 +25,16 @@ public class Customer {
     private String customerPhone;
 
 
-    @OneToMany(targetEntity = Product.class,fetch = FetchType.EAGER)
-    private Set<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @OneToMany(targetEntity = Store.class, fetch = FetchType.EAGER)
+    private Set<Store> stores;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
-
-    @OneToMany(targetEntity = Bill.class, fetch = FetchType.EAGER)
-    private Set<Bill> bills;
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 
 
 }
