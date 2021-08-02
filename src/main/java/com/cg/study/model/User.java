@@ -1,57 +1,39 @@
 package com.cg.study.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
-@Table(name = "User")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String userName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String username;
     private String password;
-    private boolean active;
-    private String roles;
 
+    @ManyToMany(fetch = EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
+    @OneToOne(fetch = EAGER)
+    private Employee employee;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public User(Long id, String name, String username, String password, Collection<Role> roles) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
+        this.name = name;
+        this.username = username;
         this.password = password;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
         this.roles = roles;
     }
 }
