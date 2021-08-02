@@ -1,6 +1,6 @@
 class App {
-    static BASE_URL_CUSTOMER = "http://localhost:8080/api/customers";
-    static BASE_URL_PROVINCE = "http://localhost:8080/api/provinces";
+    static BASE_URL_EMPLOYEE = "http://localhost:8080/api/employees";
+    static BASE_URL_ROLE = "http://localhost:8080/api/roles";
 
     static showDeleteConfirmDialog() {
         return Swal.fire({
@@ -33,12 +33,20 @@ class App {
     }
 }
 
-class Customer {
-    constructor(id, fullName, email, phone, province) {
+class Employee {
+    constructor(id,employeeName, employeeAddress,employeePhone,userName,role) {
         this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.province = province;
+        this.employeeName = employeeName;
+        this.employeeAddress = employeeAddress;
+        this.employeePhone = employeePhone;
+        this.userName = userName;
+        this.role = role;
+    }
+}
+
+class Role{
+    constructor(id, roleName) {
+        this.id = id;
+        this.roleName = roleName;
     }
 }

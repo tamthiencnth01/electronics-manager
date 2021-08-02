@@ -20,19 +20,18 @@ public class Employee {
     private String employeeName;
     private String employeeAddress;
     private String employeePhone;
-    private String userNameEmp;
+    private String userName;
     private String reportTo;
 
-    @OneToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @OneToMany(targetEntity = Customer.class, fetch = FetchType.EAGER)
+    private Set<Customer> customers;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "bill_id")
-    private Bill bill;
 
+    @OneToMany(targetEntity = Bill.class, fetch = FetchType.EAGER)
+    private Set<Bill> bills;
 
 }

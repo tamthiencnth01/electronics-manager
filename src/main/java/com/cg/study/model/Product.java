@@ -27,7 +27,12 @@ public class Product {
     private String serialNumber;
     @Column(nullable = false)
     private String purchaseDay;
+    private boolean status;
 
-    @OneToMany(targetEntity = Customer.class, fetch = FetchType.EAGER)
-    private Set<Customer> customers;
+//    @OneToMany(targetEntity = Customer.class, fetch = FetchType.EAGER)
+//    private Set<Customer> customers;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }
