@@ -21,7 +21,7 @@ public class Product {
 
     @Column(nullable = false)
     @Min(value = 2)
-    @Max(value = 100)
+    @Max(value = 50)
     private String productName;
 
     @Column(nullable = false)
@@ -40,6 +40,8 @@ public class Product {
     private String serialNumber;
 
     @Column(nullable = false)
+    @Min(value = 10)
+    @Max(value = 10)
     private String purchaseDay;
 
 //    @OneToMany(targetEntity = Customer.class, fetch = FetchType.EAGER)
