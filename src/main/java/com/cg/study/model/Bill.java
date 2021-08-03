@@ -34,9 +34,9 @@ public class Bill {
 //    @OneToMany(targetEntity = Accessory.class, fetch = FetchType.EAGER)
 //    private Set<Accessory> accessories;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+//    @ManyToOne
+//    @JoinColumn(name = "employee_id")
+//    private Employee employee;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

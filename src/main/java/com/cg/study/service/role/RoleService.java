@@ -2,6 +2,7 @@ package com.cg.study.service.role;
 
 import com.cg.study.model.Role;
 import com.cg.study.repository.IRoleRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ import java.util.Optional;
 public class RoleService implements IRoleService{
     @Autowired
     private IRoleRepository roleRepository;
+
+
     @Override
     public Iterable<Role> findAll() {
         return roleRepository.findAll();
@@ -18,16 +21,21 @@ public class RoleService implements IRoleService{
 
     @Override
     public Optional<Role> findById(Long id) {
-        return roleRepository.findById(id);
+        return Optional.empty();
     }
 
     @Override
     public Role save(Role role) {
-        return roleRepository.save(role);
+        return null;
     }
 
     @Override
     public void remove(Long id) {
-        roleRepository.deleteById(id);
+
+    }
+
+    @Override
+    public Iterable<Role> getAllRoles() {
+        return roleRepository.getAllRoles();
     }
 }

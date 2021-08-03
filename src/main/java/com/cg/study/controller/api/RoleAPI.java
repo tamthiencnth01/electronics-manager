@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.Access;
 import java.util.List;
 
 @RestController
@@ -18,10 +19,11 @@ public class RoleAPI {
     private IRoleService roleService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Role>> showListRoles(){
-        Iterable<Role> roles = roleService.findAll();
+    private ResponseEntity<Iterable<Role>> showAllRoles(){
+        Iterable<Role> roles = roleService.getAllRoles();
+        System.out.println(roles);
         if (((List) roles).isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(roles,HttpStatus.OK);
     }
