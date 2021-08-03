@@ -203,7 +203,7 @@ body a:hover{
 	.decimal-leading-zero{list-style:decimal-leading-zero}
 	.lower-alpha{list-style:lower-alpha}
 	.image-icons-list{-webkit-padding-start:0;list-style:none;margin-left:0}
-	.image-icons-list li{background:url('../images/list-icon.png') no-repeat 0 0;padding:0 0 0 25px}
+	.image-icons-list li{background:url('/static/layouts/images/list-icon.png') no-repeat 0 0;padding:0 0 0 25px}
 	.font-icons-list{list-style:none;margin-left:0;-webkit-padding-start:0}
 	.font-icons-list li{padding:0 0 0 10px}
 	.font-icons-list li:before{

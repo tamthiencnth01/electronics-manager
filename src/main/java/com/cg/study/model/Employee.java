@@ -26,9 +26,7 @@ public class Employee {
     @OneToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
+
 
     @ManyToOne
     @JoinColumn(name = "bill_id")
