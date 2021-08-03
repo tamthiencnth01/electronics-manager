@@ -47,7 +47,7 @@ public class CustomerAPI {
         if (customer.getId() != null) {
             return new ResponseEntity<>(customerService.save(customer), HttpStatus.OK);
         }
-            return new ResponseEntity<>(customerService.save(customer), HttpStatus.CREATED);
+        return new ResponseEntity<>(customerService.save(customer), HttpStatus.CREATED);
     }
 
     @DeleteMapping()

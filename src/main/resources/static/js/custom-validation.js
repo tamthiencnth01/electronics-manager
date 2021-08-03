@@ -15,8 +15,7 @@ $(() => {
             },
             customerPhone: {
                 required: true,
-                minlength: 10,
-                maxlength: 10
+                validateCustomerPhone: true
             }
         },
         messages: {
@@ -41,9 +40,17 @@ $(() => {
         }
     });
 
-    $.validator.addMethod("validateCustomerPhone", function (value, element) {
-        return this.optional(element) || /(84|0[3|5|7|8|9])+([0-9]{8})\b/g.test(value);
-    }, "Hãy nhập một số điện thoại hợp lệ gồm 10 chữ số!");
+    jQuery.validator.addMethod("validateCustomerPhone", function (value, element) {
+        if (/(84|0[3|5|7|8|9])+([0-9]{8})\b/g.test(value)) {
+            return true;
+        } else {
+            return false;
+        };
+    }, "Vui lòng nhập số ĐT hợp lệ");
+
+    // $.validator.addMethod("validateCustomerPhone", function (value, element) {
+    //     return this.optional(element) || /(84|0[3|5|7|8|9])+([0-9]{8})\b/g.test(value);
+    // }, "Hãy nhập một số điện thoại hợp lệ gồm 10 chữ số!");
 
     $("#productForm").validate({
         onkeyup: function(element) {$(element).valid()},
@@ -61,8 +68,7 @@ $(() => {
             },
             serialNumber: {
                 required: true,
-                minlength: 10,
-                maxlength: 10
+                validateSerialNumber: true
             },
             purchaseDay: {
                 required: true,
@@ -107,7 +113,15 @@ $(() => {
         }
     });
 
-    $.validator.addMethod("validatePassword", function (value, element) {
-        return this.optional(element) || /(([\w\n?]*)\s([\w\n?]*):\s([\w\n?]*)\n?\n?\s([\w\n]*))/ig.test(value);
-    }, "Hãy nhập mật khẩu từ 5 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số");
+    jQuery.validator.addMethod("validateSerialNumber", function (value, element) {
+        if (/(([\w\n?]*)\s([\w\n?]*):\s([\w\n?]*)\n?\n?\s([\w\n]*))/ig.test(value)) {
+            return true;
+        } else {
+            return false;
+        };
+    }, "Hãy nhập số seri hợp lệ gồm 10 ký tự với chữ và số!");
+
+    // $.validator.addMethod("validateSerialNumber", function (value, element) {
+    //     return this.optional(element) || /(([\w\n?]*)\s([\w\n?]*):\s([\w\n?]*)\n?\n?\s([\w\n]*))/ig.test(value);
+    // }, "Hãy nhập số seri hợp lệ gồm 10 ký tự với chữ và số!");
 });

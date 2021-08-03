@@ -7,7 +7,8 @@ let page = {
         saveEdit: App.BASE_URL_CUSTOMER,
         deleteCustomer: App.BASE_URL_CUSTOMER,
         saveNewProduct: App.BASE_URL_PRODUCT,
-        getAllProductsByCustomerId: App.BASE_URL_PRODUCT + "/"
+        getAllProductsByCustomerId: App.BASE_URL_PRODUCT + "/",
+        getProductBySerialNumber: App.BASE_URL_PRODUCT + "/"
     }
 }
 
@@ -132,12 +133,9 @@ customer.getAllProductByCustomerId = function(id){
         url: page.urls.getAllProductsByCustomerId + id,
         method:'GET',
         success: function(response){
-            console.log(1);
             if (response == null) {
-                console.log(11);
                 App.showErrorAlert("Khách Hàng Hiện Tại Chưa Có Sản Phẩm!");
             } else {
-                console.log(111);
                 $('.table-product tbody').empty();
                 response = response.sort(function(ctr1, ctr2){
                     return ctr2.id - ctr1.id;
