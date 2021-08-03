@@ -25,18 +25,6 @@ public class Bill {
     private double total;
     private String status;
 
-//    @OneToMany(targetEntity = Employee.class, fetch = FetchType.EAGER)
-//    private Set<Employee> employees;
-//
-//    @OneToMany(targetEntity = Customer.class, fetch = FetchType.EAGER)
-//    private Set<Customer> customers;
-//
-//    @OneToMany(targetEntity = Accessory.class, fetch = FetchType.EAGER)
-//    private Set<Accessory> accessories;
-
-//    @ManyToOne
-//    @JoinColumn(name = "employee_id")
-//    private Employee employee;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

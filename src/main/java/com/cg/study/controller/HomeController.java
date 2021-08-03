@@ -64,7 +64,7 @@ public class HomeController {
     @GetMapping("/user")
     @PreAuthorize("hasAnyAuthority('USER')")
     public ModelAndView user(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("user");
+        ModelAndView modelAndView = new ModelAndView("/customer/list");
         modelAndView.addObject("userInfo", getPrincipal());
         return modelAndView;
     }
@@ -72,14 +72,14 @@ public class HomeController {
     @GetMapping("/kt")
     @PreAuthorize("hasAnyAuthority('KT')")
     public ModelAndView kt(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("kt");
+        ModelAndView modelAndView = new ModelAndView("/kythuat/list");
         modelAndView.addObject("userInfo", getPrincipal());
         return modelAndView;
     }
     @GetMapping("/cskh")
     @PreAuthorize("hasAnyAuthority('CSKH')")
     public ModelAndView cskh(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("cskh");
+        ModelAndView modelAndView = new ModelAndView("/cskh/list");
         modelAndView.addObject("userInfo", getPrincipal());
         return modelAndView;
     }

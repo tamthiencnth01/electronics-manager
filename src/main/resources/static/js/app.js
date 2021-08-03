@@ -1,6 +1,10 @@
 class App {
     static BASE_URL_CREATE_USER = "http://localhost:8080/api/register";
     static BASE_URL_ROLES = "http://localhost:8080/api/roles";
+    static BASE_URL_GET_USER = "http://localhost:8080/api/users";
+    static BASE_URL_CUSTOMER = "http://localhost:8080/api/customers";
+    static BASE_URL_PRODUCT = "http://localhost:8080/api/products";
+
 
 
     static showDeleteConfirmDialog() {
@@ -34,16 +38,7 @@ class App {
     }
 }
 
-// class Employee {
-//     constructor(id,employeeName, employeeAddress,employeePhone,userName,role) {
-//         this.id = id;
-//         this.employeeName = employeeName;
-//         this.employeeAddress = employeeAddress;
-//         this.employeePhone = employeePhone;
-//         this.userName = userName;
-//         this.role = role;
-//     }
-// }
+
 
 class User{
     constructor(username,password,fullName,address,phone,role) {
@@ -60,5 +55,25 @@ class Role{
     constructor(id, name) {
         this.id = id;
         this.name = name;
+    }
+}
+class Customer {
+    constructor(id, customerFullName, customerAddress, customerPhone) {
+        this.id = id;
+        this.customerFullName = customerFullName;
+        this.customerAddress = customerAddress;
+        this.customerPhone = customerPhone;
+    }
+}
+
+class Product{
+    constructor(id, productName,productDescription,serviceTag,serialNumber,purchaseDay, customer) {
+        this.id = id;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.serviceTag = serviceTag;
+        this.serialNumber = serialNumber;
+        this.purchaseDay = purchaseDay;
+        this.customer = customer;
     }
 }

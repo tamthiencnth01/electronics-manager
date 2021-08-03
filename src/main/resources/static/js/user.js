@@ -2,8 +2,43 @@ var user = user || {};
 let page = {
     urls: {
         saveNewUser: App.BASE_URL_CREATE_USER,
-        getRole: App.BASE_URL_ROLES
+        getRole: App.BASE_URL_ROLES,
+        getAllUsers: App.BASE_URL_GET_USER
     }
+}
+
+user.userList = function(){
+    $.ajax({
+        url: page.urls.getAllUsers,
+        method:'GET',
+        success: function(response){
+            $('.table-product tbody').empty();
+            response = response.sort(function(pdt1, pdt2){
+                return pdt2.id - pdt1.id;
+            })
+            $.each(response, function(index, item){
+                $('.table-product tbody').append(`
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.fullName}</td>
+                        <td>${item.address}</td>
+                        <td>${item.phone}</td>
+                        <td>${item.username}</td>
+                        <td>${item.role.name}</td>
+                        <td></td>
+                    </tr>
+                    `);
+            });
+            if ( $.fn.dataTable.isDataTable( '.table-product' ) ) {
+                table = $('.table-product').DataTable();
+            }
+            else {
+                table = $('.table-product').DataTable( {
+                    paging: true
+                } );
+            }
+        }
+    })
 }
 
 user.showModal = function(){
@@ -31,7 +66,7 @@ user.save = function(){
                 success: function(result){
                     console.log(result);
                     if(result){
-                        // employee.employeeList();
+                        user.userList();
                         $('#productModal').modal('hide');
                         $.notify("Product has been created success", "success");
                     }
@@ -61,7 +96,7 @@ user.reset = function(){
     $('#productForm')[0].reset();
 }
 user.init = function(){
-    // user.employeeList();
+    user.userList();
     user.getRoles();
 }
 
