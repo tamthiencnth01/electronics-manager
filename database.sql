@@ -107,11 +107,12 @@ DROP TABLE IF EXISTS `customers`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customers` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `customer_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_full_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_address` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_full_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_phone` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_delete` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,55 +121,8 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'Enim molestiae rerum','Uriah Guerrero','+1 (306) 691-3512',1),(3,'Quảng Bình','Nguyễn Công Huy','123123',0),(4,'Phan Đăng Lưu','Trần Quang Tín','0931925215',0),(5,'Ea ratione quibusdam','Griffin Bender','+1 (868) 388-6317',0),(6,'Qui dolore velit con','Roanna Kane','+1 (775) 977-8828',0),(7,'Maxime maiores labor','Lillith Sampson','+1 (593) 469-2787',0),(8,'Lorem ea modi dolori','Gray Griffin','+1 (962) 333-2564',0);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customers_bills`
---
-
-DROP TABLE IF EXISTS `customers_bills`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customers_bills` (
-  `customer_id` bigint NOT NULL,
-  `bills_id` bigint NOT NULL,
-  PRIMARY KEY (`customer_id`,`bills_id`),
-  UNIQUE KEY `UK_sgfuqiq37e85so7jfuvewhs5w` (`bills_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customers_bills`
---
-
-LOCK TABLES `customers_bills` WRITE;
-/*!40000 ALTER TABLE `customers_bills` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customers_bills` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customers_products`
---
-
-DROP TABLE IF EXISTS `customers_products`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customers_products` (
-  `customer_id` bigint NOT NULL,
-  `products_id` bigint NOT NULL,
-  PRIMARY KEY (`customer_id`,`products_id`),
-  UNIQUE KEY `UK_4fkeiwvskid8xbm9yg5mefb79` (`products_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customers_products`
---
-
-LOCK TABLES `customers_products` WRITE;
-/*!40000 ALTER TABLE `customers_products` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customers_products` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -185,11 +139,10 @@ CREATE TABLE `products` (
   `purchase_day` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `serial_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `service_tag` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` bit(1) NOT NULL,
   `customer_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK29w1glmsx19fyn0ts34ak8pc5` (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,6 +151,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (5,'Quis officia adipisi','Aubrey Gomez','2017-10-28','667','Ut ut et labore quis',1),(6,'Qui est quis dolor s','George Ferrell','2016-04-12','457','Aut in quidem magna ',8),(7,'Amet aperiam reicie','Lois Gonzales','03-08-2021','566','Aut hic est quos qu',8),(8,'Alias earum quaerat ','Emerald Roman','03-08-2021','283','Est provident cupi',8),(9,'Voluptatibus eligend','Judah Glover','03-08-2021','254','Libero vel placeat ',8),(10,'Excepteur et volupta','Valentine Campbell','03-08-2021','377','Beatae enim id et de',7),(11,'Suscipit mollit fugi','Tamara Garrett','03-08-2021','627','Ea esse exercitation',3),(12,'Provident hic et at','Nyssa Adams','03-08-2021','101','Rerum nobis omnis no',4),(13,'Beatae adipisci face','Eric Malone','04-08-2021','358','Molestias consequatu',3);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,7 +247,7 @@ CREATE TABLE `users` (
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKp56c1712k691lhsyewcssf40f` (`role_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -302,7 +256,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,0,'Nguyễn Tâm Thiện','$2a$10$sI1Vb0q9yxD.HPwPYS8TIertDQX07cc4UcaScBxDPRcDH3IsYqvh2','tamthien',1,NULL,NULL),(2,0,'Ngọc Trinh','$2a$10$KMfL0gy538tTTTomIRxw.OYXqW4rSgq7iY/4Q9VcWF4a25fHYjqza','ngoctrinh',2,NULL,NULL),(3,0,'Lester Marks','$2a$10$1GLtFPQzDGqdQwEX42tuSOsRyn4BJhRO/SpYjuYZGShmI7jyhr4s6','qototurany',NULL,NULL,NULL),(4,0,'Lester Marks','$2a$10$OIljpRbL0uTr2EtZ2HF.9eEY7XzU6qMo2le1f95xP.Bs5kgHzAKTW','qototurany1',NULL,NULL,NULL),(5,0,'Jessamine Parrish','$2a$10$f3e/P.at7RNhOmFYLM3x8Oo/VFbCa.9UkgtmnnY.MSNMe1osmQiLW','juxagi',NULL,'Qui sapiente suscipi','+1 (502) 273-5819'),(6,0,'Kirby Lambert','$2a$10$5jKwhnFto6uEds5syUc6COb.NjJkxbuRAAmwvQQg9PL7eoaStGAum','dygyt',NULL,'Qui nostrum sed dolo','+1 (908) 734-4223'),(7,0,'Ashely Gonzales','$2a$10$TB8WsxiA/bf37kMdC.oNIuV3UEIt4pAezmVoO62NafxJEnl28hEd6','jyxor',NULL,'Sunt ex provident n','+1 (695) 296-1891'),(8,0,'Conan Martin','$2a$10$iuBfdcA5q68IQzY/jIUReOwAFWNc0kokoGG3X5hcco/s7bw79HQOW','civygo',2,'Rerum impedit non r','+1 (769) 276-5083'),(9,0,'Sonia Bird','$2a$10$wAUbTGSnuELf4P2wN.qi6Oie81LVjLBLohPIfOmwK4v1SR7bfdmh6','jaruzudeny',3,'Qui et pariatur Vol','+1 (142) 177-8812'),(10,0,'Skyler Duncan','$2a$10$EIuFX6cri6TLzicKKrJcuu76Lgv9.PHeBx8fN/Cw3yDPcoY0UpUVO','fymugy',3,'Itaque unde maiores ','+1 (888) 265-2149'),(11,0,'Kenneth Mccall','$2a$10$oZi9AnpgUus8Bv/Z2EQuyeY8CibvLdsKrD3wvs7RKFSezpOl8KDCa','khanhden',3,'Nostrum illo error l','+1 (841) 405-8353'),(12,0,'Lenore Zimmerman','$2a$10$UbwLV99.F.2wzLZSEwlmpOABzLhawr5ePoNFAg99Drg6G4PJY/T3q','longdaubo',4,'Et ut rerum dolores ','+1 (865) 987-7944');
+INSERT INTO `users` VALUES (1,0,'Nguyễn Tâm Thiện','$2a$10$sI1Vb0q9yxD.HPwPYS8TIertDQX07cc4UcaScBxDPRcDH3IsYqvh2','tamthien',1,'Lê Đình Chinh','0931935255'),(14,0,'Bree George','$2a$10$5bd5Jq.qtZ83C.wAyt7kWeX1WZajEJdPC380.1NmGT5KY8s7o/n4W','wuforyv',4,'Sunt laborum Amet ','+1 (314) 117-1407'),(15,0,'Galvin Dyer','$2a$10$wwQhSdsSRX40qTgAHdgD5uGeTqFYvVyxdDJhjbkVqAZxpo/ltgUEa','nacazitu',4,'Vel sunt velit omn','+1 (926) 969-3307'),(16,0,'Jenna Ingram','$2a$10$03s28idIZqkS.oaqJpmQu.t.5PyddhkSnKLy2bvYPJNFFCneXseFK','tintran',2,'Nemo consectetur ei','+1 (703) 344-2791'),(17,0,'Uta Allison','$2a$10$Uvx6OFS1xDYVW80fnwOrcuQxNANNMXl4o5PBiCH4WBVNz//9LcZ9.','cskh1',4,'Minima suscipit dist','+1 (225) 944-6251'),(18,0,'Ainsley Miller','$2a$10$/L0WY.RyrcXvhI6NtJrNIuDu3ziHVhwgWDMSxWtZLEbE8L0iYRjnK','kythuat1',3,'Hic architecto numqu','+1 (356) 889-2754');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -315,4 +269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-03 11:28:48
+-- Dump completed on 2021-08-04 11:59:31

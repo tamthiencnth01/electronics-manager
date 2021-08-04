@@ -3,7 +3,7 @@ var product = product || {};
 
 product.productList = function(){
     $.ajax({
-        url:page.urls.selectAllProduct,
+        url: page.urls.selectAllProduct,
         method:'GET',
         success: function(response){
             $('.table-product tbody').empty();
@@ -20,32 +20,23 @@ product.productList = function(){
                         <td>${item.purchaseDay}</td>
                         <td>${item.customer.customerFullName}</td>
                         <td>
-                          
+                            <a href='javascript:;' class='btn btn-success btn-sm'
+                                title='Add Bill'
+                                onclick="customer.addBill(${item.id})">
+                                <i class="fa fa-plus"></i>
+                            </a>
                         </td>
                     </tr>
                     `);
             });
-            // $('.table-product').DataTable({
-            //     columnDefs: [
-            //         { orderable: false, targets: [6,7] },
-            //         { searchable: false, targets: [0,6,7] }
-            //     ],
-            //     order: [[0, 'desc']]
-            // });
+            $('.table-product').DataTable({
+                // columnDefs: [
+                //     { orderable: false, targets: [6,7] },
+                //     { searchable: false, targets: [0,6,7] }
+                // ],
+                // order: [[0, 'desc']]
+            });
 
-            if ( $.fn.dataTable.isDataTable( '.table-customer' ) ) {
-                table = $('.table-customer').DataTable({
-                    columnDefs: [
-                        // { orderable: false, targets: [6,7] },
-                        // { searchable: false, targets: [1,2] }
-                    ]
-                });
-            }
-            else {
-                table = $('.table-customer').DataTable( {
-                    paging: true
-                } );
-            }
         }
     })
 }

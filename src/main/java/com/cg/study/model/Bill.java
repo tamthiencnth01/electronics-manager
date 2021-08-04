@@ -34,4 +34,8 @@ public class Bill {
     @JoinColumn(name = "accessory_id")
     private Accessory accessory;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
