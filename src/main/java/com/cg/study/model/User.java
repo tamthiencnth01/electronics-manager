@@ -5,35 +5,38 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+@Table(name = "users")
+public class User extends com.cg.study.model.BaseEntity {
+
+    @Column(unique = true, nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = EAGER)
-    private Collection<Role> roles = new ArrayList<>();
+    @Column(nullable = false)
+    private String fullName;
 
-    @OneToOne(fetch = EAGER)
-    private Employee employee;
+    private String address;
+    private String phone;
 
-    public User(Long id, String name, String username, String password, Collection<Role> roles) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private com.cg.study.model.Role role;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", roles=" + role +
+                '}';
     }
 }
