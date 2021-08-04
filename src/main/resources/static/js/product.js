@@ -1,16 +1,16 @@
 var product = product || {};
 
 
-product.productList = function(){
+product.productList = function () {
     $.ajax({
         url: page.urls.selectAllProduct,
-        method:'GET',
-        success: function(response){
+        method: 'GET',
+        success: function (response) {
             $('.table-product tbody').empty();
-            response = response.sort(function(pdt1, pdt2){
+            response = response.sort(function (pdt1, pdt2) {
                 return pdt2.id - pdt1.id;
             })
-            $.each(response, function(index, item){
+            $.each(response, function (index, item) {
                 $('.table-product tbody').append(`
                     <tr>
                         <td>${item.id}</td>
@@ -22,7 +22,7 @@ product.productList = function(){
                         <td>
                             <a href='javascript:;' class='btn btn-success btn-sm'
                                 title='Add Bill'
-                                onclick="customer.addBill(${item.id})">
+                                onclick="product.test()">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </td>
@@ -36,20 +36,21 @@ product.productList = function(){
                 // ],
                 // order: [[0, 'desc']]
             });
-
         }
     })
 }
-
-product.showModal = function(){
+product.test = function () {
+    console.log(123)
+}
+product.showModal = function () {
     product.reset();
     $('#productModal').modal('show');
 }
 
-product.save = function(){
-    if($('#productForm').valid()){
+product.save = function () {
+    if ($('#productForm').valid()) {
         let productId = parseInt($('input[name="productId"]').val());
-        if(productId == 0){
+        if (productId == 0) {
             let createObj = {};
             createObj.productName = $('input[name="productName"]').val();
             createObj.productDescription = $('input[name="productDescription"]').val();
@@ -59,24 +60,22 @@ product.save = function(){
             createObj.customer = {"id": $("#customerId").val()};
             console.log(createObj);
             $.ajax({
-                url:page.urls.saveNewProduct,
+                url: page.urls.saveNewProduct,
                 method: "POST",
-                contentType:"application/json",
-                datatype :"json",
+                contentType: "application/json",
+                datatype: "json",
                 data: JSON.stringify(createObj),
-                success: function(result){
-                    if(result){
+                success: function (result) {
+                    if (result) {
                         $('#productModal').modal('hide');
                         product.reset();
                         $.notify("Product has been created success", "success");
-                    }
-                    else{
+                    } else {
                         $.notify("Something went wrong, please try again", "error");
                     }
                 }
             })
         }
-
     }
 }
 
@@ -173,15 +172,15 @@ product.save = function(){
 //     });
 // }
 
-product.reset = function(){
+product.reset = function () {
     $('#productForm').validate().resetForm();
     $('#productForm')[0].reset();
 }
 
-product.init = function(){
+product.init = function () {
     product.productList();
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     product.init();
 });

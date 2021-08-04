@@ -4,7 +4,7 @@ class App {
     static BASE_URL_GET_USER = "http://localhost:8080/api/users";
     static BASE_URL_CUSTOMER = "http://localhost:8080/api/customers";
     static BASE_URL_PRODUCT = "http://localhost:8080/api/products";
-
+    static BASE_URL_BILL = "http://locallhost:8080/api/bill";
 
 
     static showDeleteConfirmDialog() {
@@ -39,9 +39,8 @@ class App {
 }
 
 
-
-class User{
-    constructor(username,password,fullName,address,phone,role) {
+class User {
+    constructor(username, password, fullName, address, phone, role) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -51,12 +50,13 @@ class User{
     }
 }
 
-class Role{
+class Role {
     constructor(id, name) {
         this.id = id;
         this.name = name;
     }
 }
+
 class Customer {
     constructor(id, customerFullName, customerAddress, customerPhone) {
         this.id = id;
@@ -66,8 +66,8 @@ class Customer {
     }
 }
 
-class Product{
-    constructor(id, productName,productDescription,serviceTag,serialNumber,purchaseDay, customer) {
+class Product {
+    constructor(id, productName, productDescription, serviceTag, serialNumber, purchaseDay, customer) {
         this.id = id;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -75,5 +75,17 @@ class Product{
         this.serialNumber = serialNumber;
         this.purchaseDay = purchaseDay;
         this.customer = customer;
+    }
+}
+
+class Bill {
+    constructor(id, product, serialNumber, address, phoneNumber, statusDescription, customer) {
+            this.id = id;
+            this.product = product;
+            this.serialNumber = serialNumber;
+            this.address = address;
+            this.phoneNumber = phoneNumber;
+            this.statusDescription = statusDescription;
+            this.customer = customer;
     }
 }
