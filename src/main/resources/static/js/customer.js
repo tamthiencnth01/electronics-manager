@@ -8,7 +8,8 @@ let page = {
         deleteCustomer: App.BASE_URL_CUSTOMER + "/",
         saveNewProduct: App.BASE_URL_PRODUCT,
         getAllProductsByCustomerId: App.BASE_URL_PRODUCT + "/",
-        getProductBySerialNumber: App.BASE_URL_PRODUCT + "/"
+        getProductBySerialNumber: App.BASE_URL_PRODUCT + "/",
+        selectAllProduct: App.BASE_URL_PRODUCT
     }
 }
 

@@ -1,9 +1,5 @@
 var product = product || {};
-let page = {
-    urls: {
-        selectAllProduct: App.BASE_URL_PRODUCT
-    }
-}
+
 
 product.productList = function(){
     $.ajax({
