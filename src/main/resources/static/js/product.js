@@ -1,7 +1,13 @@
 var product = product || {};
+let page = {
+    urls: {
+        selectAllProduct: App.BASE_URL_PRODUCT
+    }
+}
+
 product.productList = function(){
     $.ajax({
-        url:'https://6100c20bbca46600171cf995.mockapi.io/product',
+        url:page.urls.selectAllProduct,
         method:'GET',
         success: function(response){
             $('.table-product tbody').empty();
@@ -12,32 +18,13 @@ product.productList = function(){
                 $('.table-product tbody').append(`
                     <tr>
                         <td>${item.id}</td>
-                        <td>${item.productname}</td>
-                        <td class='text-right'>${item.price}</td>
-                        <td class='text-right'>${item.quantity}</td>
-                        <td class='text-right'>
-                            ${(item.price * item.quantity).toLocaleString('vi', {style : 'currency', currency : 'VND'})}
-                        </td>
-                        <td>${item.manufactory}</td>
-                        <td class='text-right'>
-                            ${item.status ?
-                    '<span class="badge bg-primary">Active</span>' :
-                    '<span class="badge bg-danger">Inactive</span>'}
-                        </td>
+                        <td>${item.productName}</td>
+                        <td>${item.serialNumber}</td>
+                        <td>${item.serviceTag}</td>
+                        <td>${item.purchaseDay}</td>
+                        <td>${item.customer.customerFullName}</td>
                         <td>
-                            <a href='javascript:;' class='btn btn-success btn-sm'
-                                title='Modify product'
-                                onclick="product.getProduct(${item.id})">
-                                <i class='fa fa-pencil-alt'></i>
-                            </a>
-                            <a href='javascript:;' onclick="product.confirmChangeStatus(${item.id}, ${item.status})" 
-                                class='btn ${item.status ? "btn-warning" : "btn-secondary"} btn-sm'
-                                    title='${item.status ? "Inactive product" : "Active product"}'>
-                                    <i class='fa ${item.status ? "fa-lock-open" : "fa-lock"}'></i></a>
-                            <a href='javascript:;' class='btn btn-danger btn-sm' title='Remove product'
-                                onclick="product.removeProduct(${item.id})">
-                                <i class='fa fa-trash'></i>
-                            </a>
+                          
                         </td>
                     </tr>
                     `);
@@ -49,6 +36,20 @@ product.productList = function(){
             //     ],
             //     order: [[0, 'desc']]
             // });
+
+            if ( $.fn.dataTable.isDataTable( '.table-customer' ) ) {
+                table = $('.table-customer').DataTable({
+                    columnDefs: [
+                        // { orderable: false, targets: [6,7] },
+                        // { searchable: false, targets: [1,2] }
+                    ]
+                });
+            }
+            else {
+                table = $('.table-customer').DataTable( {
+                    paging: true
+                } );
+            }
         }
     })
 }
@@ -195,5 +196,5 @@ product.init = function(){
 }
 
 $(document).ready(function(){
-    // product.init();
+    product.init();
 });
