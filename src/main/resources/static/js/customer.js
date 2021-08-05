@@ -133,7 +133,6 @@ customer.getCustomer = function(id){
         success: function(response){
             $('#customerFullName').text(response.customerFullName);
             $('#customerId').val(response.id);
-            // $('#customerModal').find('.modal-title').text('Modify customer');
             $('#productModal').modal('show');
         }
     })

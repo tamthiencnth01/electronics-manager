@@ -41,6 +41,16 @@ public class ProductAPI {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @GetMapping("/getProducts/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Optional<Product> product = productService.findById(id);
+        if (product.isPresent()) {
+            return new ResponseEntity<>(product.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
         if (product.getId() != null) {

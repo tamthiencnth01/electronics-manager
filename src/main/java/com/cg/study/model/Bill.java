@@ -24,6 +24,8 @@ public class Bill {
     private double kilometer;
     private double total;
     private String status;
+    private String currentAddress;
+    private String currentPhone;
 
 
     @ManyToOne
@@ -37,5 +39,9 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 }

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +39,7 @@ public class BillAPI {
         Optional<Customer> customer = customerService.findById(bill.getCustomer().getId());
         if (customer.isPresent()){
             bill.setCustomer(customer.get());
+            bill.setStartDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             return new ResponseEntity<>(billService.save(bill),HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -4,7 +4,7 @@ class App {
     static BASE_URL_GET_USER = "http://localhost:8080/api/users";
     static BASE_URL_CUSTOMER = "http://localhost:8080/api/customers";
     static BASE_URL_PRODUCT = "http://localhost:8080/api/products";
-    static BASE_URL_BILL = "http://locallhost:8080/api/bill";
+    static BASE_URL_BILL = "http://localhost:8080/api/bills";
 
 
     static showDeleteConfirmDialog() {
@@ -79,13 +79,12 @@ class Product {
 }
 
 class Bill {
-    constructor(id, product, serialNumber, address, phoneNumber, statusDescription, customer) {
+    constructor(id, product,  address, phoneNumber, firstStatus, customer) {
             this.id = id;
             this.product = product;
-            this.serialNumber = serialNumber;
             this.address = address;
             this.phoneNumber = phoneNumber;
-            this.statusDescription = statusDescription;
+            this.firstStatus = firstStatus;
             this.customer = customer;
     }
 }
