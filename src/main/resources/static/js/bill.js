@@ -108,16 +108,19 @@ bill.reset = function () {
 bill.search = function () {
     let serialNumber = $('#search').val();
     console.log(serialNumber);
-    $.ajax({
-        url: page.urls.searchProductBySerialNumber + serialNumber,
-        method: 'GET',
-        success: function (response) {
-            $('.table-bill tbody').empty();
-            response = response.sort(function (pdt1, pdt2) {
-                return pdt2.id - pdt1.id;
-            })
-            $.each(response, function (index, item) {
-                $('.table-bill tbody').append(`
+    if (serialNumber === "") {
+        bill.billList();
+    } else {
+        $.ajax({
+            url: page.urls.searchProductBySerialNumber + serialNumber,
+            method: 'GET',
+            success: function (response) {
+                $('.table-bill tbody').empty();
+                response = response.sort(function (pdt1, pdt2) {
+                    return pdt2.id - pdt1.id;
+                })
+                $.each(response, function (index, item) {
+                    $('.table-bill tbody').append(`
                 <tr>
                      <td>${item.id}</td>
                         <td>${item.productName}</td>
@@ -134,7 +137,8 @@ bill.search = function () {
                         </td>
                     </tr>
                     `);
-            });
-        }
-    })
+                });
+            }
+        })
+    }
 }
