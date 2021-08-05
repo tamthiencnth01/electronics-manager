@@ -3,6 +3,7 @@ let page = {
         getAllProducts: App.BASE_URL_PRODUCT,
         getProduct: App.BASE_URL_PRODUCT + '/getProducts/',
         saveNewBill: App.BASE_URL_BILL,
+        searchProductBySerialNumber: App.BASE_URL_PRODUCT + '?search=',
     }
 }
 
@@ -102,4 +103,38 @@ bill.showModal = function () {
 bill.reset = function () {
     $('#createBillForm')[0].reset();
     $('#billModal').find('.modal-title');
+}
+
+bill.search = function () {
+    let serialNumber = $('#search').val();
+    console.log(serialNumber);
+    $.ajax({
+        url: page.urls.searchProductBySerialNumber + serialNumber,
+        method: 'GET',
+        success: function (response) {
+            $('.table-bill tbody').empty();
+            response = response.sort(function (pdt1, pdt2) {
+                return pdt2.id - pdt1.id;
+            })
+            $.each(response, function (index, item) {
+                $('.table-bill tbody').append(`
+                <tr>
+                     <td>${item.id}</td>
+                        <td>${item.productName}</td>
+                        <td>${item.serialNumber}</td>
+                        <td>${item.serviceTag}</td>
+                        <td>${item.purchaseDay}</td>
+                        <td>${item.customer.customerFullName}</td>
+                        <td>
+                         <a href='javascript:;' class='btn btn-success btn-sm'
+                                title='Add Bill'
+                                onclick="bill.getProduct(${item.id})">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    `);
+            });
+        }
+    })
 }

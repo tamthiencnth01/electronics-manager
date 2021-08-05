@@ -239,16 +239,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="logo">
             <h1><a href="/customers"><img src="/layouts/images/logo.png" alt=""/>Colored</a></h1>
         </div>
-        <div class="full-screen">
-            <section class="full-top">
-                <button id="toggle"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
-            </section>
-        </div>
         <div class="clearfix"></div>
     </section>
     <div class="main-grid">
         <div class="agile-grids">
             <h3>CHĂM SÓC KHÁCH HÀNG</h3>
+            <div>
+                <label for="search">Tìm kiếm serialnumber</label>
+                <input type="search" id="search" name="search">
+                <input type="button" onclick="bill.search()" value="Search">
+            </div>
             <table id="table-force-off" class="table table-hover table-bordered text-nowrap table-bill">
                 <thead>
                 <tr>
@@ -258,7 +258,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <th>Dòng Sản Phẩm</th>
                     <th>Ngày Bảo Hành</th>
                     <th>Tên Khách Hàng</th>
-                    <th>Tạo Phiếu Thông Tin<th>
+                    <th>Tạo Phiếu Thông Tin
+                    <th>
                 </tr>
                 </thead>
                 <tbody>

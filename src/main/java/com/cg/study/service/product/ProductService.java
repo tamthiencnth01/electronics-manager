@@ -37,4 +37,14 @@ public class ProductService implements IProductService {
     public Iterable<Product> findAllByCustomerId(Long id) {
         return productRepository.findAllByCustomerId(id);
     }
+
+    @Override
+    public Iterable<Product> findProductBySerialNumber(String serialNumber) {
+        return productRepository.findProductBySerialNumber(serialNumber);
+    }
+
+//    @Override
+//    public Optional<Product> findBySerialNumber(String serialNumber) {
+//        return productRepository.findBySerialNumber(serialNumber);
+//    }
 }

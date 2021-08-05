@@ -29,13 +29,6 @@ product.productList = function () {
                     </tr>
                     `);
             });
-            $('.table-product').DataTable({
-                // columnDefs: [
-                //     { orderable: false, targets: [6,7] },
-                //     { searchable: false, targets: [0,6,7] }
-                // ],
-                // order: [[0, 'desc']]
-            });
         }
     })
 }
@@ -56,7 +49,6 @@ product.save = function () {
             createObj.productDescription = $('input[name="productDescription"]').val();
             createObj.serviceTag = $('input[name="serviceTag"]').val();
             createObj.serialNumber = $('input[name="serialNumber"]').val();
-            // createObj.purchaseDay = $('input[name="purchaseDay"]').val();
             createObj.customer = {"id": $("#customerId").val()};
             console.log(createObj);
             $.ajax({
