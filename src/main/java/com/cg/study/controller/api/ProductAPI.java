@@ -5,6 +5,7 @@ import com.cg.study.model.Product;
 import com.cg.study.service.customer.ICustomerService;
 import com.cg.study.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,18 @@ public class ProductAPI {
     private IProductService productService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Product>> allProducts() {
-        Iterable<Product> products = productService.findAll();
-        if (((List) products).isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Iterable<Product>> allProducts(@RequestParam("search") Optional<String> serialNumber) {
+        Iterable<Product> products;
+        if (serialNumber.isPresent()){
+            products = productService.findProductBySerialNumber(serialNumber.get());
+        } else {
+            products = productService.findAll();
+            if (((List) products).isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+//            return new ResponseEntity<>(products, HttpStatus.OK);
         }
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

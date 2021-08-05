@@ -3,6 +3,7 @@ package com.cg.study.service.product;
 import com.cg.study.model.Product;
 import com.cg.study.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,5 +37,10 @@ public class ProductService implements IProductService {
     @Override
     public Iterable<Product> findAllByCustomerId(Long id) {
         return productRepository.findAllByCustomerId(id);
+    }
+
+    @Override
+    public Iterable<Product> findProductBySerialNumber(String serialNumber) {
+        return productRepository.findProductBySerialNumber(serialNumber);
     }
 }

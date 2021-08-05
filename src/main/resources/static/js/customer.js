@@ -7,8 +7,8 @@ let page = {
         saveEdit: App.BASE_URL_CUSTOMER,
         deleteCustomer: App.BASE_URL_CUSTOMER,
         saveNewProduct: App.BASE_URL_PRODUCT,
-        getAllProductsByCustomerId: App.BASE_URL_PRODUCT + "/",
-        getProductBySerialNumber: App.BASE_URL_PRODUCT + "/"
+        getAllProductsByCustomerId: App.BASE_URL_PRODUCT + "/"
+        // searchProductBySerialNumber: App.BASE_URL_PRODUCT + "?search="
     }
 }
 
@@ -156,80 +156,6 @@ customer.getAllProductByCustomerId = function(id){
         }
     })
 }
-
-// customer.confirmChangeStatus = function(productId, status){
-//     bootbox.confirm({
-//         title: "Change product status?",
-//         message: `Do you want to ${status ? 'inactive' : 'active'} the product now?`,
-//         buttons: {
-//             cancel: {
-//                 label: '<i class="fa fa-times"></i> Cancel'
-//             },
-//             confirm: {
-//                 label: '<i class="fa fa-check"></i> Confirm'
-//             }
-//         },
-//         callback: function (result) {
-//             if(result){
-//                 product.changeStatus(productId, status);
-//             }
-//         }
-//     });
-// }
-
-// product.changeStatus = function(productId, status){
-//     let updateStatusObj = {};
-//     updateStatusObj.status = !status;
-//
-//     $.ajax({
-//         url:`https://6100c20bbca46600171cf995.mockapi.io/product/${productId}`,
-//         method: "PUT",
-//         contentType:"application/json",
-//         datatype :"json",
-//         data: JSON.stringify(updateStatusObj),
-//         success: function(result){
-//             if(result){
-//                 product.productList();
-//                 $.notify("Product status has been changed success", "success");
-//             }
-//             else{
-//                 $.notify("Something went wrong, please try again", "error");
-//             }
-//         }
-//     })
-// }
-
-// customer.removeCustomer = function(id){
-//     bootbox.confirm({
-//         title: "Remove customer?",
-//         message: `Do you want to remove the product now? this cannot be undone.`,
-//         buttons: {
-//             cancel: {
-//                 label: '<i class="fa fa-times"></i> Cancel'
-//             },
-//             confirm: {
-//                 label: '<i class="fa fa-check"></i> Confirm'
-//             }
-//         },
-//         callback: function (result) {
-//             if(result){
-//                 $.ajax({
-//                     url:`https://6100c20bbca46600171cf995.mockapi.io/product/${productId}`,
-//                     method:'DELETE',
-//                     success: function(response){
-//                         if(response){
-//                             product.productList();
-//                             $.notify("Product has been removed success", "success");
-//                         }
-//                         else{
-//                             $.notify("Something went wrong, please try again", "error");
-//                         }
-//                     }
-//                 })
-//             }
-//         }
-//     });
-// }
 
 customer.reset = function(){
     // $('#customerForm').validate().resetForm();

@@ -1,80 +1,100 @@
-var searchProduct = searchProduct || {};
-
-// searchProduct.searchProductList = function(serialNumber){
-//     $.ajax({
-//         url: page.urls.getProductBySerialNumber + serialNumber,
-//         method:'GET',
-//         success: function(response){
-//             $('.table-customer tbody').empty();
-//             response = response.sort(function(ctr1, ctr2){
-//                 return ctr2.id - ctr1.id;
-//             })
-//             $.each(response, function(index, item){
-//                 $('.table-customer tbody').append(`
-//                     <tr>
-//                         <td>${item.id}</td>
-//                         <td><a href='javascript:;' class='btn btn-success btn-sm'
-//                                 title='View product'
-//                                 onclick="customer.getAllProductByCustomerId(${item.id})">
-//                                 ${item.customerFullName}
-//                             </a></td>
-//                         <td>${item.customerAddress}</td>
-//                         <td>${item.customerPhone}</td>
-//                         <td><a href='javascript:;' class='btn btn-success btn-sm'
-//                                 title='Add product'
-//                                 onclick="customer.getCustomer(${item.id})">
-//                                 <i class="fa fa-plus"></i>
-//                             </a>
-//                         </td>
-//                     </tr>
-//                     `);
-//             });
-//             $('.table-customer').DataTable({
-//                 // columnDefs: [
-//                 //     { orderable: false, targets: [6,7] },
-//                 //     { searchable: false, targets: [0,6,7] }
-//                 // ],
-//                 // order: [[0, 'desc']]
-//             });
-//         }
-//     })
-// }
-
-searchProduct.searchProductList = function(){
-    $.ajax({
-        url: page.urls.getAllProducts,
-        method:'GET',
-        success: function(response){
-            $('.table-product-search tbody').empty();
-            response = response.sort(function(ctr1, ctr2){
-                return ctr2.id - ctr1.id;
-            })
-            $.each(response, function(index, item){
-                $('.table-product-search tbody').append(`
-                    <tr>
-                        <td>${item.productName}</td>
-                        <td>${item.serviceTag}</td>
-                        <td>${item.serialNumber}</td>
-                        <td>${item.purchaseDay}</td>
-                        <td>${item.productDescription}</td>
-                    </tr>
-                    `);
-            });
-            $('.table-product-search').DataTable({
-                columnDefs: [
-                    // { orderable: false, targets: [6,7] },
-                    { searchable: false, targets: [0,1,3,4] }
-                ],
-                // order: [[0, 'desc']]
-            });
-        }
-    })
+let pageSearch = {
+    urls: {
+        searchProductBySerialNumber: App.BASE_URL_PRODUCT + "?search="
+    }
 }
 
-searchProduct.init = function(){
-    searchProduct.searchProductList();
-}
+var productSearch = productSearch || {};
 
-$(document).ready(function(){
-    searchProduct.init();
+var timeout = null; // khai báo biến timeout
+$("#searchProduct").keyup(function(){ // bắt sự kiện khi gõ từ khóa tìm kiếm
+    clearTimeout(timeout); // clear time out
+    timeout = setTimeout(function (){
+        productSearch.search();
+    }, 500);
 });
+
+productSearch.search = function () {
+    var data = $('#searchProduct').val(); // get dữ liệu khi đang nhập từ khóa vào ô
+    console.log(data);
+    console.log(typeof data);
+    if (typeof data === 'string') {
+        $.ajax({
+            type: 'GET',
+            async: true,
+            url: pageSearch.urls.searchProductBySerialNumber + data,
+            data: {
+                'action' : 'Post_filters',
+                'data': data
+            },
+            beforeSend: function () {
+            },
+            success: function (data) {
+                console.log(data);
+                let content = "";
+                for (let i = 0; i < data.length; i++) {
+                    content += `<tr>
+                                <td>${data[i].serialNumber}</td>
+                                <td>${data[i].productName}</td>
+                                <td>${data[i].serviceTag}</td>
+                                <td>${data[i].purchaseDay}</td>
+                                <td>${data[i].productDescription}</td>
+                            </tr>`
+                }
+                console.log(content);
+                $('#table-search-product tbody').html(content); // show dữ liệu khi trả về
+                $('#viewSearchProductModal').modal('show');
+            }
+        });
+    } else {
+        $('#viewSearchProductModal').modal('hide');
+    }
+
+}
+
+productSearch.searchProductList = function (search){
+    // console.log(search);
+    // $.ajax({
+    //     url: pageSearch.urls.searchProductBySerialNumber + search,
+    //     method:'GET',
+        // success: function(){
+        //     $('.table-search-product tbody').empty();
+        //     $.each(function(index, item){
+        //         $('.table-search-product tbody').append(`
+        //             <tr>
+        //                 <td>${item.serialNumber}</td>
+        //                 <td>${item.productName}</td>
+        //                 <td>${item.serviceTag}</td>
+        //                 <td>${item.purchaseDay}</td>
+        //                 <td>${item.productDescription}</td>
+        //             </tr>
+        //         `);
+        //     });
+        //     $('#viewSearchProductModal').modal('show');
+        // }
+    // }).done((data) => {
+    //     var dataArr = data.content;
+    //     let content = "";
+    //     for (let i = 0; i < dataArr.length; i++) {
+    //         product = dataArr[i];
+    //         content += `<tr id="tr_${dataArr[i].id}">
+    //                                     <td>${dataArr[i].serialNumber}</a></td>
+    //                                     <td>${dataArr[i].productName}</td>
+    //                                     <td>${dataArr[i].serviceTag}</td>
+    //                                     <td>${dataArr[i].purchaseDay}</td>
+    //                                     <td>${dataArr[i].productDescription}</td>
+    //                                 </tr>`
+    //     }
+    //     $("#table-search-product").html(content);
+    // }).fail(function () {
+    //     App.showErrorAlert("Khong Load Duoc Trang!");
+    // })
+}
+
+// productSearch.init = function(){
+//     productSearch.search();
+// }
+//
+// $(document).ready(function(){
+//     productSearch.init();
+// });
