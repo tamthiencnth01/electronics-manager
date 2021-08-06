@@ -50,7 +50,6 @@ public class CustomerAPI {
     @DeleteMapping("/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
         Optional<Customer> customerOptional = customerService.findById(id);
-//        Customer customerOptional = customerService.findById(id);
         System.out.println(customerOptional);
         if (!customerOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

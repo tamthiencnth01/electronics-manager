@@ -76,17 +76,19 @@ CREATE TABLE `bills` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `end_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `first_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `kilometer` double NOT NULL,
+  `kilometer` double DEFAULT NULL,
   `repair_operation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `start_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total` double NOT NULL,
+  `total` double DEFAULT NULL,
   `accessory_id` bigint DEFAULT NULL,
   `customer_id` bigint DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKiw5uls2tsngxcjdxkun1cvka9` (`accessory_id`),
-  KEY `FKoy9sc2dmxj2qwjeiiilf3yuxp` (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `FKoy9sc2dmxj2qwjeiiilf3yuxp` (`customer_id`),
+  KEY `FKk8vs7ac9xknv5xp18pdiehpp1` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,6 +97,7 @@ CREATE TABLE `bills` (
 
 LOCK TABLES `bills` WRITE;
 /*!40000 ALTER TABLE `bills` DISABLE KEYS */;
+INSERT INTO `bills` VALUES (1,'c','c',1,'c','c','1',1,NULL,1,NULL),(2,'c','c',1,'c','c','1',1,NULL,1,NULL),(3,'c','c',1,'c','c','1',1,NULL,1,NULL);
 /*!40000 ALTER TABLE `bills` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +145,7 @@ CREATE TABLE `products` (
   `customer_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK29w1glmsx19fyn0ts34ak8pc5` (`customer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +154,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (5,'Quis officia adipisi','Aubrey Gomez','2017-10-28','667','Ut ut et labore quis',1),(6,'Qui est quis dolor s','George Ferrell','2016-04-12','457','Aut in quidem magna ',8),(7,'Amet aperiam reicie','Lois Gonzales','03-08-2021','566','Aut hic est quos qu',8),(8,'Alias earum quaerat ','Emerald Roman','03-08-2021','283','Est provident cupi',8),(9,'Voluptatibus eligend','Judah Glover','03-08-2021','254','Libero vel placeat ',8),(10,'Excepteur et volupta','Valentine Campbell','03-08-2021','377','Beatae enim id et de',7),(11,'Suscipit mollit fugi','Tamara Garrett','03-08-2021','627','Ea esse exercitation',3),(12,'Provident hic et at','Nyssa Adams','03-08-2021','101','Rerum nobis omnis no',4),(13,'Beatae adipisci face','Eric Malone','04-08-2021','358','Molestias consequatu',3);
+INSERT INTO `products` VALUES (5,'Quis officia adipisi','Aubrey Gomez','2017-10-28','667','Ut ut et labore quis',1),(6,'Qui est quis dolor s','George Ferrell','2016-04-12','457','Aut in quidem magna ',8),(7,'Amet aperiam reicie','Lois Gonzales','03-08-2021','566','Aut hic est quos qu',8),(8,'Alias earum quaerat ','Emerald Roman','03-08-2021','283','Est provident cupi',8),(9,'Voluptatibus eligend','Judah Glover','03-08-2021','254','Libero vel placeat ',8),(10,'Excepteur et volupta','Valentine Campbell','03-08-2021','377','Beatae enim id et de',7),(11,'Suscipit mollit fugi','Tamara Garrett','03-08-2021','627','Ea esse exercitation',3),(12,'Provident hic et at','Nyssa Adams','03-08-2021','101','Rerum nobis omnis no',4),(13,'Beatae adipisci face','Eric Malone','04-08-2021','358','Molestias consequatu',3),(14,'Ex in esse quis aut ','Chase Wolf','04-08-2021','778','Non mollit in impedi',3);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +250,7 @@ CREATE TABLE `users` (
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKp56c1712k691lhsyewcssf40f` (`role_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,7 +259,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,0,'Nguyễn Tâm Thiện','$2a$10$sI1Vb0q9yxD.HPwPYS8TIertDQX07cc4UcaScBxDPRcDH3IsYqvh2','tamthien',1,'Lê Đình Chinh','0931935255'),(14,0,'Bree George','$2a$10$5bd5Jq.qtZ83C.wAyt7kWeX1WZajEJdPC380.1NmGT5KY8s7o/n4W','wuforyv',4,'Sunt laborum Amet ','+1 (314) 117-1407'),(15,0,'Galvin Dyer','$2a$10$wwQhSdsSRX40qTgAHdgD5uGeTqFYvVyxdDJhjbkVqAZxpo/ltgUEa','nacazitu',4,'Vel sunt velit omn','+1 (926) 969-3307'),(16,0,'Jenna Ingram','$2a$10$03s28idIZqkS.oaqJpmQu.t.5PyddhkSnKLy2bvYPJNFFCneXseFK','tintran',2,'Nemo consectetur ei','+1 (703) 344-2791'),(17,0,'Uta Allison','$2a$10$Uvx6OFS1xDYVW80fnwOrcuQxNANNMXl4o5PBiCH4WBVNz//9LcZ9.','cskh1',4,'Minima suscipit dist','+1 (225) 944-6251'),(18,0,'Ainsley Miller','$2a$10$/L0WY.RyrcXvhI6NtJrNIuDu3ziHVhwgWDMSxWtZLEbE8L0iYRjnK','kythuat1',3,'Hic architecto numqu','+1 (356) 889-2754');
+INSERT INTO `users` VALUES (1,0,'Nguyễn Tâm Thiện','$2a$10$sI1Vb0q9yxD.HPwPYS8TIertDQX07cc4UcaScBxDPRcDH3IsYqvh2','tamthien',1,'Lê Đình Chinh','0931935255'),(14,0,'Bree George','$2a$10$5bd5Jq.qtZ83C.wAyt7kWeX1WZajEJdPC380.1NmGT5KY8s7o/n4W','wuforyv',4,'Sunt laborum Amet ','+1 (314) 117-1407'),(15,0,'Galvin Dyer','$2a$10$wwQhSdsSRX40qTgAHdgD5uGeTqFYvVyxdDJhjbkVqAZxpo/ltgUEa','nacazitu',4,'Vel sunt velit omn','+1 (926) 969-3307'),(16,0,'Jenna Ingram','$2a$10$03s28idIZqkS.oaqJpmQu.t.5PyddhkSnKLy2bvYPJNFFCneXseFK','tintran',2,'Nemo consectetur ei','+1 (703) 344-2791'),(17,0,'Uta Allison','$2a$10$Uvx6OFS1xDYVW80fnwOrcuQxNANNMXl4o5PBiCH4WBVNz//9LcZ9.','cskh1',4,'Minima suscipit dist','+1 (225) 944-6251'),(18,0,'Ainsley Miller','$2a$10$/L0WY.RyrcXvhI6NtJrNIuDu3ziHVhwgWDMSxWtZLEbE8L0iYRjnK','kythuat1',3,'Hic architecto numqu','+1 (356) 889-2754'),(19,0,'Venus Pollard','$2a$10$DWxmuMs2cv6N4PVU.Q4pW.vJmlu2e4BhhVibv3XihfCPPQH66MWRG','banhang1',2,'Non voluptates minus','+1 (757) 231-3536');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -269,4 +272,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-04 11:59:31
+-- Dump completed on 2021-08-04 14:23:17

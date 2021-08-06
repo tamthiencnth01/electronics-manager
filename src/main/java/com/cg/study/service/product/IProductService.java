@@ -5,4 +5,5 @@ import com.cg.study.service.IGeneralService;
 
 public interface IProductService extends IGeneralService<Product> {
     Iterable<Product> findAllByCustomerId(Long id);
+    Iterable<Product> findProductBySerialNumber(String serialNumber);
 }

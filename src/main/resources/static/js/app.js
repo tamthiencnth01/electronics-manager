@@ -4,7 +4,11 @@ class App {
     static BASE_URL_GET_USER = "http://localhost:8080/api/users";
     static BASE_URL_CUSTOMER = "http://localhost:8080/api/customers";
     static BASE_URL_PRODUCT = "http://localhost:8080/api/products";
-
+    static BASE_URL_BILL = "http://localhost:8080/api/bills";
+    static BASE_URL_TECHNICIAN = "http://localhost:8080/api/technicians";
+    static BASE_URL_BILL_DOING = "http://localhost:8080/api/bills/doing";
+    static BASE_URL_BILL_DONE = "http://localhost:8080/api/bills/done";
+    static BASE_URL_ACCESSORY = "http://localhost:8080/api/accessories";
 
 
     static showDeleteConfirmDialog() {
@@ -75,5 +79,33 @@ class Product{
         this.serialNumber = serialNumber;
         this.purchaseDay = purchaseDay;
         this.customer = customer;
+    }
+}
+
+class Bill{
+    constructor(id,firstStatus,startDate,endDate,repairOperation,kilometer,total,status,customer,accessory,user,product,currentAddress,currentPhone) {
+        this.id = id;
+        this.firstStatus = firstStatus;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.repairOperation = repairOperation;
+        this.kilometer = kilometer;
+        this.total = total;
+        this.status = status;
+        this.customer = customer;
+        this.accessory = accessory;
+        this.user = user;
+        this.product = product;
+        this.currentAddress = currentAddress;
+        this.currentPhone = currentPhone;
+    }
+}
+class Accessory{
+    constructor(id, accessoryName,quantity,importPrice,retailPrice) {
+        this.id = id;
+        this.accessoryName = accessoryName;
+        this.quantity = quantity;
+        this.importPrice = importPrice;
+        this.retailPrice = retailPrice;
     }
 }

@@ -23,13 +23,27 @@ public class ProductAPI {
     @Autowired
     private IProductService productService;
 
+//    @GetMapping
+//    public ResponseEntity<Iterable<Product>> allProducts() {
+//        Iterable<Product> products = productService.findAll();
+//        if (((List) products).isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(products, HttpStatus.OK);
+//    }
+
     @GetMapping
-    public ResponseEntity<Iterable<Product>> allProducts() {
-        Iterable<Product> products = productService.findAll();
-        if (((List) products).isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Iterable<Product>> allProducts(@RequestParam("search") Optional<String> serialNumber) {
+        Iterable<Product> products;
+        if (serialNumber.isPresent()){
+            products = productService.findProductBySerialNumber(serialNumber.get());
+        } else {
+            products = productService.findAll();
+            if (((List) products).isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
         }
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -39,6 +53,16 @@ public class ProductAPI {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/getProducts/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Optional<Product> product = productService.findById(id);
+        if (product.isPresent()) {
+            return new ResponseEntity<>(product.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping

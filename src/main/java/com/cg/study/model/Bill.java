@@ -25,6 +25,9 @@ public class Bill {
     private double total;
     private String status;
 
+    private String currentAddress;
+    private String currentPhone;
+
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -38,4 +41,7 @@ public class Bill {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }
