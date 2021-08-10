@@ -49,6 +49,7 @@
         $('#updateDoingModal').modal('show');
     }
 
+
     bill.updateDoing = function (){
         let repairOperation = $('input[name="repairOperation"]').val();
 
@@ -71,7 +72,32 @@
             }
         })
     }
+    bill.historyTechnician = function (){
+        bill.historyList();
+        $("#historyTechnicianModal").modal("show");
+    }
 
+    bill.historyList = function (){
+        let userId = $("#userId").val();
+        $.ajax({
+            url: page.urls.getAllBills + "/history/" + userId,
+            method:'GET',
+            success: function(response){
+                $('.table-history-technicians tbody').empty();
+                $.each(response, function(index, item){
+                    $('.table-history-technicians tbody').append(`
+                        <tr>
+                            <td>${item.customer.customerFullName}</td>
+                            <td>${item.product.productName}</td>
+                            <td>${item.repairOperation}</td>
+                            <td>${item.accessory.accessoryName}</td>
+                            <td>${item.total.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</td>
+                        </tr>
+                        `);
+                });
+            }
+        })
+    }
     bill.reset = function () {
         $('#updateDoingForm')[0].reset();
     }

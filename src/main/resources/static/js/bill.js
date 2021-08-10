@@ -2,7 +2,7 @@ var bill = bill || {};
 
 bill.billList = function () {
     $.ajax({
-        url: page.urls.getAllProducts,
+        url: page.urls.getAllProducts + "/cskh",
         method: 'GET',
         success: function (response) {
             $('.table-bill tbody').empty();
@@ -12,12 +12,16 @@ bill.billList = function () {
             $.each(response, function (index, item) {
                 $('.table-bill tbody').append(`
                 <tr>
-                     <td>${item.id}</td>
+                        <td>${item.id}</td>
                         <td>${item.productName}</td>
                         <td>${item.serialNumber}</td>
                         <td>${item.serviceTag}</td>
-                        <td>${item.purchaseDay}</td>
-                        <td>${item.customer.customerFullName}</td>
+                        <td>${item.remainingDay}
+                            ${item.remainingDay > 30 ?
+                    '<span class="badge bg-primary">Còn Bảo Hành</span>' :
+                    '<span class="badge bg-danger">Hết Hạn Bảo Hành</span>'}
+                        </td>
+                        <td>${item.customer}</td>
                         <td>
                          <a href='javascript:;' class='btn btn-success btn-sm'
                                 title='Add Bill'
@@ -31,7 +35,13 @@ bill.billList = function () {
         }
     })
 }
-
+function getToday(){
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    return `${yyyy}-${mm}-${dd}`;
+}
 bill.save = function () {
     if ($('#createBillForm').valid()) {
         let billId = parseInt($('input[name="billId"]').val());
@@ -151,6 +161,52 @@ bill.doneList = function(){
         }
     })
 }
+
+bill.completeList = function(){
+    $.ajax({
+        url: page.urls.getAllBillComplete,
+        method:'GET',
+        success: function(response){
+            $('.table-complete tbody').empty();
+            $.each(response, function(index, item){
+                $('.table-complete tbody').append(`
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.user.fullName}</td>
+                        <td>${item.product.productName}</td>
+                        <td>${item.repairOperation}</td>
+                        <td>${item.accessory.accessoryName}</td>
+                        <td>${item.total.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</td>
+                       
+                    </tr>
+                    `);
+            });
+        }
+    })
+}
+bill.statistical = function (){
+    bill.staticsList();
+    $("#statisticalModal").modal("show");
+}
+bill.staticsList = function(){
+    $.ajax({
+        url: page.urls.getAllBilStatics,
+        method:'GET',
+        success: function(response){
+            console.log(response);
+            $('.table-statics tbody').empty();
+            $.each(response, function(index, item){
+                $('.table-statics tbody').append(`
+                    <tr>
+                        <td>${item[0]}</td>
+                        <td>${item[1].toLocaleString('vi', {style : 'currency', currency : 'VND'})}</td>
+
+                    </tr>
+                    `);
+            });
+        }
+    })
+}
 bill.calculalorKilometer = function (id){
     let kilometer = $("#kilometer").val();
     $.ajax({
@@ -189,6 +245,7 @@ bill.getTechnicians= function () {
         success: function(response){
             $('.table-doing').find('.technician').empty();
             $.each(response, (i, item) => {
+                console.log(item.fullName);
                 $('.table-doing').find('.technician').append(`<option value="${item.id}">${item.fullName}</option>`);
             })
         }
@@ -197,7 +254,6 @@ bill.getTechnicians= function () {
 
 bill.search = function () {
     let serialNumber = $('#search').val();
-    console.log(serialNumber);
     if (serialNumber === "") {
         bill.billList();
     } else {
@@ -233,10 +289,12 @@ bill.search = function () {
     }
 }
 
+
 bill.init = function(){
     bill.billList();
     bill.doingList();
     bill.doneList();
+    bill.completeList();
     bill.getTechnicians();
 }
 

@@ -8,6 +8,8 @@ class App {
     static BASE_URL_TECHNICIAN = "http://localhost:8080/api/technicians";
     static BASE_URL_BILL_DOING = "http://localhost:8080/api/bills/doing";
     static BASE_URL_BILL_DONE = "http://localhost:8080/api/bills/done";
+    static BASE_URL_BILL_COMPLETE = "http://localhost:8080/api/bills/complete";
+    static BASE_URL_BILL_STATICS = "http://localhost:8080/api/bills/statistical";
     static BASE_URL_ACCESSORY = "http://localhost:8080/api/accessories";
 
 
@@ -71,7 +73,7 @@ class Customer {
 }
 
 class Product{
-    constructor(id, productName,productDescription,serviceTag,serialNumber,purchaseDay, customer) {
+    constructor(id, productName,productDescription,serviceTag,serialNumber,purchaseDay, customer,startDate,finishDate,remainingDay) {
         this.id = id;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -79,6 +81,9 @@ class Product{
         this.serialNumber = serialNumber;
         this.purchaseDay = purchaseDay;
         this.customer = customer;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.remainingDay = remainingDay;
     }
 }
 

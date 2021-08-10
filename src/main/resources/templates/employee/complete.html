@@ -24,7 +24,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="/layouts/js/jquery.cookie.js"></script>
     <script src="/layouts/js/screenfull.js"></script>
     <script src="/js/app.js"></script>
-    <script src="/js/user.js"></script>
+    <script src="/js/page.js"></script>
+
     <script>
         $(function () {
             $('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -134,29 +135,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <!-- tables -->
 
             <div class="table-heading">
-                <h2>QUẢN LÝ TÀI KHOẢN</h2>
+                <h2>DANH SÁCH CÁC CA BẢO HÀNH ĐÃ HOÀN THÀNH</h2>
             </div>
             <div class="agile-tables">
                 <div class="w3l-table-info">
-                    <div class="float-left">
-                        <h3>Danh Sách Nhân Viên</h3>
-                    </div>
-                    <div class="float-right">
-                        <a href="javascript:;" onclick="user.showModal()" class="btn btn-primary">
+                    <div class="float-right mb-2">
+                        <a href="javascript:;" onclick="bill.statistical()" class="btn btn-primary">
                             <i class="fa fa-plus"></i>
-                            Create
+                            THỐNG KÊ
                         </a>
                     </div>
-                    <table id="table" class="table-product">
+                    <table id="table" class="table-complete">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th>Tên Nhân Viên</th>
-                            <th>Địa Chỉ</th>
-                            <th>Số Điện Thoại</th>
-                            <th>Username</th>
-                            <th>Chức Vụ</th>
-                            <th></th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Thao tác sửa chữa</th>
+                            <th>Linh kiện đã thay</th>
+                            <th>Chi Phí</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -173,56 +170,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <!-- //footer -->
 </section>
-<div class="modal" id="productModal">
+
+<!--Modal thống kê-->
+<div class="modal" id="statisticalModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Thêm Mới Nhân Viên</h4>
+                <h4 class="modal-title">TỔNG CHI PHÍ TẠM TÍNH CỦA TỪNG NHÂN VIÊN</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form id="productForm">
-                    <div class="form-group">
-                        <label>Tên Nhân Viên</label>
-                        <input type="text" name="fullName" class="form-control" data-rule-required="true" data-msg-required="The product name is required.">
-                        <input type="hidden" name="id" value="0">
-                    </div>
-                    <div class="form-group">
-                        <label>Địa Chỉ</label>
-                        <input type="text" name="address" class="form-control" data-rule-required="true" data-msg-required="The manufactory is required.">
-                    </div>
-                    <div class="form-group">
-                        <label>Số Điện Thoại Liên Hệ</label>
-                        <input type="text" name="phone" class="form-control" data-rule-required="true" data-msg-required="The product name is required.">
-                    </div>
-                    <div class="form-group">
-                        <label>Tên Tài Khoản Đăng Nhập</label>
-                        <input type="text" name="username" class="form-control" data-rule-required="true" data-msg-required="The manufactory is required.">
-                    </div>
-                    <div class="form-group">
-                        <label>Mật Khẩu</label>
-                        <input type="text" name="password" class="form-control" data-rule-required="true" data-msg-required="The manufactory is required.">
-                    </div>
-                    <div class="form-group">
-                        <label for="role" class="form-label">Chức Vụ</label>
-                        <select id="role" name="role" class="form-select form-control"></select>
-                    </div>
-                </form>
+                <table class="table-statics">
+                    <thead>
+                    <tr>
+                        <th>Tên Nhân Viên</th>
+                        <th>Tổng Cước Phí</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <a href='javascript:;' class="btn btn-primary" onclick="user.save()">Save</a>
+<!--                <a href='javascript:;' class="btn btn-primary" onclick="user.save()">Save</a>-->
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
 
         </div>
     </div>
 </div>
+<script src="/js/bill.js"></script>
 
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>

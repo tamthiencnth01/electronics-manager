@@ -240,6 +240,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="agile-grids">
             <h3>NHÂN VIÊN KỸ THUẬT</h3>
             <input type="hidden"  th:value="${userInfo}" id="userId"/>
+            <div class="float-right mb-2">
+                <a href="javascript:;" onclick="bill.historyTechnician()" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>
+                    LỊCH SỬ
+                </a>
+            </div>
             <table id="table-force-off" class="table table-hover table-bordered text-nowrap table-technician">
                 <thead>
                 <tr>
@@ -264,11 +270,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //footer -->
 
 
+    <!-- The Modal View History  -->
+    <div class="modal" id="historyTechnicianModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">KỸ THUẬT XỬ LÝ</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <table  class="table-history-technicians">
+                        <thead>
+                        <tr>
+                            <th>Tên Khách Hàng</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Thao tác sửa chữa</th>
+                            <th>Linh kiện đã thay</th>
+                            <th>Tổng Cước</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a href='javascript:;' class="btn btn-primary" onclick="bill.updateDoing()">Save</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 
-
-    <!-- The Modal View Product -->
+    <!-- The Modal Update Doing Modal -->
     <div class="modal" id="updateDoingModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

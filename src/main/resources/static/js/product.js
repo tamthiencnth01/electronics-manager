@@ -55,24 +55,21 @@ product.save = function(){
             createObj.productDescription = $('input[name="productDescription"]').val();
             createObj.serviceTag = $('input[name="serviceTag"]').val();
             createObj.serialNumber = $('input[name="serialNumber"]').val();
-            // createObj.purchaseDay = $('input[name="purchaseDay"]').val();
             createObj.customer = {"id": $("#customerId").val()};
-            console.log(createObj);
+            let numberMonth = $('input[name="numberMonth"]').val();
             $.ajax({
-                url:page.urls.saveNewProduct,
+                url:page.urls.saveNewProduct + "/" + numberMonth,
                 method: "POST",
                 contentType:"application/json",
                 datatype :"json",
                 data: JSON.stringify(createObj),
-                success: function(result){
-                    if(result){
-                        $('#productModal').modal('hide');
-                        product.reset();
-                        $.notify("Product has been created success", "success");
-                    }
-                    else{
-                        $.notify("Something went wrong, please try again", "error");
-                    }
+                success: function(){
+                    $('#productModal').modal('hide');
+                    product.reset();
+                    $.notify("Product has been created success", "success");
+                },
+                fail: function (){
+                    $.notify("Something went wrong, please try again", "error");
                 }
             })
         }

@@ -16,6 +16,8 @@ let page = {
         getAllBills: App.BASE_URL_BILL,
         getAllBillsDoing: App.BASE_URL_BILL_DOING,
         getAllBillsDone: App.BASE_URL_BILL_DONE,
+        getAllBillComplete: App.BASE_URL_BILL_COMPLETE,
+        getAllBilStatics: App.BASE_URL_BILL_STATICS,
         getAllTechnicians: App.BASE_URL_TECHNICIAN,
         saveNewBills: App.BASE_URL_BILL,
         selectTechnicianById: App.BASE_URL_BILL + "/technician/",
