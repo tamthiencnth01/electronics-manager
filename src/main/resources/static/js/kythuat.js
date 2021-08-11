@@ -1,11 +1,11 @@
-    var bill = bill || {};
-    var accessory = accessory || {};
+    let bill = bill || {};
+    let accessory = accessory || {};
 
     let userId = $("#userId").val();
 
     bill.billList = function () {
         $.ajax({
-            url: page.urls.selectTechnicianById + userId,
+            url: page.urls.getAllBills ,
             method:'GET',
             success: function(response){
                 $('.table-technician tbody').empty();

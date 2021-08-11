@@ -1,9 +1,7 @@
 package com.cg.study.controller;
 
 import com.cg.study.model.User;
-import com.cg.study.model.UserPrinciple;
 import com.cg.study.repository.UserRepository;
-import com.cg.study.security.UserPrincipal;
 import com.cg.study.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.Access;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -139,6 +136,12 @@ public class HomeController {
     @GetMapping("/complete")
     public ModelAndView complete() {
         ModelAndView modelAndView = new ModelAndView("/employee/complete");
+        return modelAndView;
+    }
+
+    @GetMapping("/accessory")
+    public ModelAndView accessory() {
+        ModelAndView modelAndView = new ModelAndView("/accessory/list");
         return modelAndView;
     }
 }

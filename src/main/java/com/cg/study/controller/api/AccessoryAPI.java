@@ -1,15 +1,19 @@
 package com.cg.study.controller.api;
 
 import com.cg.study.model.Accessory;
+import com.cg.study.model.Bill;
+import com.cg.study.model.Customer;
+import com.cg.study.model.Product;
 import com.cg.study.service.accessory.IAccessoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/accessories")
@@ -18,11 +22,37 @@ public class AccessoryAPI {
     private IAccessoryService accessoryService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Accessory>> showListAccessory(){
-        Iterable<Accessory> accessories = accessoryService.findAll();
-        if (((List) accessories).isEmpty()){
+    public ResponseEntity<Iterable<Accessory>> showListAccessory() {
+        Iterable<Accessory> accessories = accessoryService.findAllByAccessory();
+        if (((List) accessories).isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(accessories, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Accessory> getId(@PathVariable Long id) {
+        Optional<Accessory> accessory = accessoryService.findById(id);
+        if (accessory.isPresent()) {
+            return new ResponseEntity<>(accessory.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Accessory> saveAccessory(@RequestBody Accessory accessory) {
+        return new ResponseEntity<>(accessoryService.save(accessory), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Accessory> deleteAccessory(@PathVariable Long id) {
+        Optional<Accessory> accessory = accessoryService.findById(id);
+        System.out.println(accessory);
+        if (!accessory.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        accessoryService.deleteAccessory(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
