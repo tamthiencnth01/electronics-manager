@@ -27,6 +27,7 @@ public class Bill {
 
     private String currentAddress;
     private String currentPhone;
+    private String image;
 
 
     @ManyToOne
@@ -44,4 +45,5 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
 }

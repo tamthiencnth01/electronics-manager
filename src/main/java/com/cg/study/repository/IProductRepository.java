@@ -29,11 +29,16 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
 
     @Transactional
-    @Query(value = "SELECT p.id as id, p.product_name as productName, (select customer_full_name from customers c where c.id = p.customer_id) as customer,  p.serial_number as serialNumber, p.service_tag as serviceTag, (SELECT TIMESTAMPDIFF(day, now(), finish_date)) as remainingDay FROM products p;", nativeQuery = true)
+    @Query(value = "SELECT p.id as id, p.product_name as productName,p.status, p.reason, (select customer_full_name from customers c where c.id = p.customer_id) as customer,  p.serial_number as serialNumber, p.service_tag as serviceTag, (SELECT TIMESTAMPDIFF(day, now(), finish_date)) as remainingDay FROM products p;", nativeQuery = true)
     public Iterable<IProductDto> listProducts();
 
 //    @Transactional
 //    @Query("select new com.cg.study.model.dto.ProductDto (p.id) from Product p")
 //    public Iterable<ProductDto> listProducts();
+
+    @Transactional
+    @Modifying
+    @Query("update Product p set p.status = :status, p.reason = :reason where p.id = :id")
+    public void warrantyDisclaimer(@Param("status") int status,@Param("reason") String reason,@Param("id")  Long id);
 
 }

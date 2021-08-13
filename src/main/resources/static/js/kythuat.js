@@ -1,9 +1,9 @@
     var bill = bill || {};
     var accessory = accessory || {};
-
+    var replaced = replaced || {};
     let userId = $("#userId").val();
 
-    bill.billList = function () {
+    bill.kythuatList = function () {
         $.ajax({
             url: page.urls.selectTechnicianById + userId,
             method:'GET',
@@ -19,9 +19,19 @@
                     <td>${item.firstStatus}</td>
                     <td>
                         <a href='javascript:;' class='btn btn-success btn-sm'
-                            title='Add technician'
+                            title='Thao Tác Xử Lý'
                             onclick="bill.showModalUpdateDoing(${item.id})">
                             <i class="fa fa-list"></i>
+                        </a>
+                        <a href='javascript:;' class='btn btn-info btn-sm'
+                            title='Bảo Hành Trả Phí'
+                            onclick="bill.showModalReplaced(${item.product.id})">
+                            <i class="fas fa-dollar-sign"></i>
+                        </a>
+                        <a href='javascript:;' class='btn btn-danger btn-sm'
+                            title='Từ Chối Bảo hành'
+                            onclick="bill.warrantyDisclaimer(${item.product.id})">
+                            <i class="fa fa-exclamation"></i>
                         </a>
                     </td>
                 </tr>
@@ -36,20 +46,44 @@
             method:'GET',
             success: function(response){
                 $('#updateDoingForm').find('.accessory').empty();
+                $('#replacedForm').find('.accessory').empty();
                 $.each(response, (i, item) => {
                     $('#updateDoingForm').find('.accessory').append(`<option value="${item.id}">${item.accessoryName}</option>`);
+                    $('#replacedForm').find('.accessory').append(`<option value="${item.id}">${item.accessoryName}</option>`);
                 })
             }
         })
     }
-
+    bill.showModalReplaced = function (id){
+        $('input[name="replaceId"]').val(id);
+        $('#replacedModal').modal('show');
+    }
     bill.showModalUpdateDoing = function (id){
         bill.reset();
         $('input[name="id"]').val(id);
         $('#updateDoingModal').modal('show');
     }
 
-
+    bill.warrantyDisclaimer = function (id){
+        $('input[name="idWa"]').val(id);
+        $('#warrantyDisclaimerModal').modal('show');
+    }
+    bill.warrantyDisclaimerSubmit = function (){
+        let reason = $('input[name="reason"]').val();
+        let id  =  $('input[name="idWa"]').val();
+        $.ajax({
+            url: page.urls.getAllProducts + "/" + 1 + "/" + reason + "/" + id,
+            type: "PATCH",
+            success: function() {
+                bill.kythuatList();
+                $('#warrantyDisclaimerModal').modal('hide');
+                $.notify("Bill has been update success", "success");
+            },
+            error: function (){
+                $.notify("Something went wrong, please try again", "error");
+            }
+        })
+    }
     bill.updateDoing = function (){
         let repairOperation = $('input[name="repairOperation"]').val();
 
@@ -72,6 +106,46 @@
             }
         })
     }
+
+    bill.replaceSubmit = function (){
+        let idAccessory = $("#replaceAccessory").val();
+        $.ajax({
+            url: page.urls.getAllAccessories +"/" + idAccessory,
+            type: "GET",
+            success: function (response){
+                let replace = {};
+                replace.accessoryName = response.accessoryName;
+                replace.accessoryDescription = $('input[name="accessoryDescription"]').val();
+                replace.retailPrice = response.retailPrice;
+                replace.product  = {"id": $('input[name="replaceId"]').val()};
+                let numberMonth = $('input[name="numberMonth"]').val();
+                $.ajax({
+                    url: page.urls.saveNewReplaced + numberMonth,
+                    type: "POST",
+                    contentType:"application/json",
+                    datatype :"json",
+                    data: JSON.stringify(replace),
+                    success: function() {
+                        let reason = $('input[name="reason"]').val();
+                        let id  =  $('input[name="replaceId"]').val();
+                        $.ajax({
+                            url: page.urls.getAllProducts + "/" + 1 + "/" + reason + "/" + id,
+                            type: "PATCH",
+                            success: function() {
+                                bill.init();
+                                $('#replacedModal').modal('hide');
+                                $.notify("Bill has been update success", "success");
+                            },
+                            error: function (){
+                                $.notify("Something went wrong, please try again", "error");
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+
     bill.historyTechnician = function (){
         bill.historyList();
         $("#historyTechnicianModal").modal("show");
@@ -98,12 +172,35 @@
             }
         })
     }
+
+    bill.tablePrice = function (){
+        bill.priceList();
+        $("#tablePriceModal").modal("show");
+    }
+
+    bill.priceList = function (){
+        $.ajax({
+            url: page.urls.getAllAccessories,
+            method:'GET',
+            success: function(response){
+                $('.table-price-technicians tbody').empty();
+                $.each(response, function(index, item){
+                    $('.table-price-technicians tbody').append(`
+                        <tr>
+                            <td>${item.accessoryName}</td>
+                            <td>${item.retailPrice.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</td>
+                        </tr>
+                        `);
+                });
+            }
+        })
+    }
     bill.reset = function () {
         $('#updateDoingForm')[0].reset();
     }
 
     bill.init = function(){
-        bill.billList();
+        bill.kythuatList();
         accessory.getAccesory();
     };
 

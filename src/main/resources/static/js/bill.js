@@ -1,10 +1,12 @@
 var bill = bill || {};
+var product = product || {};
 
 bill.billList = function () {
     $.ajax({
         url: page.urls.getAllProducts + "/cskh",
         method: 'GET',
         success: function (response) {
+
             $('.table-bill tbody').empty();
             response = response.sort(function (pdt1, pdt2) {
                 return pdt2.id - pdt1.id;
@@ -16,25 +18,63 @@ bill.billList = function () {
                         <td>${item.productName}</td>
                         <td>${item.serialNumber}</td>
                         <td>${item.serviceTag}</td>
-                        <td>${item.remainingDay}
-                            ${item.remainingDay > 30 ?
-                    '<span class="badge bg-primary">Còn Bảo Hành</span>' :
-                    '<span class="badge bg-danger">Hết Hạn Bảo Hành</span>'}
+                        <td>${item.status == 1 ?
+                            '<span class="badge bg-danger">Từ Chối Bảo Hành</span>' :
+                                item.remainingDay > 30 ? 
+                                '<span class="badge bg-primary">Còn Bảo Hành </span>' :
+                                    item.remainingDay == 0 ?
+                                        '<span class="badge bg-danger">Hết Bảo Hành</span>':
+                                        '<span class="badge bg-alert">Gần Hết Bảo Hành</span>'
+                            }
+                        </td>
+                        <td>${item.status == 1 ?
+                            '<span hidden class="badge bg-danger">###</span>' :
+                            item.remainingDay
+                            }
                         </td>
                         <td>${item.customer}</td>
                         <td>
-                         <a href='javascript:;' class='btn btn-success btn-sm'
-                                title='Add Bill'
-                                onclick="bill.getProduct(${item.id})">
-                                <i class="fa fa-plus"></i>
-                            </a>
+                            ${item.status == 1 ?
+                            `<a href='javascript:;' class='btn btn-danger btn-sm'
+                                title='View Reason'
+                                onclick="bill.getReason(${item.id})">
+                                <i class="fa fa-edit"></i>
+                            </a>`     :
+                                item.remainingDay == 0 ?
+                                    '<span hidden class="badge bg-danger">###</span>':    
+                                    `<a href='javascript:;' class='btn btn-success btn-sm'
+                                        title='Add Bill'
+                                        onclick="bill.getProduct(${item.id})">
+                                        <i class="fa fa-plus"></i>
+                                    </a>`   
+                            }
                         </td>
                     </tr>
                     `);
             });
+            if ( $.fn.dataTable.isDataTable( '.table-bill' ) ) {
+                table = $('.table-bill').DataTable();
+            }
+            else {
+                table = $('.table-bill').DataTable( {
+                    paging: true
+                } );
+            }
         }
     })
 }
+bill.getReason = function (id){
+    bill.reset();
+    $.ajax({
+        url: page.urls.getProduct + id,
+        method: "GET",
+        success: function (response) {
+            $('#reason').text(response.reason);
+            $('#viewHistoryWarnatyModal').modal('show');
+        }
+    })
+}
+
 function getToday(){
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -193,7 +233,6 @@ bill.staticsList = function(){
         url: page.urls.getAllBilStatics,
         method:'GET',
         success: function(response){
-            console.log(response);
             $('.table-statics tbody').empty();
             $.each(response, function(index, item){
                 $('.table-statics tbody').append(`
@@ -214,7 +253,6 @@ bill.calculalorKilometer = function (id){
         type: "PATCH",
         success: function() {
             bill.init();
-            // $('#customerModal').modal('hide');
             $.notify("Bill has been update success", "success");
         },
         error: function (){

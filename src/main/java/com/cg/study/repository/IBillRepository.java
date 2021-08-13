@@ -1,6 +1,8 @@
 package com.cg.study.repository;
 
 import com.cg.study.model.Bill;
+import com.cg.study.model.dto.IBillDTO;
+import com.cg.study.model.dto.IProductDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +20,7 @@ public interface IBillRepository extends JpaRepository<Bill, Long> {
 
     @Transactional
     @Modifying
-    @Query("select b from Bill b where b.user.id = :userId and b.accessory.id is null ")
+    @Query("select b from Bill b where b.user.id = :userId and b.accessory.id is null and b.product.status = 0 ")
     public Iterable<Bill> selectAllBillForTechnician(@Param("userId") Long userId);
 
     @Transactional
@@ -31,22 +33,13 @@ public interface IBillRepository extends JpaRepository<Bill, Long> {
     @Query("update Bill b set b.user.id = :userId where b.id = :id")
     public void updateTechnician(@Param("userId") Long userId,@Param("id")  Long id);
 
-//    @Transactional
-//    @Modifying
-//    @Query("update Bill b set b.repairOperation = :repairOperation, b.endDate = :endDate, b.accessory.id = :accesoryId where b.id = :id")
-//    public void updateDoing(@Param("repairOperation")String repairOperation,@Param("endDate")String endDate, @Param("accesoryId") Long accesoryId,@Param("id")  Long id);
+
 
     @Transactional
     @Modifying
     @Procedure(procedureName = "sp_update_doing")
     public void updateDoing(@Param("repairOperation")String repairOperation,@Param("endDate")String endDate, @Param("accesoryId") Long accesoryId,@Param("id")  Long id);
 
-
-
-//    @Transactional
-//    @Modifying
-//    @Query("update Accessory a set a.quantity += 1 where a.id = :accesoryId")
-//    public void updateDoingAccessory(@Param("accesoryId") Long accesoryId);
 
     @Transactional
     @Modifying
@@ -61,11 +54,15 @@ public interface IBillRepository extends JpaRepository<Bill, Long> {
     @Transactional
     @Modifying
     @Query("select user.fullName, sum(total) from Bill group by user.id order by user.id")
-    public Iterable<Bill> statisticalTechnicians();
+    public Iterable<Bill> statisticalTechnicians(String endDate);
 
 
     @Transactional
     @Modifying
     @Query("select b from Bill b where b.kilometer <> 0 ")
     public Iterable<Bill> selectAllBillsComplete();
+
+//    @Transactional
+//    @Query(value = "select (select u.full_name from users u where id = user_id) as user, sum(b.total) as total from bills b group by b.user_id;", nativeQuery = true)
+//    public Iterable<IBillDTO> statisticalTechnicians();
 }

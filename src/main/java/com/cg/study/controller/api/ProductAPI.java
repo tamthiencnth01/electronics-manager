@@ -1,20 +1,26 @@
 package com.cg.study.controller.api;
 
+import com.cg.study.model.Bill;
 import com.cg.study.model.Customer;
 import com.cg.study.model.Product;
+import com.cg.study.model.Replaced;
 import com.cg.study.model.dto.IProductDto;
 import com.cg.study.model.dto.ProductDto;
+import com.cg.study.repository.IReplacedRepository;
 import com.cg.study.service.customer.ICustomerService;
 import com.cg.study.service.product.IProductService;
+import com.cg.study.service.replace.IReplaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/products")
@@ -25,7 +31,8 @@ public class ProductAPI {
     @Autowired
     private IProductService productService;
 
-
+    @Autowired
+    private IReplaceService replaceService;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> allProducts(@RequestParam("search") Optional<String> serialNumber) {
@@ -119,6 +126,28 @@ public class ProductAPI {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PatchMapping("/{status}/{reason}/{id}")
+    private ResponseEntity<Bill> updateBill(@PathVariable int status,@PathVariable String reason, @PathVariable Long id){
+        Optional<Product> product = productService.findById(id);
+        if (!product.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        productService.warrantyDisclaimer(status,reason,id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+//    @PatchMapping("/{status}/{reason}/{id}")
+//    private ResponseEntity<Bill> updateBill(@PathVariable int status,@PathVariable String reason, @PathVariable Long id,
+//                                            @RequestParam("image") MultipartFile multipartFile,
+//                                            @RequestBody Product product){
+//        product = productService.findById(id);
+//        if (!product.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        productService.warrantyDisclaimer(status,reason,id);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> deleteProvince(@PathVariable Long id) {

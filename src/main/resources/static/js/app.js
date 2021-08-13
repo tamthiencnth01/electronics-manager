@@ -11,6 +11,7 @@ class App {
     static BASE_URL_BILL_COMPLETE = "http://localhost:8080/api/bills/complete";
     static BASE_URL_BILL_STATICS = "http://localhost:8080/api/bills/statistical";
     static BASE_URL_ACCESSORY = "http://localhost:8080/api/accessories";
+    static BASE_URL_REPLACED = "http://localhost:8080/api/replaceds";
 
 
     static showDeleteConfirmDialog() {
@@ -73,7 +74,7 @@ class Customer {
 }
 
 class Product{
-    constructor(id, productName,productDescription,serviceTag,serialNumber,purchaseDay, customer,startDate,finishDate,remainingDay) {
+    constructor(id, productName,productDescription,serviceTag,serialNumber,purchaseDay, customer,startDate,finishDate,remainingDay,status, reason) {
         this.id = id;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -84,6 +85,8 @@ class Product{
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.remainingDay = remainingDay;
+        this.status = status;
+        this.reason = reason;
     }
 }
 
@@ -112,5 +115,19 @@ class Accessory{
         this.quantity = quantity;
         this.importPrice = importPrice;
         this.retailPrice = retailPrice;
+    }
+}
+class Replaced{
+    constructor(id, accessoryName,accessoryDescription,retailPrice,startDate,finishDate,purchaseDay,status,reason,photo) {
+        this.id = id;
+        this.accessoryName = accessoryName;
+        this.accessoryDescription = accessoryDescription;
+        this.startDate = startDate;
+        this.retailPrice = retailPrice;
+        this.finishDate = finishDate;
+        this.purchaseDay = purchaseDay;
+        this.status = status;
+        this.reason = reason;
+        this.photo = photo;
     }
 }

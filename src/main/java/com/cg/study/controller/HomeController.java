@@ -141,4 +141,14 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView("/employee/complete");
         return modelAndView;
     }
+    @GetMapping("/accessory")
+    public ModelAndView accessory() {
+        ModelAndView modelAndView = new ModelAndView("/accessory/list");
+        return modelAndView;
+    }
+    @GetMapping("/disagree")
+    public ModelAndView disagree() {
+        ModelAndView modelAndView = new ModelAndView("/cskh/disagree");
+        return modelAndView;
+    }
 }

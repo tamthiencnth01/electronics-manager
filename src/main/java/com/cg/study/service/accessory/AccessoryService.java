@@ -30,4 +30,14 @@ public class AccessoryService implements IAccessoryService{
     public void remove(Long id) {
         accessoryRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteAccessory(Long id) {
+        accessoryRepository.deleteAccessory(id);
+    }
+
+    @Override
+    public Iterable<Accessory> findAllByAccessory() {
+        return accessoryRepository.findAllByAccessory();
+    }
 }
