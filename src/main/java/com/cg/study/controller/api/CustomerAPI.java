@@ -42,6 +42,16 @@ public class CustomerAPI {
         }
     }
 
+//    @GetMapping("/{serialNumber}")
+//    public ResponseEntity<Customer> getId(@PathVariable String serialNumber) {
+//        Optional<Customer> customer = customerService.findById(id);
+//        if (customer.isPresent()) {
+//            return new ResponseEntity<>(customer.get(), HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
+
     @PostMapping
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
         if (customer.getId() != null) {

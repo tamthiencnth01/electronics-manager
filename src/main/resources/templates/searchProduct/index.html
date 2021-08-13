@@ -57,7 +57,7 @@
                             <div id="load-data"></div>
                             <div class="row row-space">
                                 <div class="col-2">
-                                    <button class="btn-submit" type="submit" onclick="">search</button>
+                                    <button class="btn-submit" type="submit" onclick="productSearch.search()">search</button>
                                 </div>
                             </div>
                         </form>
@@ -74,14 +74,14 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Sản Phẩm</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="productSearch.showModal()">&times;</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
                     <form id="viewSearchProductForm">
                         <div class="form-group" style="text-align: center">
-                            <p>Tên Khách Hàng: <span style="color: #0e8f9f" id="viewCustomerFullName"></span></p>
+                            <p>Tên Khách Hàng: <span style="color: #0e8f9f" id="customerFullName"></span></p>
                         </div>
                         <table id="table-search-product" class="table table-hover table-bordered text-nowrap table-search-product">
                             <thead>
@@ -103,7 +103,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="productSearch.showModal()">Close</button>
                 </div>
 
             </div>

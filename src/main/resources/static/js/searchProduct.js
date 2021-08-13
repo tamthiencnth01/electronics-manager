@@ -1,6 +1,7 @@
 let pageSearch = {
     urls: {
-        searchProductBySerialNumber: App.BASE_URL_PRODUCT + "?search="
+        searchProductBySerialNumber: App.BASE_URL_PRODUCT + "?search=",
+        getCustomerNameBySerialNumber: App.BASE_URL_CUSTOMER + "/"
     }
 }
 
@@ -11,14 +12,27 @@ $("#searchProduct").keyup(function(){ // bắt sự kiện khi gõ từ khóa t�
     clearTimeout(timeout); // clear time out
     timeout = setTimeout(function (){
         productSearch.search();
-    }, 500);
+    }, 1000);
 });
+
+productSearch.getCustomer = function(serialNumber){
+    $.ajax({
+        url: pageSearch.urls.getCustomerNameBySerialNumber + serialNumber,
+        method:'GET',
+        success: function(response){
+            $('#customerFullName').text(response.customerFullName);
+            $('#serialNumber').val(response.serialNumber);
+            // $('#customerModal').find('.modal-title').text('Modify customer');
+            $('#viewSearchProductModal').modal('show');
+        }
+    })
+}
 
 productSearch.search = function () {
     var data = $('#searchProduct').val(); // get dữ liệu khi đang nhập từ khóa vào ô
     console.log(data);
     console.log(typeof data);
-    if (typeof data === 'string') {
+    if ((typeof data === 'string') === true) {
         $.ajax({
             type: 'GET',
             async: true,
@@ -27,14 +41,14 @@ productSearch.search = function () {
                 'action' : 'Post_filters',
                 'data': data
             },
-            beforeSend: function () {
-            },
+            // beforeSend: function () {
+            // },
             success: function (data) {
                 console.log(data);
                 let content = "";
                 for (let i = 0; i < data.length; i++) {
                     content += `<tr>
-                                <td>${data[i].serialNumber}</td>
+                                <td id="serialNumber">${data[i].serialNumber}</td>
                                 <td>${data[i].productName}</td>
                                 <td>${data[i].serviceTag}</td>
                                 <td>${data[i].purchaseDay}</td>
@@ -50,6 +64,17 @@ productSearch.search = function () {
         $('#viewSearchProductModal').modal('hide');
     }
 
+}
+
+productSearch.showModal = function(){
+    productSearch.reset();
+    // $('#customerModal').modal('show');
+}
+
+productSearch.reset = function(){
+    // $('#customerForm').validate().resetForm();
+    $('#formSearchProduct')[0].reset();
+    // $('#customerModal').find('.modal-title').text('Add customer');
 }
 
 productSearch.searchProductList = function (search){
