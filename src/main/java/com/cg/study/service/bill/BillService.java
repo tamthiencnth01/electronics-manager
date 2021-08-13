@@ -31,4 +31,54 @@ public class BillService implements IBillService{
     public void remove(Long id) {
         billRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Bill> selectBillDoing() {
+        return billRepository.selectBillDoing();
+    }
+
+    @Override
+    public void updateTechnician(Long userId,Long id) {
+        billRepository.updateTechnician(userId, id);
+    }
+
+    @Override
+    public Iterable<Bill> selectAllBillForTechnician(Long userId) {
+        return billRepository.selectAllBillForTechnician(userId);
+    }
+
+    @Override
+    public Iterable<Bill> showHistoryAllBillForTechnician(Long userId) {
+        return billRepository.showHistoryAllBillForTechnician(userId);
+    }
+
+    @Override
+    public void updateDoing(String repairOperation, String endDate, Long accesoryId, Long id) {
+        billRepository.updateDoing(repairOperation,endDate,accesoryId,id);
+    }
+
+    @Override
+    public void updateDoingAccessory(Long accesoryId) {
+
+    }
+
+    @Override
+    public Iterable<Bill> selectAllBillDoneByTechnician() {
+        return billRepository.selectAllBillDoneByTechnician();
+    }
+
+    @Override
+    public void updateKilometer(double km, Long id) {
+        billRepository.updateKilometer(km, id);
+    }
+
+    @Override
+    public Iterable<Bill> selectAllBillsComplete() {
+        return billRepository.selectAllBillsComplete();
+    }
+
+    @Override
+    public Iterable<Bill> statisticalTechnicians() {
+        return billRepository.statisticalTechnicians();
+    }
 }

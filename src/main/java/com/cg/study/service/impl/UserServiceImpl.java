@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Iterable<User> selectTechnicans() {
+        return userRepository.selectTechnicans();
+    }
+
+    @Override
     public UserPrincipal findByUsername(String username) {
         User user = userRepository.findByUsername(username);
         UserPrincipal userPrincipal = new UserPrincipal();

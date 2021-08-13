@@ -1,5 +1,11 @@
 package com.cg.study.controller;
 
+import com.cg.study.model.User;
+import com.cg.study.model.UserPrinciple;
+import com.cg.study.repository.UserRepository;
+import com.cg.study.security.UserPrincipal;
+import com.cg.study.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.Access;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,16 +23,49 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("")
 public class HomeController {
-    private String getPrincipal() {
+
+    @Autowired
+    private UserServiceImpl userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+//    private String getPrincipal() {
+//        String userName = null;
+//        Long id;
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        if (principal instanceof UserDetails) {
+//
+//            userName = ((UserDetails) principal).getUsername();
+//
+//            User user = userRepository.findByUsername(userName);
+//
+//            id = user.getId();
+//        } else {
+//            userName = principal.toString();
+//        }
+//        return userName;
+//    }
+
+    private Long getPrincipal() {
         String userName = null;
+        Long id;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (principal instanceof UserDetails) {
+
             userName = ((UserDetails) principal).getUsername();
+
+            User user = userRepository.findByUsername(userName);
+
+            id = user.getId();
         } else {
             userName = principal.toString();
+            id = Long.valueOf(principal.toString());
         }
-        return userName;
+        System.out.println(id);
+        return id;
     }
 
     @GetMapping("/hello")
@@ -81,6 +121,24 @@ public class HomeController {
     public ModelAndView cskh(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/cskh/list");
         modelAndView.addObject("userInfo", getPrincipal());
+        return modelAndView;
+    }
+
+    @GetMapping("/doing")
+    public ModelAndView doing() {
+        ModelAndView modelAndView = new ModelAndView("/employee/doing");
+        return modelAndView;
+    }
+
+    @GetMapping("/done")
+    public ModelAndView done() {
+        ModelAndView modelAndView = new ModelAndView("/employee/done");
+        return modelAndView;
+    }
+
+    @GetMapping("/complete")
+    public ModelAndView complete() {
+        ModelAndView modelAndView = new ModelAndView("/employee/complete");
         return modelAndView;
     }
 }

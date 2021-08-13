@@ -1,17 +1,3 @@
-let page = {
-    urls: {
-        getAllCustomers: App.BASE_URL_CUSTOMER,
-        getAllProducts: App.BASE_URL_PRODUCT,
-        getCustomer: App.BASE_URL_CUSTOMER + '/',
-        saveNew: App.BASE_URL_CUSTOMER,
-        saveEdit: App.BASE_URL_CUSTOMER,
-        deleteCustomer: App.BASE_URL_CUSTOMER + "/",
-        saveNewProduct: App.BASE_URL_PRODUCT,
-        getAllProductsByCustomerId: App.BASE_URL_PRODUCT + "/",
-        getProductBySerialNumber: App.BASE_URL_PRODUCT + "/",
-        selectAllProduct: App.BASE_URL_PRODUCT,
-    }
-}
 
 var customer = customer || {};
 

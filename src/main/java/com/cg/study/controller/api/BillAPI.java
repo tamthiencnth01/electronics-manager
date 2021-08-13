@@ -31,6 +31,61 @@ public class BillAPI {
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
+    @GetMapping("/doing")
+    private ResponseEntity<Iterable<Bill>> showListBillDoing(){
+        Iterable<Bill> bills = billService.selectBillDoing();
+        if (((List) bills).isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
+    @GetMapping("/done")
+    private ResponseEntity<Iterable<Bill>> showListBillDone(){
+        Iterable<Bill> bills = billService.selectAllBillDoneByTechnician();
+        if (((List) bills).isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
+    @GetMapping("/complete")
+    private ResponseEntity<Iterable<Bill>> selectAllBillsComplete(){
+        Iterable<Bill> bills = billService.selectAllBillsComplete();
+        if (((List) bills).isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
+    @GetMapping("/statistical")
+    private ResponseEntity<Iterable<Bill>> statisticalTechnicians(){
+        Iterable<Bill> bills = billService.statisticalTechnicians();
+        if (((List) bills).isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
+    @GetMapping("/technician/{userId}")
+    private ResponseEntity<Iterable<Bill>> showListBillTechnicians(@PathVariable Long userId){
+        Iterable<Bill> bills = billService.selectAllBillForTechnician(userId);
+        if (((List) bills).isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
+    @GetMapping("/history/{userId}")
+    private ResponseEntity<Iterable<Bill>> showHistoryAllBillForTechnician(@PathVariable Long userId){
+        Iterable<Bill> bills = billService.showHistoryAllBillForTechnician(userId);
+        if (((List) bills).isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
+
     @PostMapping
     private ResponseEntity<Bill> createBill(@RequestBody Bill bill){
         if (bill.getId() != null){
@@ -44,4 +99,36 @@ public class BillAPI {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @PatchMapping("/{userId}/{id}")
+    private ResponseEntity<Bill> updateBill(@PathVariable Long userId,@PathVariable Long id){
+        Optional<Bill> bill = billService.findById(id);
+        if (!bill.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        billService.updateTechnician(userId,id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("{repairOperation}/{endDate}/{accesoryId}/{id}")
+    private ResponseEntity<Bill> updateBillDoing(@PathVariable String repairOperation,@PathVariable String endDate,@PathVariable Long accesoryId,@PathVariable Long id){
+        Optional<Bill> bill = billService.findById(id);
+        System.out.println(bill);
+        if (!bill.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        billService.updateDoingAccessory(accesoryId);
+        billService.updateDoing(repairOperation,endDate,accesoryId,id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/kilometer/{km}/{id}")
+    private ResponseEntity<Bill> updateBillKilometer(@PathVariable double km,@PathVariable Long id){
+        Optional<Bill> bill = billService.findById(id);
+        if (!bill.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        billService.updateKilometer(km,id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

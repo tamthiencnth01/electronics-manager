@@ -41,10 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             if (!screenfull.enabled) {
                 return false;
             }
-
-
-
-            $('#toggle').click(function () {
+           $('#toggle').click(function () {
                 screenfull.toggle($('#container')[0]);
             });
         });
@@ -66,10 +63,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="text/javascript" src="/js/app.js"></script>
     <script src="/layouts/js/bootstrap.js"></script>
     <script src="/layouts/js/proton.js"></script>
-    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<!--    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>-->
 
-    <script src="/js/customer.js"></script>
-    <script src="/js/product.js"></script>
+<!--    <script src="/js/customer.js"></script>-->
+    <script src="/js/page.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>-->
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
@@ -239,25 +237,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="clearfix"> </div>
     </section>
     <div class="main-grid">
-        <div class="w-100 mb-2">
-            <div class="float-right">
-                <a href="javascript:;" onclick="customer.showModal()" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    Create
-                </a>
-            </div>
-        </div>
         <div class="agile-grids">
             <h3>NHÂN VIÊN KỸ THUẬT</h3>
-            <table id="table-force-off" class="table table-hover table-bordered text-nowrap table-customer">
+            <input type="hidden"  th:value="${userInfo}" id="userId"/>
+            <div class="float-right mb-2">
+                <a href="javascript:;" onclick="bill.historyTechnician()" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>
+                    LỊCH SỬ
+                </a>
+            </div>
+            <table id="table-force-off" class="table table-hover table-bordered text-nowrap table-technician">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Tên Khách Hàng</th>
                     <th>Địa Chỉ</th>
                     <th>Số Điện Thoại</th>
-                    <th>Thêm Mới Sản Phẩm</th>
-                    <th>Xoá Khách Hàng</th>
+                    <th>Tình Trạng</th>
+                    <th>Xử Lý</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -272,140 +269,81 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <!-- //footer -->
 
-    <!-- The Modal Customer -->
-    <div class="modal" id="customerModal">
+
+    <!-- The Modal View History  -->
+    <div class="modal" id="historyTechnicianModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Add customer</h4>
+                    <h4 class="modal-title">KỸ THUẬT XỬ LÝ</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form id="customerForm">
+
+                    <table  class="table-history-technicians">
+                        <thead>
+                        <tr>
+                            <th>Tên Khách Hàng</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Thao tác sửa chữa</th>
+                            <th>Linh kiện đã thay</th>
+                            <th>Tổng Cước</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a href='javascript:;' class="btn btn-primary" onclick="bill.updateDoing()">Save</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- The Modal Update Doing Modal -->
+    <div class="modal" id="updateDoingModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">KỸ THUẬT XỬ LÝ</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="updateDoingForm">
                         <div class="form-group">
-                            <label>Tên Khách Hàng</label>
-                            <input type="text" name="customerFullName" class="form-control">
+                            <label>Thao Tác Sửa Chữa</label>
+                            <input type="text" name="repairOperation" class="form-control">
                             <input type="hidden" name="id" value="0">
                         </div>
                         <div class="form-group">
-                            <label>Địa Chỉ</label>
-                            <input type="text" name="customerAddress" class="form-control">
+                            <label>Linh Kiện thay thế</label>
+                            <select name="accessory" id="accessory" class="form-control form-select accessory"></select>
                         </div>
                         <div class="form-group">
-                            <label>Số Điện Thoại</label>
-                            <input type="tel" name="customerPhone" class="form-control">
-                        </div>
-                        <!--                        <div class="form-group">-->
-                        <!--                            <label>Thêm Mới Sản Phẩm</label>-->
-                        <!--                            <input type="text" name="products" class="form-control">-->
-                        <!--                        </div>-->
-                    </form>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <a href='javascript:;' class="btn btn-primary" onclick="customer.save()">Save</a>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- The Modal Create Product -->
-    <div class="modal" id="productModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Thêm Mới Sản Phẩm</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form id="productForm">
-                        <div class="form-group" style="text-align: center">
-                            <p>Tên Khách Hàng: <span style="color: #0e8f9f" id="customerFullName"></span></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Tên Sản Phẩm</label>
-                            <input type="text" name="productName" class="form-control">
-                            <input type="hidden" name="productId" value="0">
-                            <input type="hidden" id="customerId">
-                        </div>
-                        <div class="form-group">
-                            <label>Dòng Sản Phẩm</label>
-                            <input type="text" name="serviceTag" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Serial Number</label>
-                            <input type="text" name="serialNumber" class="form-control">
-                        </div>
-                        <!--                        <div class="form-group">-->
-                        <!--                            <label>Ngày Bán Sản Phẩm</label>-->
-                        <!--                            <input type="date" name="purchaseDay" class="form-control">-->
-                        <!--                        </div>-->
-                        <div class="form-group">
-                            <label>Mô Tả Chi Tiết Sản Phẩm</label>
-                            <input type="text" name="productDescription" class="form-control">
+                            <label>Ngày Hoàn Thành</label>
+                            <input type="date" name="endDate" class="form-control">
                         </div>
                     </form>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <a href='javascript:;' class="btn btn-primary" onclick="product.save()">Save</a>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    <!-- The Modal View Product -->
-    <div class="modal" id="viewProductModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Danh Sách Sản Phẩm</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form id="viewProductForm">
-                        <!--                        <div class="form-group" style="text-align: center">-->
-                        <!--                            <p>Tên Khách Hàng: <span style="color: #0e8f9f" id="viewCustomerFullName"></span></p>-->
-                        <!--                        </div>-->
-                        <table  class="table table-hover table-bordered text-nowrap table-product">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Tên Sản Phẩm</th>
-                                <th>Serial Number</th>
-                                <th>Dòng Sản Phẩm</th>
-                                <th>Ngày Bảo Hành</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <!--                    <a href='javascript:;' class="btn btn-primary" onclick="product.save()">Save</a>-->
+                    <a href='javascript:;' class="btn btn-primary" onclick="bill.updateDoing()">Save</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
 
@@ -413,6 +351,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </section>
-
+<script src="/js/kythuat.js"></script>
 </body>
 </html>

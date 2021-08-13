@@ -67,9 +67,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="/layouts/js/bootstrap.js"></script>
     <script src="/layouts/js/proton.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="/js/page.js"></script>
 
-    <script src="/js/customer.js"></script>
-    <script src="/js/product.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>-->
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
@@ -236,12 +235,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <button id="toggle"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
             </section>
         </div>
-<!--        <div class="w3l_search">-->
-<!--            <form action="#" method="post">-->
-<!--                <input type="text" name="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="">-->
-<!--                <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>-->
-<!--            </form>-->
-<!--        </div>-->
         <div class="clearfix"> </div>
     </section>
     <div class="main-grid">
@@ -305,10 +298,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <label>Số Điện Thoại</label>
                             <input type="tel" name="customerPhone" class="form-control">
                         </div>
-<!--                        <div class="form-group">-->
-<!--                            <label>Thêm Mới Sản Phẩm</label>-->
-<!--                            <input type="text" name="products" class="form-control">-->
-<!--                        </div>-->
                     </form>
                 </div>
 
@@ -353,10 +342,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <label>Serial Number</label>
                             <input type="text" name="serialNumber" class="form-control">
                         </div>
-<!--                        <div class="form-group">-->
-<!--                            <label>Ngày Bán Sản Phẩm</label>-->
-<!--                            <input type="date" name="purchaseDay" class="form-control">-->
-<!--                        </div>-->
+                        <div class="form-group">
+                            <label>Thời Gian Bảo hành (tháng)</label>
+                            <input type="number" name="numberMonth" class="form-control">
+                        </div>
                         <div class="form-group">
                             <label>Mô Tả Chi Tiết Sản Phẩm</label>
                             <input type="text" name="productDescription" class="form-control">
@@ -419,6 +408,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </section>
-
+<script src="/js/customer.js"></script>
+<script src="/js/product.js"></script>
 </body>
 </html>

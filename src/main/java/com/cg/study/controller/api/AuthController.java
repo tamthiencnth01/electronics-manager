@@ -70,6 +70,8 @@ public class AuthController {
                 .maxAge(60 * 60 * 60 * 1000)
                 .domain("localhost")
                 .build();
+        System.out.println("***************");
+        System.out.println(currentUser.getUserId());
 
         return ResponseEntity
                 .ok()
@@ -83,5 +85,8 @@ public class AuthController {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-
+    @GetMapping("/technicians")
+    public ResponseEntity<Iterable<User>> getTechnicians(){
+        return new ResponseEntity<>(userService.selectTechnicans(), HttpStatus.OK);
+    }
 }

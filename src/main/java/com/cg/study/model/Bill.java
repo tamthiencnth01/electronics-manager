@@ -28,6 +28,7 @@ public class Bill {
     private String currentPhone;
 
 
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -43,5 +44,4 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
 }

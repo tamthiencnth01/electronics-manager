@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -40,8 +42,16 @@ public class Product {
     @Size(min = 2, max = 10)
     private String purchaseDay;
 
+    @Basic(optional = false)
+    @Column(name = "StartDated", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;
+
+    private Date finishDate;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+
 }

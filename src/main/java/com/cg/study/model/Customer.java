@@ -1,5 +1,6 @@
 package com.cg.study.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,12 +41,14 @@ public class Customer {
     private boolean isDelete;
 
 
-//    @OneToMany(targetEntity = Product.class, fetch = FetchType.EAGER)
-//    private Set<Product> products;
-//
-//
+    @OneToMany
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
+
 //    @OneToMany(targetEntity = Bill.class,fetch = FetchType.EAGER)
 //    private Set<Bill> bills;
 
-
+    public String getCustomerFullName() {
+        return customerFullName;
+    }
 }
