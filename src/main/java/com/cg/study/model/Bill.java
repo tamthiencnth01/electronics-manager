@@ -23,14 +23,25 @@ public class Bill {
     private String repairOperation;
     private double kilometer;
     private double total;
+    private String status;
 
-    @OneToMany(targetEntity = Employee.class, fetch = FetchType.EAGER)
-    private Set<Employee> employees;
+    private String currentAddress;
+    private String currentPhone;
 
-    @OneToMany(targetEntity = Customer.class, fetch = FetchType.EAGER)
-    private Set<Customer> customers;
 
-    @OneToMany(targetEntity = Accessory.class, fetch = FetchType.EAGER)
-    private Set<Accessory> accessories;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "accessory_id")
+    private Accessory accessory;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }
