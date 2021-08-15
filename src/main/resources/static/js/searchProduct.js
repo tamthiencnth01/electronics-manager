@@ -1,14 +1,7 @@
-let pageSearch = {
-    urls: {
-        searchProductBySerialNumber: App.BASE_URL_PRODUCT + "?search=",
-        getCustomerNameBySerialNumber: App.BASE_URL_CUSTOMER + "/"
-    }
-}
-
 var productSearch = productSearch || {};
 
 var timeout = null; // khai báo biến timeout
-$("#searchProduct").keyup(function(){ // bắt sự kiện khi gõ từ khóa tìm kiếm
+$("#search-keyword").keyup(function(){ // bắt sự kiện khi gõ từ khóa tìm kiếm
     clearTimeout(timeout); // clear time out
     timeout = setTimeout(function (){
         productSearch.search();
@@ -17,7 +10,7 @@ $("#searchProduct").keyup(function(){ // bắt sự kiện khi gõ từ khóa t�
 
 productSearch.getCustomer = function(serialNumber){
     $.ajax({
-        url: pageSearch.urls.getCustomerNameBySerialNumber + serialNumber,
+        url: page.urls.getCustomerNameBySerialNumber + serialNumber,
         method:'GET',
         success: function(response){
             $('#customerFullName').text(response.customerFullName);
@@ -29,14 +22,14 @@ productSearch.getCustomer = function(serialNumber){
 }
 
 productSearch.search = function () {
-    var data = $('#searchProduct').val(); // get dữ liệu khi đang nhập từ khóa vào ô
+    var data = $('#search-keyword').val(); // get dữ liệu khi đang nhập từ khóa vào ô
     console.log(data);
     console.log(typeof data);
     if ((typeof data === 'string') === true) {
         $.ajax({
             type: 'GET',
             async: true,
-            url: pageSearch.urls.searchProductBySerialNumber + data,
+            url: page.urls.searchProductBySerialNumber + data,
             data: {
                 'action' : 'Post_filters',
                 'data': data

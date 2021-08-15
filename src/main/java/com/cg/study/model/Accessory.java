@@ -22,7 +22,9 @@ public class Accessory {
     private double importPrice;
     private double retailPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "bill_id")
-    private Bill bill;
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDelete;
+
+    @OneToMany(targetEntity = Bill.class, fetch = FetchType.EAGER)
+    private Set<Bill> bills;
 }

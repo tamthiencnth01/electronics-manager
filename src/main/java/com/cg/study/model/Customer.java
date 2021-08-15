@@ -1,16 +1,14 @@
 package com.cg.study.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,38 +21,25 @@ public class Customer {
     private Long id;
 
     @Column(nullable = false)
-    @Min(value = 2)
-    @Max(value = 50)
+    @Size(min = 2, max = 50)
     private String customerFullName;
 
     @Column(nullable = false)
-    @Min(value = 2)
-    @Max(value = 100)
+    @Size(min = 2, max = 50)
     private String customerAddress;
 
     @Column(nullable = false)
-    @Max(value = 10)
-    @Min(value = 10)
+    @Size(min = 2, max = 50)
     private String customerPhone;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDelete;
 
-//    @ManyToOne
-//    @JoinColumn(name = "product_id")
-//    private Product product;
+    @OneToMany
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
 
-    @OneToMany(targetEntity = Product.class, fetch = FetchType.EAGER)
-    private Set<Product> products;
-
-//    @OneToMany(targetEntity = Store.class, fetch = FetchType.EAGER)
-//    private Set<Store> stores;
-
-//    @ManyToOne
-//    @JoinColumn(name = "store_id")
-//    private Store store;
-
-    @ManyToOne
-    @JoinColumn(name = "bill_id")
-    private Bill bill;
-
-
+    public String getCustomerFullName() {
+        return customerFullName;
+    }
 }

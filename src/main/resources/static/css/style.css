@@ -33,3 +33,18 @@ label.error{
 form {
     margin-block-end: 1em;
 }
+
+table th {
+    background-color: #4CAF50 !important;
+    color: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table td {
+    border: 1px solid #ddd;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

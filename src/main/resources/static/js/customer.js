@@ -1,17 +1,3 @@
-let page = {
-    urls: {
-        getAllCustomers: App.BASE_URL_CUSTOMER,
-        getAllProducts: App.BASE_URL_PRODUCT,
-        getCustomer: App.BASE_URL_CUSTOMER + '/',
-        saveNew: App.BASE_URL_CUSTOMER,
-        saveEdit: App.BASE_URL_CUSTOMER,
-        deleteCustomer: App.BASE_URL_CUSTOMER,
-        saveNewProduct: App.BASE_URL_PRODUCT,
-        getAllProductsByCustomerId: App.BASE_URL_PRODUCT + "/"
-        // searchProductBySerialNumber: App.BASE_URL_PRODUCT + "?search="
-    }
-}
-
 var customer = customer || {};
 
 customer.customerList = function(){
@@ -20,14 +6,11 @@ customer.customerList = function(){
         method:'GET',
         success: function(response){
             $('.table-customer tbody').empty();
-            response = response.sort(function(ctr1, ctr2){
-                return ctr2.id - ctr1.id;
-            })
             $.each(response, function(index, item){
                 $('.table-customer tbody').append(`
                     <tr>
                         <td>${item.id}</td>
-                        <td><a href='javascript:;' class='btn btn-success btn-sm'
+                        <td><a href='javascript:;' class='btn btn-info btn-sm'
                                 title='View product'
                                 onclick="customer.getAllProductByCustomerId(${item.id})">
                                 ${item.customerFullName}
@@ -40,16 +23,23 @@ customer.customerList = function(){
                                 <i class="fa fa-plus"></i>
                             </a>
                         </td>
+                        <td><a href='javascript:;' class='btn btn-danger btn-sm'
+                                title='Delete customer'
+                                onclick="customer.removeCustomer(${item.id})">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
                     </tr>
                     `);
             });
-            $('.table-customer').DataTable({
-                // columnDefs: [
-                //     { orderable: false, targets: [6,7] },
-                //     { searchable: false, targets: [0,6,7] }
-                // ],
-                // order: [[0, 'desc']]
-            });
+            if ( $.fn.dataTable.isDataTable( '.table-customer' ) ) {
+                table = $('.table-customer').DataTable();
+            }
+            else {
+                table = $('.table-customer').DataTable( {
+                    paging: true
+                } );
+            }
         }
     })
 }
@@ -67,6 +57,8 @@ customer.save = function(){
             createObj.customerFullName = $('input[name="customerFullName"]').val();
             createObj.customerAddress = $('input[name="customerAddress"]').val();
             createObj.customerPhone = $('input[name="customerPhone"]').val();
+            delete createObj.id;
+            console.log(createObj);
             $.ajax({
                 url: page.urls.saveNew,
                 method: "POST",
@@ -116,6 +108,7 @@ customer.save = function(){
 
 
 customer.getCustomer = function(id){
+    customer.reset();
     $.ajax({
         url: page.urls.getCustomer + id,
         method:'GET',
@@ -157,8 +150,20 @@ customer.getAllProductByCustomerId = function(id){
     })
 }
 
+customer.removeCustomer = function(id){
+
+    $.ajax({
+        type : "DELETE",
+        url : page.urls.deleteCustomer + id
+    }).done(function (){
+        customer.customerList();
+        App.showSuccessAlert("Đã xóa thành công!")
+    }).fail(function (){
+        App.showErrorAlert("Đã xảy ra lỗi!")
+    })
+}
+
 customer.reset = function(){
-    // $('#customerForm').validate().resetForm();
     $('#customerForm')[0].reset();
     $('#customerModal').find('.modal-title').text('Add customer');
 }

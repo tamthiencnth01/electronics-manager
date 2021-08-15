@@ -1,15 +1,19 @@
 package com.cg.study.controller.api;
 
+import com.cg.study.model.Bill;
 import com.cg.study.model.Customer;
 import com.cg.study.model.Product;
+import com.cg.study.model.dto.IProductDto;
 import com.cg.study.service.customer.ICustomerService;
 import com.cg.study.service.product.IProductService;
+import com.cg.study.service.replace.IReplaceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +26,9 @@ public class ProductAPI {
     @Autowired
     private IProductService productService;
 
+    @Autowired
+    private IReplaceService replaceService;
+
     @GetMapping
     public ResponseEntity<Iterable<Product>> allProducts(@RequestParam("search") Optional<String> serialNumber) {
         Iterable<Product> products;
@@ -32,8 +39,16 @@ public class ProductAPI {
             if (((List) products).isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-//            return new ResponseEntity<>(products, HttpStatus.OK);
         }
+        return new ResponseEntity<>(products,HttpStatus.OK);
+    }
+
+    @GetMapping("/cskh")
+    public ResponseEntity<Iterable<IProductDto>> allListProducts() {
+        Iterable<IProductDto> products = productService.listProducts();
+            if (((List) products).isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
@@ -46,8 +61,18 @@ public class ProductAPI {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+    @GetMapping("/getProducts/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Optional<Product> product = productService.findById(id);
+        if (product.isPresent()) {
+            return new ResponseEntity<>(product.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/{numberMonth}")
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product, @PathVariable int numberMonth) {
         if (product.getId() != null) {
             return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
         }
@@ -56,10 +81,23 @@ public class ProductAPI {
 
         if (customer.isPresent()) {
             product.setCustomer(customer.get());
-            return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+            product.setPurchaseDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            productService.save(product);
+            productService.updateFinishDay(product.getId(),numberMonth);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PatchMapping("/{status}/{reason}/{id}")
+    private ResponseEntity<Bill> updateBill(@PathVariable int status,@PathVariable String reason, @PathVariable Long id){
+        Optional<Product> product = productService.findById(id);
+        if (!product.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        productService.warrantyDisclaimer(status,reason,id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
