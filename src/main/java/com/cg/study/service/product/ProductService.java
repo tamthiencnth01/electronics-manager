@@ -67,8 +67,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void warrantyDisclaimer(int status, String reason, Long id) {
-        productRepository.warrantyDisclaimer(status,reason,id);
+    public void warrantyDisclaimer(int status, String reason, String photo, Long id) {
+        productRepository.warrantyDisclaimer(status,reason,photo,id);
     }
 
 

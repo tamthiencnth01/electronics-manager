@@ -69,18 +69,31 @@
         $('#warrantyDisclaimerModal').modal('show');
     }
     bill.warrantyDisclaimerSubmit = function (){
-        let reason = $('input[name="reason"]').val();
+        let reason = $('#reason').val();
         let id  =  $('input[name="idWa"]').val();
+        let formData = new FormData();
+        formData.append("select_file", select_file.files[0]);
         $.ajax({
-            url: page.urls.getAllProducts + "/" + 1 + "/" + reason + "/" + id,
-            type: "PATCH",
-            success: function() {
-                bill.kythuatList();
-                $('#warrantyDisclaimerModal').modal('hide');
-                $.notify("Bill has been update success", "success");
-            },
-            error: function (){
-                $.notify("Something went wrong, please try again", "error");
+            url: "https://toyotahue.net/api/electronic/create",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                let avatar = data.uploaded_image;
+                $.ajax({
+                    url: page.urls.getAllProducts + "/" + 1 + "/" + reason + "/" + avatar + "/" + id,
+                    type: "PATCH",
+                    success: function() {
+                        bill.kythuatList();
+                        $('#warrantyDisclaimerModal').modal('hide');
+                        $.notify("Bill has been update success", "success");
+                    },
+                    error: function (){
+                        $.notify("Something went wrong, please try again", "error");
+                    }
+                })
             }
         })
     }

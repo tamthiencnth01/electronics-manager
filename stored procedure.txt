@@ -1,0 +1,40 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_add_kilometer`(IN km double, IN bill_id bigint)
+BEGIN
+	update bills set kilometer = km, total = km*7000 + 300000 where id = bill_id;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_bills_complete`()
+BEGIN
+	SELECT * FROM study.bills where kilometer not like 0;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_statistical_technicians`()
+BEGIN
+	select *, sum(total) as statictical from study.bills group by user_id;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_doing`(IN repairOperation varchar(255), IN endDate varchar(255), IN accessoryId bigint, IN billId bigint)
+BEGIN
+	update bills set repair_operation = repairOperation, end_date = endDate, accessory_id = accessoryId where id = billId;
+    update accessories set quantity = quantity - 1 where id = accessoryId;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_products`(IN productId bigint, IN numberMonth int)
+BEGIN
+	update products set finish_date = DATE_ADD(start_dated, INTERVAL numberMonth MONTH) where id = productId;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_replaced`(IN replacedId bigint, IN numberMonth int)
+BEGIN
+	update replaces set finish_date = DATE_ADD(start_dated, INTERVAL numberMonth MONTH) where id = replacedId;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_view_products`()
+BEGIN
+	SELECT *, (SELECT TIMESTAMPDIFF(day, now(), finish_date)) as remaining_day FROM study.products;
+END

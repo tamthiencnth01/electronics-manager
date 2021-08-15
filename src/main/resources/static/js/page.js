@@ -25,6 +25,7 @@ let page = {
         getAllAccessories: App.BASE_URL_ACCESSORY,
         updateDoingBill: App.BASE_URL_BILL + '/',
         searchProductBySerialNumber: App.BASE_URL_PRODUCT + '?search=',
-        saveNewReplaced: App.BASE_URL_REPLACED + "/"
+        saveNewReplaced: App.BASE_URL_REPLACED + "/",
+        getAllReplaced: App.BASE_URL_REPLACED
     }
 }

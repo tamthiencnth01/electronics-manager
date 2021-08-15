@@ -127,13 +127,16 @@ public class ProductAPI {
         }
     }
 
-    @PatchMapping("/{status}/{reason}/{id}")
-    private ResponseEntity<Bill> updateBill(@PathVariable int status,@PathVariable String reason, @PathVariable Long id){
+    @PatchMapping("/{status}/{reason}/{photo}/{id}")
+    private ResponseEntity<Bill> updateBill(@PathVariable int status,
+                                            @PathVariable String reason,
+                                            @PathVariable String photo,
+                                            @PathVariable Long id){
         Optional<Product> product = productService.findById(id);
         if (!product.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        productService.warrantyDisclaimer(status,reason,id);
+        productService.warrantyDisclaimer(status,reason,photo,id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

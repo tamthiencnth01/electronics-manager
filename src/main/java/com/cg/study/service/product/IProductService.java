@@ -12,5 +12,8 @@ public interface IProductService extends IGeneralService<Product> {
     Iterable<IProductDto> findAllBySerialNumber(String check);
     public void updateFinishDay(@Param("productId") Long productId, @Param("numberMonth") int numberMonth);
     public Iterable<IProductDto> listProducts();
-    public void warrantyDisclaimer(@Param("status") int status,@Param("reason") String reason,@Param("id")  Long id);
+    public void warrantyDisclaimer(@Param("status") int status,
+                                   @Param("reason") String reason,
+                                   @Param("photo")  String photo,
+                                   @Param("id")  Long id);
 }

@@ -89,14 +89,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </a>
         </li>
         <li>
-            <a href="/tuchoi">
-                <i class="fas fa-exclamation-triangle"></i>
+            <a href="/disagree">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 <span class="nav-text">
 					TỪ CHỐI BẢO HÀNH
 					</span>
             </a>
         </li>
-
     </ul>
     <ul class="logout">
         <li>
@@ -125,10 +124,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <button id="toggle"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
             </section>
         </div>
-        <div class="w3l_search">
-<!--                action="#" method="post"-->
-                <input type="text" name="search" id="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="">
-                <button class="btn btn-default" onclick="bill.search()" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+<!--        <div class="w3l_search">-->
+<!--&lt;!&ndash;                action="#" method="post"&ndash;&gt;-->
+<!--                <input type="text" name="search" id="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="">-->
+<!--                <button class="btn btn-default" onclick="bill.search()" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>-->
+<!--        </div>-->
+<!--        <div class="info">-->
+<!--            <span th:text="${userInfoName}"></span>-->
+<!--        </div>-->
+        <div class="alert alert-info">
+            <strong>Hi <span th:text="${userInfoName}"></span></strong> Welcome back!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
         </div>
         <div class="clearfix"> </div>
     </section>
@@ -225,7 +231,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="form-group" style="text-align: center">
                             <p>Nguyên Nhân: <span style="color: #0e8f9f" id="reason"></span></p>
                         </div>
-
+                        <div id="image_div">
+                        </div>
                     </form>
                 </div>
 

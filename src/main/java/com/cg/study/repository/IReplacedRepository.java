@@ -23,4 +23,6 @@ public interface IReplacedRepository extends JpaRepository<Replaced, Long> {
     @Modifying
     @Query("select r from Replaced r where r.product.id = ?1")
     Set<Replaced> selectAllReplacedsById(Long id);
+
+
 }
