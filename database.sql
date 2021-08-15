@@ -39,7 +39,7 @@ CREATE TABLE `accessories` (
 
 LOCK TABLES `accessories` WRITE;
 /*!40000 ALTER TABLE `accessories` DISABLE KEYS */;
-INSERT INTO `accessories` VALUES (1,'Panel 43 inch',2500000,32,3000000,0),(2,'Panel 55 inch',3200000,4,3800000,0),(3,'Panel 52 inch',2500000,9,3000000,0),(4,'Panel 49 inch',3200000,8,3800000,0),(5,'Panel 60 inch',3200000,10,3800000,0),(6,'Panel 32 inch',3200000,39,3800000,0),(7,'Panel 45 inch',3200000,9,3800000,0);
+INSERT INTO `accessories` VALUES (1,'Panel 43 inch',2500000,32,3000000,0),(2,'Panel 55 inch',3200000,10,3800000,0),(3,'Panel 52 inch',2500000,9,3000000,0),(4,'Panel 49 inch',3200000,8,3800000,0),(5,'Panel 60 inch',3200000,10,3800000,0),(6,'Panel 32 inch',3200000,38,3800000,0),(7,'Panel 45 inch',3200000,9,3800000,0);
 /*!40000 ALTER TABLE `accessories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +95,7 @@ CREATE TABLE `bills` (
   KEY `FKoy9sc2dmxj2qwjeiiilf3yuxp` (`customer_id`),
   KEY `FKja2jdwvsth2hkvlk8k334i822` (`product_id`),
   KEY `FKk8vs7ac9xknv5xp18pdiehpp1` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `bills` (
 
 LOCK TABLES `bills` WRITE;
 /*!40000 ALTER TABLE `bills` DISABLE KEYS */;
-INSERT INTO `bills` VALUES (28,'2021-08-11','đốm màn hình',12,'Thay Panel','10-08-2021',NULL,384000,1,3,20,35,'28 nguyễn tri phương','0123689',NULL),(29,'2021-08-11','đốm màn hình',12,'Thay Panel','10-08-2021',NULL,384000,1,3,20,35,'28 nguyễn tri phương','0123689',NULL),(30,'2021-08-11','đốm màn hình',1,'Thay Panel','10-08-2021',NULL,307000,2,3,23,35,'28 nguyễn tri phương','0123689',NULL),(34,'2021-08-12','đốm màn hình',1,'Thay Panel','10-08-2021',NULL,307000,2,3,18,36,'quảng bình','0931935255',NULL),(35,'2021-08-12','Không lên nguồn',1,'Thay Panel','11-08-2021',NULL,307000,1,3,18,36,'28 nguyễn tri phương','0931935255',NULL),(36,'2021-08-13','Không lên nguồn',12,'Thay Bo Nguồn','11-08-2021',NULL,384000,2,11,18,31,'28 nguyễn tri phương','0931935255',NULL),(37,'2021-08-13','đốm màn hình',12,'Thay Bo Formatter','11-08-2021',NULL,384000,4,10,18,37,'28 nguyễn tri phương','0123689',NULL),(38,NULL,'đốm màn hình',0,NULL,'11-08-2021',NULL,0,NULL,12,18,32,'quảng bình','0931935255',NULL),(39,'2021-08-13','có tiếng không hình',12,'Thay Panel','11-08-2021',NULL,384000,7,4,26,39,'phan đăng lưu','0931935255',NULL),(40,'2021-08-12','đốm màn hình',12,'Thay Panel','11-08-2021',NULL,384000,3,9,18,33,'28 nguyễn tri phương','0931935255',NULL),(41,'2021-08-12','đốm màn hình',12,'Thay Panel','11-08-2021',NULL,384000,4,3,18,38,'28 nguyễn tri phương','0123689',NULL),(42,'2021-09-13','đốm màn hình',12,'Thay Panel','12-08-2021',NULL,384000,2,12,18,34,'28 nguyễn tri phương','0931935255',NULL),(43,'2021-08-13','Không lên nguồn',0,'Thay Panel','12-08-2021',NULL,0,6,1,18,41,'28 nguyễn tri phương','0931935255',NULL),(44,NULL,'Không lên nguồn',0,NULL,'12-08-2021',NULL,0,NULL,11,18,31,'28 nguyễn tri phương','0931935255',NULL),(45,NULL,'Không lên nguồn',0,NULL,'13-08-2021',NULL,0,NULL,10,18,37,'28 nguyễn tri phương','0931935255',NULL);
+INSERT INTO `bills` VALUES (28,'2021-08-11','đốm màn hình',12,'Thay Panel','10-08-2021',NULL,384000,1,3,20,35,'28 nguyễn tri phương','0123689',NULL),(29,'2021-08-11','đốm màn hình',12,'Thay Panel','10-08-2021',NULL,384000,1,3,20,35,'28 nguyễn tri phương','0123689',NULL),(30,'2021-08-11','đốm màn hình',1,'Thay Panel','10-08-2021',NULL,307000,2,3,23,35,'28 nguyễn tri phương','0123689',NULL),(34,'2021-08-12','đốm màn hình',1,'Thay Panel','10-08-2021',NULL,307000,2,3,18,36,'quảng bình','0931935255',NULL),(35,'2021-08-12','Không lên nguồn',1,'Thay Panel','11-08-2021',NULL,307000,1,3,18,36,'28 nguyễn tri phương','0931935255',NULL),(36,'2021-08-13','Không lên nguồn',12,'Thay Bo Nguồn','11-08-2021',NULL,384000,2,11,18,31,'28 nguyễn tri phương','0931935255',NULL),(37,'2021-08-13','đốm màn hình',12,'Thay Bo Formatter','11-08-2021',NULL,384000,4,10,18,37,'28 nguyễn tri phương','0123689',NULL),(38,NULL,'đốm màn hình',0,NULL,'11-08-2021',NULL,0,NULL,12,18,32,'quảng bình','0931935255',NULL),(39,'2021-08-13','có tiếng không hình',12,'Thay Panel','11-08-2021',NULL,384000,7,4,26,39,'phan đăng lưu','0931935255',NULL),(40,'2021-08-12','đốm màn hình',12,'Thay Panel','11-08-2021',NULL,384000,3,9,18,33,'28 nguyễn tri phương','0931935255',NULL),(41,'2021-08-12','đốm màn hình',12,'Thay Panel','11-08-2021',NULL,384000,4,3,18,38,'28 nguyễn tri phương','0123689',NULL),(42,'2021-09-13','đốm màn hình',12,'Thay Panel','12-08-2021',NULL,384000,2,12,18,34,'28 nguyễn tri phương','0931935255',NULL),(43,'2021-08-13','Không lên nguồn',0,'Thay Panel','12-08-2021',NULL,0,6,1,18,41,'28 nguyễn tri phương','0931935255',NULL),(44,NULL,'Không lên nguồn',0,NULL,'12-08-2021',NULL,0,NULL,11,18,31,'28 nguyễn tri phương','0931935255',NULL),(45,NULL,'Không lên nguồn',0,NULL,'13-08-2021',NULL,0,NULL,10,18,37,'28 nguyễn tri phương','0931935255',NULL),(46,NULL,'Không lên nguồn',0,NULL,'13-08-2021',NULL,0,NULL,6,18,40,'28 nguyễn tri phương','0931935255',NULL),(47,NULL,'Không lên nguồn',0,NULL,'13-08-2021',NULL,0,NULL,3,18,36,'28 nguyễn tri phương','0931935255',NULL),(48,NULL,'đốm màn hình',0,NULL,'13-08-2021',NULL,0,NULL,13,21,43,'28 nguyễn tri phương','0931935255',NULL),(49,'2021-08-14','Không lên nguồn',0,'Thay Panel','13-08-2021',NULL,0,6,10,21,37,'28 nguyễn tri phương','0931935255',NULL),(50,NULL,'Không lên nguồn',0,NULL,'13-08-2021',NULL,0,NULL,11,18,31,'28 nguyễn tri phương','0931935255',NULL);
 /*!40000 ALTER TABLE `bills` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +122,7 @@ CREATE TABLE `customers` (
   `customer_phone` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_delete` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'Enim molestiae rerum','Uriah Guerrero','+1 (306) 691-3512',0),(3,'Quảng Bình','Nguyễn Công Huy','123123',0),(4,'Phan Đăng Lưu','Trần Quang Tín','0931925215',0),(5,'Ea ratione quibusdam','Griffin Bender','+1 (868) 388-6317',0),(6,'Qui dolore velit con','Roanna Kane','+1 (775) 977-8828',0),(7,'Maxime maiores labor','Lillith Sampson','+1 (593) 469-2787',0),(9,'Ut eiusmod aut accus','Colette Richardson','+1 (553) 271-5444',0),(8,'Lorem ea modi dolori','Gray Griffin','+1 (962) 333-2564',0),(10,'Dưỡng Mong','Lại Phước Khánh','023156645',0),(11,'Kim Long','Bình Hụ','0931929542',0),(12,'Quảng Bình','Anh Nam','023112658',0);
+INSERT INTO `customers` VALUES (1,'Enim molestiae rerum','Uriah Guerrero','+1 (306) 691-3512',0),(3,'Quảng Bình','Nguyễn Công Huy','123123',0),(4,'Phan Đăng Lưu','Trần Quang Tín','0931925215',0),(5,'Ea ratione quibusdam','Griffin Bender','+1 (868) 388-6317',0),(6,'Qui dolore velit con','Roanna Kane','+1 (775) 977-8828',0),(7,'Maxime maiores labor','Lillith Sampson','+1 (593) 469-2787',0),(9,'Ut eiusmod aut accus','Colette Richardson','+1 (553) 271-5444',0),(8,'Lorem ea modi dolori','Gray Griffin','+1 (962) 333-2564',0),(10,'Dưỡng Mong','Lại Phước Khánh','023156645',0),(11,'Kim Long','Bình Hụ','0931929542',0),(12,'Quảng Bình','Anh Nam','023112658',0),(13,'Quảng Bình','Anh Phong','0931929542',0);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +182,7 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `serial_number_UNIQUE` (`serial_number`),
   KEY `FK29w1glmsx19fyn0ts34ak8pc5` (`customer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +191,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (31,'trắng đen','Điều hoà Daikin 1120','10-08-2021','D12A1120','D12A',11,'2022-08-10 11:21:06','2021-08-10 11:21:06',1,'có nước vào panel',NULL),(32,'trắng đen','Máy Giặt Panasonic','10-08-2021','P242C102','P242C',12,'2022-08-10 14:42:42','2021-08-10 14:42:42',1,'vào nước',NULL),(33,'trắng đen','Tivi LG43 inch','10-08-2021','43L100','43L',9,'2021-09-10 14:48:07','2021-08-10 14:48:07',0,NULL,NULL),(34,'đen','Tivi Asanzo 49 inch','10-08-2021','A4921122','A4921',12,'2022-08-10 15:08:41','2021-08-10 15:08:41',0,'vào nước',NULL),(35,'trắng đen','Laptop Dell','10-08-2021','D21100','D21',3,'2022-02-10 15:13:53','2021-08-10 15:13:53',0,'blah',NULL),(36,'trắng đen','Daikin 19098','10-08-2021','D0923412','D098',3,'2022-08-10 16:19:16','2021-08-10 16:19:16',0,'vào nước',NULL),(37,'trắng đen','Dell 7450','11-08-2021','D21L23','Laptop Dell 12',10,'2021-10-11 09:13:18','2021-08-11 09:13:18',1,'có nước vào panel',NULL),(38,'đen','dell 3536','11-08-2021','d32143','dell',3,'2022-08-11 09:27:22','2021-08-11 09:27:22',0,NULL,NULL),(39,'đen','Tivi Lg 49 inch','11-08-2021','L49K300001','L49K300',4,'2023-08-11 14:43:46','2021-08-11 14:43:46',0,'có hiện tượng thấm chất lỏng',NULL),(40,'đen','Tivi LED TCL L40S6500','12-08-2021','L40S65001','L40S6500',6,'2022-08-12 08:21:20','2021-08-12 08:21:20',0,NULL,NULL),(41,'đen','Tivi TCL 4K 55 inch ','12-08-2021','L55P65UF01','L55P65-UF',1,'2022-08-12 08:31:16','2021-08-12 08:31:16',0,NULL,NULL),(42,'đen','Tivi LED TCL L40S6500','12-08-2021','L40S65002','L40S6500',8,'2021-08-12 08:41:16','2021-08-12 08:41:16',0,NULL,NULL);
+INSERT INTO `products` VALUES (31,'trắng đen','Điều hoà Daikin 1120','10-08-2021','D12A1120','D12A',11,'2022-08-10 11:21:06','2021-08-10 11:21:06',1,'có nước vào panel','g5_A6YD.jpg'),(32,'trắng đen','Máy Giặt Panasonic','10-08-2021','P242C102','P242C',12,'2022-08-10 14:42:42','2021-08-10 14:42:42',0,'có nước vào panel','g4.jpg'),(33,'trắng đen','Tivi LG43 inch','10-08-2021','43L100','43L',9,'2021-09-10 14:48:07','2021-08-10 14:48:07',0,NULL,NULL),(34,'đen','Tivi Asanzo 49 inch','10-08-2021','A4921122','A4921',12,'2022-08-10 15:08:41','2021-08-10 15:08:41',0,'vào nước',NULL),(35,'trắng đen','Laptop Dell','10-08-2021','D21100','D21',3,'2022-02-10 15:13:53','2021-08-10 15:13:53',0,'blah',NULL),(36,'trắng đen','Daikin 19098','10-08-2021','D0923412','D098',3,'2022-08-10 16:19:16','2021-08-10 16:19:16',0,'có nước vào panel','g4.jpg'),(37,'trắng đen','Dell 7450','11-08-2021','D21L23','Laptop Dell 12',10,'2021-10-11 09:13:18','2021-08-11 09:13:18',0,'có nước vào panel','g5.jpg'),(38,'đen','dell 3536','11-08-2021','d32143','dell',3,'2022-08-11 09:27:22','2021-08-11 09:27:22',0,NULL,NULL),(39,'đen','Tivi Lg 49 inch','11-08-2021','L49K300001','L49K300',4,'2023-08-11 14:43:46','2021-08-11 14:43:46',0,'có hiện tượng thấm chất lỏng',NULL),(40,'đen','Tivi LED TCL L40S6500','12-08-2021','L40S65001','L40S6500',6,'2022-08-12 08:21:20','2021-08-12 08:21:20',0,'có nước vào panel','g2.jpg'),(41,'đen','Tivi TCL 4K 55 inch ','12-08-2021','L55P65UF01','L55P65-UF',1,'2022-08-12 08:31:16','2021-08-12 08:31:16',0,NULL,NULL),(42,'đen','Tivi LED TCL L40S6500','12-08-2021','L40S65002','L40S6500',8,'2021-08-12 08:41:16','2021-08-12 08:41:16',0,NULL,NULL),(43,'đen','Tivi LED TCL L40S6500','13-08-2021','L40S650002','L40S6500',13,'2022-08-13 15:16:25','2021-08-13 15:16:25',0,'có nước vào panel','g2.jpg');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +249,7 @@ CREATE TABLE `replaces` (
 
 LOCK TABLES `replaces` WRITE;
 /*!40000 ALTER TABLE `replaces` DISABLE KEYS */;
-INSERT INTO `replaces` VALUES (1,'1','1',NULL,NULL,NULL,'2021-08-12 16:04:02',0,32,NULL,0),(2,'1','1','2022-08-12 16:06:41',NULL,NULL,'2021-08-12 16:06:41',0,32,NULL,0),(3,'1','1','2022-08-12 16:11:29',NULL,NULL,'2021-08-12 16:11:29',0,32,'12-08-2021',0),(4,'bể màn hình','Panel 32 inch','2022-08-13 00:16:19',NULL,NULL,'2021-08-13 00:16:19',0,31,'13-08-2021',3800000),(5,'bể màn hình','Panel 32 inch','2022-08-13 00:16:52',NULL,NULL,'2021-08-13 00:16:52',0,31,'13-08-2021',3800000),(6,'bể màn hình','Panel 45 inch','2022-08-13 00:23:06',NULL,NULL,'2021-08-13 00:23:06',0,31,'13-08-2021',3800000),(7,'bể màn hình','Panel 60 inch','2022-08-13 08:36:11',NULL,NULL,'2021-08-13 08:36:11',0,31,'13-08-2021',3800000),(8,'bể màn hình','Panel 32 inch','2022-02-13 08:40:13',NULL,NULL,'2021-08-13 08:40:13',0,37,'13-08-2021',3800000);
+INSERT INTO `replaces` VALUES (4,'bể màn hình','Panel 32 inch','2022-08-13 00:16:19',NULL,NULL,'2021-08-13 00:16:19',0,31,'13-08-2021',3800000),(5,'bể màn hình','Panel 32 inch','2022-08-13 00:16:52',NULL,NULL,'2021-08-13 00:16:52',0,31,'13-08-2021',3800000),(6,'bể màn hình','Panel 45 inch','2022-08-13 00:23:06',NULL,NULL,'2021-08-13 00:23:06',0,31,'13-08-2021',3800000),(7,'bể màn hình','Panel 60 inch','2022-08-13 08:36:11',NULL,NULL,'2021-08-13 08:36:11',0,31,'13-08-2021',3800000),(8,'bể màn hình','Panel 32 inch','2022-02-13 08:40:13',NULL,NULL,'2021-08-13 08:40:13',0,37,'13-08-2021',3800000);
 /*!40000 ALTER TABLE `replaces` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,4 +449,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-13  9:41:11
+-- Dump completed on 2021-08-15 23:01:56
