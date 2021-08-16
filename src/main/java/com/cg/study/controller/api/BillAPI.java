@@ -2,12 +2,14 @@ package com.cg.study.controller.api;
 
 import com.cg.study.model.Bill;
 import com.cg.study.model.Customer;
+import com.cg.study.model.dto.IBillDTO;
 import com.cg.study.service.bill.IBillService;
 import com.cg.study.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -58,9 +60,9 @@ public class BillAPI {
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
-    @GetMapping("/statistical")
-    private ResponseEntity<Iterable<Bill>> statisticalTechnicians(){
-        Iterable<Bill> bills = billService.statisticalTechnicians();
+    @GetMapping("/statistical/{endDate}")
+    private ResponseEntity<Iterable<Bill>> statisticalTechnicians(@PathVariable("endDate") String endDate){
+        Iterable<Bill> bills = billService.statisticalTechnicians(endDate);
         if (((List) bills).isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -112,7 +114,6 @@ public class BillAPI {
     @PatchMapping("{repairOperation}/{endDate}/{accesoryId}/{id}")
     private ResponseEntity<Bill> updateBillDoing(@PathVariable String repairOperation,@PathVariable String endDate,@PathVariable Long accesoryId,@PathVariable Long id){
         Optional<Bill> bill = billService.findById(id);
-        System.out.println(bill);
         if (!bill.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

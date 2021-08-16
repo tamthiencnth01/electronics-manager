@@ -30,23 +30,26 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-//    private String getPrincipal() {
-//        String userName = null;
-//        Long id;
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        if (principal instanceof UserDetails) {
-//
-//            userName = ((UserDetails) principal).getUsername();
-//
-//            User user = userRepository.findByUsername(userName);
-//
-//            id = user.getId();
-//        } else {
-//            userName = principal.toString();
-//        }
-//        return userName;
-//    }
+    private String getPrincipalUserName() {
+        String userName = null;
+        String fullName = null;
+        Long id;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+
+            userName = ((UserDetails) principal).getUsername();
+
+            User user = userRepository.findByUsername(userName);
+
+            id = user.getId();
+            fullName = user.getFullName();
+        } else {
+            userName = principal.toString();
+            fullName = principal.toString();
+        }
+        return fullName;
+    }
 
     private Long getPrincipal() {
         String userName = null;
@@ -98,6 +101,7 @@ public class HomeController {
     public ModelAndView admin(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/employee/list");
         modelAndView.addObject("userInfo", getPrincipal());
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
         return modelAndView;
     }
 
@@ -106,6 +110,7 @@ public class HomeController {
     public ModelAndView user(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/customer/list");
         modelAndView.addObject("userInfo", getPrincipal());
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
         return modelAndView;
     }
 
@@ -114,6 +119,8 @@ public class HomeController {
     public ModelAndView kt(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/kythuat/list");
         modelAndView.addObject("userInfo", getPrincipal());
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
+
         return modelAndView;
     }
     @GetMapping("/cskh")
@@ -121,24 +128,40 @@ public class HomeController {
     public ModelAndView cskh(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/cskh/list");
         modelAndView.addObject("userInfo", getPrincipal());
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
         return modelAndView;
     }
 
     @GetMapping("/doing")
     public ModelAndView doing() {
         ModelAndView modelAndView = new ModelAndView("/employee/doing");
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
         return modelAndView;
     }
 
     @GetMapping("/done")
     public ModelAndView done() {
         ModelAndView modelAndView = new ModelAndView("/employee/done");
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
         return modelAndView;
     }
 
     @GetMapping("/complete")
     public ModelAndView complete() {
         ModelAndView modelAndView = new ModelAndView("/employee/complete");
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
+        return modelAndView;
+    }
+    @GetMapping("/accessory")
+    public ModelAndView accessory() {
+        ModelAndView modelAndView = new ModelAndView("/accessory/list");
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
+        return modelAndView;
+    }
+    @GetMapping("/disagree")
+    public ModelAndView disagree() {
+        ModelAndView modelAndView = new ModelAndView("/cskh/disagree");
+        modelAndView.addObject("userInfoName", getPrincipalUserName());
         return modelAndView;
     }
 }

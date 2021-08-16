@@ -1,10 +1,12 @@
 var bill = bill || {};
+var product = product || {};
 
 bill.billList = function () {
     $.ajax({
         url: page.urls.getAllProducts + "/cskh",
         method: 'GET',
         success: function (response) {
+
             $('.table-bill tbody').empty();
             response = response.sort(function (pdt1, pdt2) {
                 return pdt2.id - pdt1.id;
@@ -16,25 +18,98 @@ bill.billList = function () {
                         <td>${item.productName}</td>
                         <td>${item.serialNumber}</td>
                         <td>${item.serviceTag}</td>
-                        <td>${item.remainingDay}
-                            ${item.remainingDay > 30 ?
-                    '<span class="badge bg-primary">Còn Bảo Hành</span>' :
-                    '<span class="badge bg-danger">Hết Hạn Bảo Hành</span>'}
+                        <td>${item.status == 1 ?
+                            '<span class="badge bg-danger">Từ Chối Bảo Hành</span>' :
+                                item.remainingDay > 30 ? 
+                                '<span class="badge bg-primary">Còn Bảo Hành </span>' :
+                                    item.remainingDay <= 0 ?
+                                        '<span class="badge bg-danger">Hết Bảo Hành</span>':
+                                        '<span class="badge bg-alert">Gần Hết Bảo Hành</span>'
+                            }
+                        </td>
+                        <td>${item.status == 1 || item.remainingDay <= 0 ?
+                            '<span hidden class="badge bg-danger">###</span>' :
+                            item.remainingDay
+                            }
                         </td>
                         <td>${item.customer}</td>
                         <td>
-                         <a href='javascript:;' class='btn btn-success btn-sm'
-                                title='Add Bill'
-                                onclick="bill.getProduct(${item.id})">
-                                <i class="fa fa-plus"></i>
-                            </a>
+                            ${item.status == 1 ?
+                            `<a href='javascript:;' class='btn btn-danger btn-sm'
+                                title='View Reason'
+                                onclick="bill.getReason(${item.id})">
+                                <i class="fa fa-edit"></i>
+                            </a>`     :
+                                item.remainingDay <= 0 ?
+                                    '<span hidden class="badge bg-danger">###</span>':    
+                                    `<a href='javascript:;' class='btn btn-success btn-sm'
+                                        title='Add Bill'
+                                        onclick="bill.getProduct(${item.id})">
+                                        <i class="fa fa-plus"></i>
+                                    </a>`   
+                            }
                         </td>
                     </tr>
                     `);
             });
+            if ( $.fn.dataTable.isDataTable( '.table-bill' ) ) {
+                table = $('.table-bill').DataTable();
+            }
+            else {
+                table = $('.table-bill').DataTable( {
+                    paging: true
+                } );
+            }
         }
     })
 }
+bill.getReason = function (id){
+    $('#viewHistoryWarnatyForm')[0].reset();
+    $.ajax({
+        url: page.urls.getProduct + id,
+        method: "GET",
+        success: function (response) {
+            $('#reason').text(response.reason);
+            let photo = response.photo;
+            console.log(photo);
+            $.ajax({
+                type: "GET",
+                url: "https://toyotahue.net/data/electronic/" + photo,
+                beforeSend: function (xhr) {
+                    xhr.overrideMimeType('text/plain; charset=x-user-defined');
+                },
+                success: function (result, textStatus, jqXHR) {
+                    if(result.length < 1){
+                        alert("The thumbnail doesn't exist");
+                        $("#thumbnail").attr("src", "data:image/png;base64,");
+                        return
+                    }
+
+                    var binary = "";
+                    var responseText = jqXHR.responseText;
+                    var responseTextLen = responseText.length;
+
+                    for ( i = 0; i < responseTextLen; i++ ) {
+                        binary += String.fromCharCode(responseText.charCodeAt(i) & 255)
+                    }
+                    $("#thumbnail").attr("src", "data:image/png;base64,");
+
+                    /* PUT THIS INSIDE AJAX SUCCESS */
+                    var img = $('<img style="align-content: center" id="image_id" width="350px" height="250px">');
+                    img.attr('src', 'data:image/png;base64,' + btoa(binary));
+                    img.appendTo('#image_div');
+                    $('#viewHistoryWarnatyModal').modal('show');
+                },
+                error: function(xhr, textStatus, errorThrown){
+                    alert("Error in getting document "+textStatus);
+                }
+            });
+
+
+        }
+    })
+}
+
 function getToday(){
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -60,7 +135,6 @@ bill.save = function () {
                 dataType: "json",
                 data: JSON.stringify(createObj),
                 success: function (result) {
-                    // console.log(result);
                     if (result) {
                         bill.billList();
                         $('#billModal').modal('hide');
@@ -84,7 +158,7 @@ bill.getProduct = function (id) {
             $('#customerFullName').text(response.customer.customerFullName);
             $('#productName').text(response.productName);
             $('#productSerial').text(response.serialNumber);
-            $('#billModal').modal('show')
+            $('#billModal').modal('show');
         }
     })
 }
@@ -193,7 +267,6 @@ bill.staticsList = function(){
         url: page.urls.getAllBilStatics,
         method:'GET',
         success: function(response){
-            console.log(response);
             $('.table-statics tbody').empty();
             $.each(response, function(index, item){
                 $('.table-statics tbody').append(`
@@ -214,7 +287,6 @@ bill.calculalorKilometer = function (id){
         type: "PATCH",
         success: function() {
             bill.init();
-            // $('#customerModal').modal('hide');
             $.notify("Bill has been update success", "success");
         },
         error: function (){
@@ -288,13 +360,42 @@ bill.search = function () {
         })
     }
 }
-
+bill.replacedList = function (){
+    $.ajax({
+        url: page.urls.getAllReplaced,
+        method:'GET',
+        success: function(response){
+            $('.table-replaced tbody').empty();
+            $.each(response, function(index, item){
+                $('.table-replaced tbody').append(`
+                        <tr>
+                            <td>${item.id}</td>
+                            <td>${item.accessoryName}</td>
+                            <td>${item.product.serialNumber}</td>
+                            <td>${item.product.productName}</td>
+                            <td>${item.retailPrice.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</td>
+                            <td>${item.purchaseDay}</td>
+                            <td>${item.product.customer.customerFullName}</td>
+                            <td>
+                                <a href='javascript:;' class='btn btn-success btn-sm'
+                                            title='Add Bill'
+                                            onclick="bill.getProduct(${item.product.id})">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                            </td>
+                           </tr>
+                        `);
+            });
+        }
+    })
+}
 
 bill.init = function(){
     bill.billList();
     bill.doingList();
     bill.doneList();
     bill.completeList();
+    bill.replacedList();
     bill.getTechnicians();
 }
 

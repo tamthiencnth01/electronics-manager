@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Quản Lý</title>
+    <title>Kỹ Thuật</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Colored Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -24,6 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" type="text/css" href="/layouts/css/basictable.css" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script type="text/javascript" src="/js/sweetalert2.min.js"></script>
 
     <!--    JS-->
@@ -77,135 +78,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <nav class="main-menu">
     <ul>
         <li>
-            <a href="/customers">
+            <a href="/kt">
                 <i class="fa fa-home nav_icon"></i>
                 <span class="nav-text">
 					Dashboard
 					</span>
             </a>
         </li>
-        <li class="has-subnav">
-            <a href="javascript:;">
-                <i class="fa fa-cogs" aria-hidden="true"></i>
-                <span class="nav-text">
-					UI Components
-				</span>
-                <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
-            </a>
-            <ul>
-                <li>
-                    <a class="subnav-text" href="buttons.html">
-                        Buttons
-                    </a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="grids.html">
-                        Grids
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="has-subnav">
-            <a href="javascript:;">
-                <i class="fa fa-check-square-o nav_icon"></i>
-                <span class="nav-text">
-				Forms
-				</span>
-                <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
-            </a>
-            <ul>
-                <li>
-                    <a class="subnav-text" href="inputs.html">Inputs</a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="validation.html">Form Validation</a>
-                </li>
-            </ul>
-        </li>
-        <li class="has-subnav">
-            <a href="javascript:;">
-                <i class="fa fa-file-text-o nav_icon"></i>
-                <span class="nav-text">Pages</span>
-                <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
-            </a>
-            <ul>
-                <li>
-                    <a class="subnav-text" href="gallery.html">
-                        Image Gallery
-                    </a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="calendar.html">
-                        Calendar
-                    </a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="signup.html">
-                        Sign Up Page
-                    </a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="login.html">
-                        Login Page
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="charts.html">
-                <i class="fa fa-bar-chart nav_icon"></i>
-                <span class="nav-text">
-						Charts
-					</span>
-            </a>
-        </li>
-        <li>
-            <a href="typography.html">
-                <i class="icon-font nav-icon"></i>
-                <span class="nav-text">
-					Typography
-					</span>
-            </a>
-        </li>
-        <li>
-            <a href="tables.html">
-                <i class="icon-table nav-icon"></i>
-                <span class="nav-text">
-					Tables
-					</span>
-            </a>
-        </li>
-        <li>
-            <a href="maps.html">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span class="nav-text">
-					Maps
-					</span>
-            </a>
-        </li>
-        <li>
-            <a href="error.html">
-                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                <span class="nav-text">
-					Error Page
-					</span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a href="javascript:;">
-                <i class="fa fa-list-ul" aria-hidden="true"></i>
-                <span class="nav-text">Extras</span>
-                <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
-            </a>
-            <ul>
-                <li>
-                    <a class="subnav-text" href="faq.html">FAQ</a>
-                </li>
-                <li>
-                    <a class="subnav-text" href="blank.html">Blank Page</a>
-                </li>
-            </ul>
-        </li>
+
     </ul>
     <ul class="logout">
         <li>
@@ -234,15 +114,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <button id="toggle"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
             </section>
         </div>
+        <div class="alert alert-info">
+            <strong>Hi <span th:text="${userInfoName}"></span></strong> Welcome back!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+        </div>
         <div class="clearfix"> </div>
     </section>
     <div class="main-grid">
         <div class="agile-grids">
             <h3>NHÂN VIÊN KỸ THUẬT</h3>
             <input type="hidden"  th:value="${userInfo}" id="userId"/>
+            <div class="float-left mb-2">
+                <a href="javascript:;" onclick="bill.tablePrice()" class="btn btn-primary">
+                    <i class="fa fa-tags"></i>
+                    BÁO GIÁ
+                </a>
+            </div>
             <div class="float-right mb-2">
                 <a href="javascript:;" onclick="bill.historyTechnician()" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
+                    <i class="fa fa-history"></i>
                     LỊCH SỬ
                 </a>
             </div>
@@ -301,7 +191,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <a href='javascript:;' class="btn btn-primary" onclick="bill.updateDoing()">Save</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
 
@@ -309,7 +198,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 
+    <!-- The Modal Table Price  -->
+    <div class="modal" id="tablePriceModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
 
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">BÁO GIÁ LINH KIỆN</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <table  class="table-price-technicians">
+                        <thead>
+                        <tr>
+                            <th>Tên Linh Kiện</th>
+                            <th>Giá Linh Kiện</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- The Modal Update Doing Modal -->
     <div class="modal" id="updateDoingModal">
@@ -350,6 +272,92 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
         </div>
     </div>
+
+    <!-- The Modal Replaced Modal -->
+    <div class="modal" id="replacedModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">XỬ LÝ DỊCH VỤ TRẢ PHÍ ĐỐI VỚI CA BỊ TỪ CHỐI BẢO HÀNH</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="replacedForm">
+                        <div class="form-group">
+                            <label>Nguyên nhân thực tế</label>
+                            <input type="text" name="reason" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Linh Kiện thay thế</label>
+                            <select name="accessory" id="replaceAccessory" class="form-control form-select accessory"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Chi Tiết Linh Kiện Đã Thay</label>
+                            <input type="text" name="accessoryDescription" class="form-control">
+                            <input type="hidden" name="replaceId" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Thời Gian Bảo hành (tháng)</label>
+                            <input type="number" name="numberMonth" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Ảnh sản phẩm bị lỗi</label>
+                            <input type="file" name="photo" class="form-control">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a href='javascript:;' class="btn btn-primary" onclick="bill.replaceSubmit()">Save</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal warrantyDisclaimer Modal -->
+    <div class="modal" id="warrantyDisclaimerModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">TỪ CHỐI BẢO HÀNH</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="warrantyDisclaimerForm">
+                        <div class="form-group">
+                            <label>Nguyên nhân thực tế</label>
+                            <input type="text" id="reason" name="reason" class="form-control">
+                            <input type="hidden" name="idWa" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Ảnh sản phẩm bị lỗi</label>
+                            <input id="select_file" type="file" class="form-control"/>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a href='javascript:;' class="btn btn-primary" onclick="bill.warrantyDisclaimerSubmit()">Save</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 </section>
 <script src="/js/kythuat.js"></script>
 </body>

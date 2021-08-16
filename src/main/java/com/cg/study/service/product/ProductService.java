@@ -60,4 +60,11 @@ public class ProductService implements IProductService {
         System.out.println(productRepository.listProducts());
         return productRepository.listProducts();
     }
+
+    @Override
+    public void warrantyDisclaimer(int status, String reason, String photo, Long id) {
+        productRepository.warrantyDisclaimer(status,reason,photo,id);
+    }
+
+
 }

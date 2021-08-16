@@ -26,8 +26,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="/css/sweetalert2.min.css">
     <script type="text/javascript" src="/js/sweetalert2.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <!--    JS-->
     <script src="/layouts/js/jquery2.0.3.min.js"></script>
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -71,7 +69,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="/js/page.js"></script>
 
-<!--    <script src="/js/product.js"></script>-->
+    <!--    <script src="/js/product.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>-->
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
@@ -96,6 +94,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</span>
             </a>
         </li>
+
     </ul>
     <ul class="logout">
         <li>
@@ -124,14 +123,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <button id="toggle"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
             </section>
         </div>
-<!--        <div class="w3l_search">-->
-<!--&lt;!&ndash;                action="#" method="post"&ndash;&gt;-->
-<!--                <input type="text" name="search" id="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="">-->
-<!--                <button class="btn btn-default" onclick="bill.search()" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>-->
-<!--        </div>-->
-<!--        <div class="info">-->
-<!--            <span th:text="${userInfoName}"></span>-->
-<!--        </div>-->
+        <div class="w3l_search">
+            <!--                action="#" method="post"-->
+            <input type="text" name="search" id="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="">
+            <button class="btn btn-default" onclick="bill.search()" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
         <div class="alert alert-info">
             <strong>Hi <span th:text="${userInfoName}"></span></strong> Welcome back!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
@@ -140,17 +136,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </section>
     <div class="main-grid">
         <div class="agile-grids">
-            <h3>CHĂM SÓC KHÁCH HÀNG</h3>
+            <h3>DANH SÁCH LINH KIỆN, SẢN PHẨM ĐÃ ĐƯỢC XỬ LÝ DỊCH VỤ TRẢ PHÍ</h3>
 
-            <table id="table-force-off" class="table table-hover table-bordered text-nowrap table-bill">
+            <table id="table-force-off" class="table table-hover table-bordered text-nowrap table-replaced">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Tên Sản Phẩm</th>
+                    <th>Tên Linh Kiện</th>
                     <th>Serial Number</th>
-                    <th>Dòng Sản Phẩm</th>
-                    <th>Tình Trạng</th>
-                    <th>Số Ngày Còn Lại</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Giá Thay</th>
+                    <th>Ngày Thay</th>
                     <th>Tên Khách Hàng</th>
                     <th>Tạo Ca Bảo Hành</th>
                 </tr>
@@ -231,8 +227,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="form-group" style="text-align: center">
                             <p>Nguyên Nhân: <span style="color: #0e8f9f" id="reason"></span></p>
                         </div>
-                        <div id="image_div">
-                        </div>
+
                     </form>
                 </div>
 
