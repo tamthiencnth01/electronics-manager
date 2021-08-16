@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Repository
@@ -15,8 +16,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query("select c from Customer c where c.isDelete = false order by c.id desc ")
     Iterable<Customer> findAllByCustomer();
-
-
 
     @Transactional
     @Modifying

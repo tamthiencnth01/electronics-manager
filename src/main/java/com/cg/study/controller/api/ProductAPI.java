@@ -3,7 +3,6 @@ package com.cg.study.controller.api;
 import com.cg.study.model.Customer;
 import com.cg.study.model.Product;
 import com.cg.study.model.dto.IProductDto;
-import com.cg.study.model.dto.ProductDto;
 import com.cg.study.service.customer.ICustomerService;
 import com.cg.study.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +24,10 @@ public class ProductAPI {
     @Autowired
     private IProductService productService;
 
-
-
     @GetMapping
     public ResponseEntity<Iterable<Product>> allProducts(@RequestParam("search") Optional<String> serialNumber) {
         Iterable<Product> products;
-        if (serialNumber.isPresent()){
+        if (serialNumber.isPresent()) {
             products = productService.findProductBySerialNumber(serialNumber.get());
         } else {
             products = productService.findAll();
@@ -38,30 +35,16 @@ public class ProductAPI {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         }
-        return new ResponseEntity<>(products,HttpStatus.OK);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-//    @GetMapping("/cskh")
-//    public ResponseEntity<Iterable<IProductDto>> allListProducts(@RequestParam("search") Optional<String> check) {
-//        Iterable<IProductDto> products;
-//        if (check.isPresent()){
-//            products = productService.findAllBySerialNumber(check.get());
-//        } else {
-//            products = productService.listProducts();
-//
-//            if (((List) products).isEmpty()) {
-//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//            }
-//        }
-//        return new ResponseEntity<>(products,HttpStatus.OK);
-//    }
     @GetMapping("/cskh")
     public ResponseEntity<Iterable<IProductDto>> allListProducts() {
         Iterable<IProductDto> products = productService.listProducts();
-            if (((List) products).isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-        return new ResponseEntity<>(products,HttpStatus.OK);
+        if (((List) products).isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 
@@ -84,23 +67,6 @@ public class ProductAPI {
         }
     }
 
-//    @PostMapping
-//    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-//        if (product.getId() != null) {
-//            return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
-//        }
-//
-//        Optional<Customer> customer = customerService.findById(product.getCustomer().getId());
-//
-//        if (customer.isPresent()) {
-//            product.setCustomer(customer.get());
-//            product.setPurchaseDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-//            return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
-
     @PostMapping("/{numberMonth}")
     public ResponseEntity<Product> saveProduct(@RequestBody Product product, @PathVariable int numberMonth) {
         if (product.getId() != null) {
@@ -113,7 +79,7 @@ public class ProductAPI {
             product.setCustomer(customer.get());
             product.setPurchaseDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             productService.save(product);
-            productService.updateFinishDay(product.getId(),numberMonth);
+            productService.updateFinishDay(product.getId(), numberMonth);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

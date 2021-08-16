@@ -44,10 +44,8 @@ class App {
     }
 }
 
-
-
-class User{
-    constructor(username,password,fullName,address,phone,role) {
+class User {
+    constructor(username, password, fullName, address, phone, role) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -57,12 +55,13 @@ class User{
     }
 }
 
-class Role{
+class Role {
     constructor(id, name) {
         this.id = id;
         this.name = name;
     }
 }
+
 class Customer {
     constructor(id, customerFullName, customerAddress, customerPhone) {
         this.id = id;
@@ -72,8 +71,8 @@ class Customer {
     }
 }
 
-class Product{
-    constructor(id, productName,productDescription,serviceTag,serialNumber,purchaseDay, customer,startDate,finishDate,remainingDay) {
+class Product {
+    constructor(id, productName, productDescription, serviceTag, serialNumber, purchaseDay, customer, startDate, finishDate, remainingDay) {
         this.id = id;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -87,8 +86,8 @@ class Product{
     }
 }
 
-class Bill{
-    constructor(id,firstStatus,startDate,endDate,repairOperation,kilometer,total,status,customer,accessory,user,product,currentAddress,currentPhone) {
+class Bill {
+    constructor(id, firstStatus, startDate, endDate, repairOperation, kilometer, total, status, customer, accessory, user, product, currentAddress, currentPhone) {
         this.id = id;
         this.firstStatus = firstStatus;
         this.startDate = startDate;
@@ -105,8 +104,9 @@ class Bill{
         this.currentPhone = currentPhone;
     }
 }
-class Accessory{
-    constructor(id, accessoryName,quantity,importPrice,retailPrice) {
+
+class Accessory {
+    constructor(id, accessoryName, quantity, importPrice, retailPrice) {
         this.id = id;
         this.accessoryName = accessoryName;
         this.quantity = quantity;
