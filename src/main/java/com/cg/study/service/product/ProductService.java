@@ -2,6 +2,7 @@ package com.cg.study.service.product;
 
 import com.cg.study.model.Product;
 import com.cg.study.model.dto.IProductDto;
+import com.cg.study.model.dto.ProductDto;
 import com.cg.study.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,10 @@ public class ProductService implements IProductService {
         return productRepository.findAllBySerialNumber(check);
     }
 
+//    @Override
+//    public Iterable<IProductDto> findProductDtoBySerialNumber(String serialNumber) {
+//        return productRepository.findProductDtoBySerialNumber(serialNumber);
+//    }
 
     @Override
     public void updateFinishDay(Long productId, int numberMonth) {

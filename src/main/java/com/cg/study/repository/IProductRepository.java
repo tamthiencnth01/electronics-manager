@@ -2,6 +2,7 @@ package com.cg.study.repository;
 
 import com.cg.study.model.Product;
 import com.cg.study.model.dto.IProductDto;
+import com.cg.study.model.dto.ProductDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
     Iterable<Product> findAllByCustomerId(Long id);
-
     Iterable<Product> findProductBySerialNumber(String serialNumber);
 
     @Transactional
@@ -36,6 +36,9 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "serviceTag, (SELECT TIMESTAMPDIFF(day, now(), finish_date)) as remainingDay FROM products p;", nativeQuery = true)
     public Iterable<IProductDto> listProducts();
 
+//    @Transactional
+//    @Query("select new com.cg.study.model.dto.ProductDto (p.id) from Product p")
+//    public Iterable<ProductDto> listProducts();
 
     @Transactional
     @Modifying

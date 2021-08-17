@@ -21,5 +21,5 @@ public interface IBillDTO {
     String getCurrentPhone();
     String getCustomer();
     String getUser();
-    int getNumberMonth();
+    Long getMonth();
 }

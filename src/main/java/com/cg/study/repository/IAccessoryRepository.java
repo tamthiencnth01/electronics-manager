@@ -17,4 +17,9 @@ public interface IAccessoryRepository extends JpaRepository<Accessory, Long> {
     @Modifying
     @Query("update Accessory a set a.isDelete = true where a.id = :id")
     void deleteAccessory(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update Accessory a set a.quantity = a.quantity - 1 where a.id = :id")
+    void updateAccessory(@Param("id") Long id);
 }

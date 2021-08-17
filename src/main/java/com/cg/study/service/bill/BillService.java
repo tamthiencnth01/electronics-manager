@@ -79,7 +79,9 @@ public class BillService implements IBillService{
     }
 
     @Override
-    public Iterable<Bill> statisticalTechnicians(String endDate) {
-        return billRepository.statisticalTechnicians(endDate);
+    public Iterable<Bill> statisticalTechnicians() {
+        return billRepository.statisticalTechnicians();
     }
+
+
 }

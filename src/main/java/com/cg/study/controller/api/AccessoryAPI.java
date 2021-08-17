@@ -1,6 +1,8 @@
 package com.cg.study.controller.api;
 
 import com.cg.study.model.Accessory;
+import com.cg.study.model.Bill;
+import com.cg.study.model.Product;
 import com.cg.study.service.accessory.IAccessoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +44,16 @@ public class AccessoryAPI {
             return new ResponseEntity<>(accessoryService.save(accessory),HttpStatus.OK);
         }
         return new ResponseEntity<>(accessoryService.save(accessory), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/decrease/{id}")
+    private ResponseEntity<Accessory> updateAccessory(@PathVariable Long id){
+        Optional<Accessory> accessory = accessoryService.findById(id);
+        if (!accessory.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        accessoryService.updateAccessory(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")

@@ -8,4 +8,6 @@ public interface IAccessoryService extends IGeneralService<Accessory> {
     void deleteAccessory(Long id);
 
     Iterable<Accessory> findAllByAccessory();
+
+    void updateAccessory(Long id);
 }

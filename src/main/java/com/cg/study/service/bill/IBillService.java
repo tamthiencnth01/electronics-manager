@@ -15,5 +15,5 @@ public interface IBillService extends IGeneralService<Bill> {
     public Iterable<Bill> selectAllBillDoneByTechnician();
     public void updateKilometer(@Param("km") double km, @Param("bill_id") Long id);
     public Iterable<Bill> selectAllBillsComplete();
-    public Iterable<Bill> statisticalTechnicians(String endDate);
+    public Iterable<Bill> statisticalTechnicians();
 }

@@ -164,4 +164,9 @@ public class HomeController {
         modelAndView.addObject("userInfoName", getPrincipalUserName());
         return modelAndView;
     }
+    @GetMapping("")
+    public ModelAndView home() {
+        ModelAndView modelAndView = new ModelAndView("home/home");
+        return modelAndView;
+    }
 }

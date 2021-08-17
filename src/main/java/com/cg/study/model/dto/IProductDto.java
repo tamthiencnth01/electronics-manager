@@ -22,4 +22,5 @@ public interface IProductDto {
     String getReason();
     Set<Replaced> getReplaceds();
     public void setReplaceds(Set<Replaced> replaceds);
+
 }

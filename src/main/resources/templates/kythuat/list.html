@@ -306,7 +306,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                         <div class="form-group">
                             <label>Ảnh sản phẩm bị lỗi</label>
-                            <input type="file" name="photo" class="form-control">
+                            <input id="select_file_replace" type="file" class="form-control" onchange="readURL(this);" />
+                            <img width="350px" height="200px" id="blah" src="#" alt="your image" />
                         </div>
                     </form>
                 </div>
@@ -334,7 +335,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form id="warrantyDisclaimerForm">
+                    <form id="warrantyDisclaimerForm" runat="server">
                         <div class="form-group">
                             <label>Nguyên nhân thực tế</label>
                             <input type="text" id="reason" name="reason" class="form-control">
@@ -342,7 +343,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                         <div class="form-group">
                             <label>Ảnh sản phẩm bị lỗi</label>
-                            <input id="select_file" type="file" class="form-control"/>
+                            <input id="select_file" type="file" class="form-control" onchange="readURL(this);" />
+                            <img width="350px" height="200px" id="picDis" src="#" alt="your image" />
                         </div>
                     </form>
                 </div>

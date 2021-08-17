@@ -54,7 +54,7 @@ public interface IBillRepository extends JpaRepository<Bill, Long> {
     @Transactional
     @Modifying
     @Query("select user.fullName, sum(total) from Bill group by user.id order by user.id")
-    public Iterable<Bill> statisticalTechnicians(String endDate);
+    public Iterable<Bill> statisticalTechnicians();
 
 
     @Transactional
@@ -63,6 +63,6 @@ public interface IBillRepository extends JpaRepository<Bill, Long> {
     public Iterable<Bill> selectAllBillsComplete();
 
 //    @Transactional
-//    @Query(value = "select (select u.full_name from users u where id = user_id) as user, sum(b.total) as total from bills b group by b.user_id;", nativeQuery = true)
+//    @Query(value = "select (select u.full_name from users u where id = user_id) as user, sum(b.total) as total from bills b where month(b.end_date) group by b.user_id;", nativeQuery = true)
 //    public Iterable<IBillDTO> statisticalTechnicians();
 }

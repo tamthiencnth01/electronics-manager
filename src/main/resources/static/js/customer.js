@@ -1,29 +1,15 @@
-let page = {
-    urls: {
-        getAllCustomers: App.BASE_URL_CUSTOMER,
-        getAllProducts: App.BASE_URL_PRODUCT,
-        getCustomer: App.BASE_URL_CUSTOMER + '/',
-        saveNew: App.BASE_URL_CUSTOMER,
-        saveEdit: App.BASE_URL_CUSTOMER,
-        deleteCustomer: App.BASE_URL_CUSTOMER,
-        saveNewProduct: App.BASE_URL_PRODUCT,
-        getAllProductsByCustomerId: App.BASE_URL_PRODUCT + "/"
-        // searchProductBySerialNumber: App.BASE_URL_PRODUCT + "?search="
-    }
-}
-
 var customer = customer || {};
 
-customer.customerList = function () {
+customer.customerList = function(){
     $.ajax({
         url: page.urls.getAllCustomers,
-        method: 'GET',
-        success: function (response) {
+        method:'GET',
+        success: function(response){
             $('.table-customer tbody').empty();
-            response = response.sort(function (ctr1, ctr2) {
-                return ctr2.id - ctr1.id;
-            })
-            $.each(response, function (index, item) {
+            // response = response.sort(function(ctr1, ctr2){
+            //     return ctr2.id - ctr1.id;
+            // })
+            $.each(response, function(index, item){
                 $('.table-customer tbody').append(`
                     <tr>
                         <td>${item.id}</td>
@@ -49,49 +35,51 @@ customer.customerList = function () {
                     </tr>
                     `);
             });
-            if ($.fn.dataTable.isDataTable('.table-customer')) {
+            if ( $.fn.dataTable.isDataTable( '.table-customer' ) ) {
                 table = $('.table-customer').DataTable();
-            } else {
-                table = $('.table-customer').DataTable({
+            }
+            else {
+                table = $('.table-customer').DataTable( {
                     paging: true
-                });
+                } );
             }
         }
     })
 }
 
-customer.showModal = function () {
+customer.showModal = function(){
     customer.reset();
     $('#customerModal').modal('show');
 }
 
-customer.save = function () {
-    if ($('#customerForm').valid()) {
+customer.save = function(){
+    if ($('#customerForm').valid()){
         let customerId = parseInt($('input[name="id"]').val());
-        if (customerId == 0) {
+        if(customerId == 0){
             let createObj = {};
             createObj.customerFullName = $('input[name="customerFullName"]').val();
             createObj.customerAddress = $('input[name="customerAddress"]').val();
             createObj.customerPhone = $('input[name="customerPhone"]').val();
             delete createObj.id;
-            console.log(createObj);
             $.ajax({
                 url: page.urls.saveNew,
                 method: "POST",
-                contentType: "application/json",
-                datatype: "json",
+                contentType:"application/json",
+                datatype :"json",
                 data: JSON.stringify(createObj),
-                success: function (result) {
-                    if (result) {
+                success: function(result){
+                    if(result){
                         customer.customerList();
                         $('#customerModal').modal('hide');
                         $.notify("Customer has been created success", "success");
-                    } else {
+                    }
+                    else{
                         $.notify("Something went wrong, please try again", "error");
                     }
                 }
             })
-        } else {
+        }
+        else{
             let modifyObj = {};
             modifyObj.customerFullName = $('input[name="customerFullName"]').val();
             modifyObj.customerAddress = $('input[name="customerAddress"]').val();
@@ -101,15 +89,16 @@ customer.save = function () {
             $.ajax({
                 url: page.urls.saveEdit,
                 method: "PUT",
-                contentType: "application/json",
-                datatype: "json",
+                contentType:"application/json",
+                datatype :"json",
                 data: JSON.stringify(modifyObj),
-                success: function (result) {
-                    if (result) {
+                success: function(result){
+                    if(result){
                         customer.customerList();
                         $('#customerModal').modal('hide');
                         $.notify("Customer has been updated success", "success");
-                    } else {
+                    }
+                    else{
                         $.notify("Something went wrong, please try again", "error");
                     }
                 }
@@ -120,33 +109,32 @@ customer.save = function () {
 }
 
 
-customer.getCustomer = function (id) {
+customer.getCustomer = function(id){
     customer.reset();
     $.ajax({
         url: page.urls.getCustomer + id,
-        method: 'GET',
-        success: function (response) {
+        method:'GET',
+        success: function(response){
             $('#customerFullName').text(response.customerFullName);
             $('#customerId').val(response.id);
-            // $('#customerModal').find('.modal-title').text('Modify customer');
             $('#productModal').modal('show');
         }
     })
 }
 
-customer.getAllProductByCustomerId = function (id) {
+customer.getAllProductByCustomerId = function(id){
     $.ajax({
         url: page.urls.getAllProductsByCustomerId + id,
-        method: 'GET',
-        success: function (response) {
+        method:'GET',
+        success: function(response){
             if (response == null) {
                 App.showErrorAlert("Khách Hàng Hiện Tại Chưa Có Sản Phẩm!");
             } else {
                 $('.table-product tbody').empty();
-                response = response.sort(function (ctr1, ctr2) {
+                response = response.sort(function(ctr1, ctr2){
                     return ctr2.id - ctr1.id;
                 })
-                $.each(response, function (index, item) {
+                $.each(response, function(index, item){
                     $('.table-product tbody').append(`
                     <tr>
                         <td>${item.id}</td>
@@ -164,29 +152,30 @@ customer.getAllProductByCustomerId = function (id) {
 }
 
 
-customer.removeCustomer = function (id) {
+
+customer.removeCustomer = function(id){
 
     $.ajax({
-        type: "DELETE",
-        url: page.urls.deleteCustomer + id
-    }).done(function () {
+        type : "DELETE",
+        url : page.urls.deleteCustomer + id
+    }).done(function (){
         customer.customerList();
         App.showSuccessAlert("Đã xóa thành công!")
-    }).fail(function () {
+    }).fail(function (){
         App.showErrorAlert("Đã xảy ra lỗi!")
     })
 }
 
-customer.reset = function () {
+customer.reset = function(){
     // $('#customerForm').validate().resetForm();
     $('#customerForm')[0].reset();
     $('#customerModal').find('.modal-title').text('Add customer');
 }
 
-customer.init = function () {
+customer.init = function(){
     customer.customerList();
 }
 
-$(document).ready(function () {
+$(document).ready(function(){
     customer.init();
 });

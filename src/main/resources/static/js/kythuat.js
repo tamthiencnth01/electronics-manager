@@ -126,12 +126,14 @@
             url: page.urls.getAllAccessories +"/" + idAccessory,
             type: "GET",
             success: function (response){
+                console.log(response);
                 let replace = {};
                 replace.accessoryName = response.accessoryName;
                 replace.accessoryDescription = $('input[name="accessoryDescription"]').val();
                 replace.retailPrice = response.retailPrice;
                 replace.product  = {"id": $('input[name="replaceId"]').val()};
                 let numberMonth = $('input[name="numberMonth"]').val();
+                let accessoryId = response.id;
                 $.ajax({
                     url: page.urls.saveNewReplaced + numberMonth,
                     type: "POST",
@@ -139,20 +141,40 @@
                     datatype :"json",
                     data: JSON.stringify(replace),
                     success: function() {
-                        let reason = $('input[name="reason"]').val();
-                        let id  =  $('input[name="replaceId"]').val();
                         $.ajax({
-                            url: page.urls.getAllProducts + "/" + 1 + "/" + reason + "/" + id,
-                            type: "PATCH",
-                            success: function() {
-                                bill.init();
-                                $('#replacedModal').modal('hide');
-                                $.notify("Bill has been update success", "success");
-                            },
-                            error: function (){
-                                $.notify("Something went wrong, please try again", "error");
+                            url: page.urls.getAllAccessories + "/decrease/" + accessoryId,
+                            method: "PATCH",
+                            success: function (){
+                                let reason = $('input[name="reason"]').val();
+                                let id  =  $('input[name="replaceId"]').val();
+                                let formData = new FormData();
+                                formData.append("select_file", select_file_replace.files[0]);
+                                $.ajax({
+                                    url: "https://toyotahue.net/api/electronic/create",
+                                    method: "POST",
+                                    data: formData,
+                                    contentType: false,
+                                    cache: false,
+                                    processData: false,
+                                    success: function(data) {
+                                        let avatar = data.uploaded_image;
+                                        $.ajax({
+                                            url: page.urls.getAllProducts + "/" + 1 + "/" + reason + "/" + avatar + "/" + id,
+                                            type: "PATCH",
+                                            success: function() {
+                                                bill.kythuatList();
+                                                $('#replacedModal').modal('hide');
+                                                $.notify("Bill has been update success", "success");
+                                            },
+                                            error: function (){
+                                                $.notify("Something went wrong, please try again", "error");
+                                            }
+                                        })
+                                    }
+                                })
                             }
                         })
+
                     }
                 })
             }
@@ -185,7 +207,20 @@
             }
         })
     }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function (e) {
+                $('#picReplace')
+                    .attr('src', e.target.result);
+                $('#picDis')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
     bill.tablePrice = function (){
         bill.priceList();
         $("#tablePriceModal").modal("show");

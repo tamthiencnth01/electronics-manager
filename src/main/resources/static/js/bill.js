@@ -71,41 +71,16 @@ bill.getReason = function (id){
         success: function (response) {
             $('#reason').text(response.reason);
             let photo = response.photo;
-            console.log(photo);
-            $.ajax({
-                type: "GET",
-                url: "https://toyotahue.net/data/electronic/" + photo,
-                beforeSend: function (xhr) {
-                    xhr.overrideMimeType('text/plain; charset=x-user-defined');
-                },
-                success: function (result, textStatus, jqXHR) {
-                    if(result.length < 1){
-                        alert("The thumbnail doesn't exist");
-                        $("#thumbnail").attr("src", "data:image/png;base64,");
-                        return
-                    }
-
-                    var binary = "";
-                    var responseText = jqXHR.responseText;
-                    var responseTextLen = responseText.length;
-
-                    for ( i = 0; i < responseTextLen; i++ ) {
-                        binary += String.fromCharCode(responseText.charCodeAt(i) & 255)
-                    }
-                    $("#thumbnail").attr("src", "data:image/png;base64,");
-
-                    /* PUT THIS INSIDE AJAX SUCCESS */
-                    var img = $('<img style="align-content: center" id="image_id" width="350px" height="250px">');
-                    img.attr('src', 'data:image/png;base64,' + btoa(binary));
-                    img.appendTo('#image_div');
-                    $('#viewHistoryWarnatyModal').modal('show');
-                },
-                error: function(xhr, textStatus, errorThrown){
-                    alert("Error in getting document "+textStatus);
-                }
-            });
 
 
+            Swal.fire({
+                title: 'Nguyên Nhân',
+                text: response.reason,
+                imageUrl: 'https://toyotahue.net/data/electronic/' + photo,
+                imageWidth: 750,
+                imageHeight: 300,
+                imageAlt: 'Custom image',
+            })
         }
     })
 }
@@ -162,7 +137,10 @@ bill.getProduct = function (id) {
         }
     })
 }
+bill.showModalCalculator = function (){
 
+    $('#calculatorModal').modal('show');
+}
 
 bill.showModal = function () {
     bill.reset();

@@ -40,4 +40,9 @@ public class AccessoryService implements IAccessoryService{
     public Iterable<Accessory> findAllByAccessory() {
         return accessoryRepository.findAllByAccessory();
     }
+
+    @Override
+    public void updateAccessory(Long id) {
+        accessoryRepository.updateAccessory(id);
+    }
 }
