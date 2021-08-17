@@ -56,6 +56,18 @@
     <link href="/lg5-common-gp/css/support-solutions.min.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="/lg5-common-gp/css/stype.css" type="text/css">
 
+    <link rel="stylesheet" href="/css/sweetalert2.min.css">
+
+
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/lg5-common-gp/js/bootstrap.min.js" ></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/page.js"></script>
+<!--    <script src="/lg5-common-gp/js/jquery.min.js" ></script>-->
+
+    <script src="/js/product.js"></script>
+
+    <script type="text/javascript" src="/js/sweetalert2.min.js"></script>
     <script>
         function getCookieHTML(name) {
             var cookies = document.cookie.split(";");
@@ -1179,13 +1191,53 @@
                                     </span>
                         </h1>
                         <div class="search-area">
-                            <form action='/vn/search/search-all' method="post" class="search-common" data-canfocus="1" data-cookiename="LG5_SupportSearch" data-cansubmit="1" data-max="10">
-                                <input type="hidden" name="pageCode" value="support-main">
-                                <input type="hidden" name="serviceType" value="CST">
-                                <input type="hidden" name="type" value="B2C">
+                            <!--     The Modal View Product-->
+                            <div class="modal" id="viewSearchProductModal">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Sản Phẩm</h4>
+                                        <button type="button" class="close" data-dismiss="modal" onclick="product.showModalSearchInput()">&times;</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form id="viewSearchProductForm">
+                                            <div class="form-group" style="text-align: center">
+                                                <p>Tên Khách Hàng: <span style="color: #0e8f9f" id="customerFullName"></span></p>
+                                            </div>
+                                            <table id="table-search-product" class="table table-hover table-bordered text-nowrap table-search-product">
+                                                <thead>
+                                                <tr>
+                                                    <th>Serial Number</th>
+                                                    <th>Tên Sản Phẩm</th>
+                                                    <th>Dòng Sản Phẩm</th>
+                                                    <th>Ngày Bắt Đầu Bảo Hành</th>
+                                                    <th>Mô Tả Sản Phẩm</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="product.showModalSearchInput()">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                            <div id="reset-search-keyword" action='' class="search-common" data-canfocus="1" data-cookiename="LG5_SupportSearch" data-cansubmit="1" data-max="10">
                                 <div class="search-input">
-                                    <input type="text" name="search" id="search-keyword" class="search search-common-input" method="post" placeholder=' Nhập Mã Sản Phẩm hoặc Từ Khóa' title='Nhập Model của bạn # hoặc Tìm kiếm thông tin. Gợi ý tìm kiếm sẽ được mở.' data-predictive-url='/vn/support/search/keyword' autocomplete="off" maxlength="100" />
-                                    <input type="image" class="submit" alt="Search" onclick="productSearch.search()" src="/lg5-common-gp/images/vn/support/icons/support-search.svg" />
+                                    <input type="text" name="search" id="search-keyword" class="search search-common-input" placeholder=' Nhập Mã Sản Phẩm hoặc Từ Khóa' title='Nhập Model của bạn # hoặc Tìm kiếm thông tin. Gợi ý tìm kiếm sẽ được mở.'  maxlength="100" />
+                                    <input type="image" class="submit" onclick="product.search()" alt="Search" src="/lg5-common-gp/images/vn/support/icons/support-search.svg" />
                                 </div>
                                 <div class="search-layer">
                                     <div class="predictive-search search-result-list">
@@ -1223,7 +1275,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <div class="links">
                             <a href="#modal_find_my_model" class="link-text lg ico-popup" data-toggle="modal" title="Mở trong một lớp cửa sổ popup mới">
@@ -2627,51 +2679,8 @@
         </div>
     </div>
 </div>
-<!--     The Modal View Product-->
-<div class="modal" id="viewSearchProductModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Sản Phẩm</h4>
-                <button type="button" class="close" data-dismiss="modal" onclick="productSearch.showModal()">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="viewSearchProductForm">
-                    <div class="form-group" style="text-align: center">
-                        <p>Tên Khách Hàng: <span style="color: #0e8f9f" id="customerFullName"></span></p>
-                    </div>
-                    <table id="table-search-product" class="table table-hover table-bordered text-nowrap table-search-product">
-                        <thead>
-                        <tr>
-                            <th>Serial Number</th>
-                            <th>Tên Sản Phẩm</th>
-                            <th>Dòng Sản Phẩm</th>
-                            <th>Ngày Bắt Đầu Bảo Hành</th>
-                            <!--                                <th>Ngày Kết Thúc Bảo Hành</th>-->
-                            <th>Mô Tả Sản Phẩm</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="productSearch.showModal()">Close</button>
-            </div>
-
-        </div>
-    </div>
 </div>
-</div>
-
 <script>
     var standardData = {};
     standardData = {
@@ -2707,8 +2716,7 @@
 <!--<script type="text/javascript" src="/lg5-common-gp/library/matchMedia.addListener.min.js"></script>-->
 <!--<![endif]-->
 
-<script src="/lg5-common-gp/js/jquery.min.js" ></script>
-<script src="/lg5-common-gp/js/bootstrap.min.js" ></script>
+
 <script src="/lg5-common-gp/js/plugins.common.min.js" ></script>
 
 <script src="/lg5-common-gp/js/common.min.js"></script>
@@ -2764,11 +2772,8 @@
 
 <script src="/lg5-common-gp/js/promotion-slide.min.js" defer></script>
 
-<script src="/js/searchProduct.js"></script>
 
-<script src="/js/app.js"></script>
-<script src="/js/page.js"></script>
-<link rel="stylesheet" href="/css/sweetalert2.min.css">
-<script type="text/javascript" src="/js/sweetalert2.min.js"></script>
+
+
 </body>
 </html>

@@ -28,15 +28,54 @@ product.productList = function(){
                     </tr>
                     `);
             });
-            $('.table-product').DataTable({
-            });
         }
     })
+}
+
+product.search = function () {
+    let serialNumber = $('#search-keyword').val();
+    if (serialNumber === "") {
+        App.showErrorAlert("Không Tìm Thấy Sản Phẩm!");
+    } else {
+        $.ajax({
+            url: page.urls.searchProductBySerialNumber + serialNumber,
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
+                if (data.length === 0) {
+                    App.showSuccessAlert("Không Tìm Thấy Sản Phẩm!");
+                } else {
+                    let content = "";
+                    for (let i = 0; i < data.length; i++) {
+                        $('#customerFullName').text(data[i].customer.customerFullName);
+                        content += `<tr>
+                                <td id="serialNumber">${data[i].serialNumber}</td>
+                                <td>${data[i].productName}</td>
+                                <td>${data[i].serviceTag}</td>
+                                <td>${data[i].purchaseDay}</td>
+                                <td>${data[i].productDescription}</td>
+                            </tr>`
+                    }
+                    $('#table-search-product tbody').html(content); // show dữ liệu khi trả về
+                    $('#viewSearchProductModal').modal('show');
+                }
+            }
+        });
+    }
+}
+
+product.isUndefined = function (value) {
+    return value === undefined || value === null
 }
 
 product.showModal = function(){
     product.reset();
     $('#productModal').modal('show');
+}
+
+product.showModalSearchInput = function () {
+    product.resetSearchInput();
+    // $('#viewSearchProductModal').modal('show');
 }
 
 product.save = function(){
@@ -73,6 +112,11 @@ product.save = function(){
 product.reset = function(){
     $('#productForm').validate().resetForm();
     $('#productForm')[0].reset();
+}
+
+product.resetSearchInput = function(){
+    $(':reset').wrap('<input type="text" name="search" id="search-keyword" class="search search-common-input" placeholder=\' Nhập Mã Sản Phẩm hoặc Từ Khóa\' title=\'Nhập Model của bạn # hoặc Tìm kiếm thông tin. Gợi ý tìm kiếm sẽ được mở.\'  maxlength="100" />')
+    // $('#reset-search-keyword':reset)[0].reset;
 }
 
 product.init = function(){
