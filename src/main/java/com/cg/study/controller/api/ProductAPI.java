@@ -48,20 +48,6 @@ public class ProductAPI {
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
-//    @GetMapping("/cskh")
-//    public ResponseEntity<Iterable<IProductDto>> allListProducts(@RequestParam("search") Optional<String> check) {
-//        Iterable<IProductDto> products;
-//        if (check.isPresent()){
-//            products = productService.findAllBySerialNumber(check.get());
-//        } else {
-//            products = productService.listProducts();
-//
-//            if (((List) products).isEmpty()) {
-//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//            }
-//        }
-//        return new ResponseEntity<>(products,HttpStatus.OK);
-//    }
     @GetMapping("/cskh")
     public ResponseEntity<Iterable<IProductDto>> allListProducts() {
         Iterable<IProductDto> products = productService.listProducts();
@@ -90,23 +76,6 @@ public class ProductAPI {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-//    @PostMapping
-//    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-//        if (product.getId() != null) {
-//            return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
-//        }
-//
-//        Optional<Customer> customer = customerService.findById(product.getCustomer().getId());
-//
-//        if (customer.isPresent()) {
-//            product.setCustomer(customer.get());
-//            product.setPurchaseDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-//            return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
 
     @PostMapping("/{numberMonth}")
     public ResponseEntity<Product> saveProduct(@RequestBody Product product, @PathVariable int numberMonth) {
@@ -146,18 +115,6 @@ public class ProductAPI {
         productService.warrantyDisclaimer(status,reason,photo,id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-//    @PatchMapping("/{status}/{reason}/{id}")
-//    private ResponseEntity<Bill> updateBill(@PathVariable int status,@PathVariable String reason, @PathVariable Long id,
-//                                            @RequestParam("image") MultipartFile multipartFile,
-//                                            @RequestBody Product product){
-//        product = productService.findById(id);
-//        if (!product.isPresent()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        productService.warrantyDisclaimer(status,reason,id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> deleteProvince(@PathVariable Long id) {

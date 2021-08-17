@@ -45,9 +45,6 @@ public class Customer {
     @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
-//    @OneToMany(targetEntity = Bill.class,fetch = FetchType.EAGER)
-//    private Set<Bill> bills;
-
     public String getCustomerFullName() {
         return customerFullName;
     }

@@ -36,10 +36,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "serviceTag, (SELECT TIMESTAMPDIFF(day, now(), finish_date)) as remainingDay FROM products p;", nativeQuery = true)
     public Iterable<IProductDto> listProducts();
 
-//    @Transactional
-//    @Query("select new com.cg.study.model.dto.ProductDto (p.id) from Product p")
-//    public Iterable<ProductDto> listProducts();
-
     @Transactional
     @Modifying
     @Query("update Product p set p.status = :status, p.reason = :reason, p.photo = :photo where p.id = :id")

@@ -62,7 +62,4 @@ public interface IBillRepository extends JpaRepository<Bill, Long> {
     @Query("select b from Bill b where b.kilometer <> 0 ")
     public Iterable<Bill> selectAllBillsComplete();
 
-//    @Transactional
-//    @Query(value = "select (select u.full_name from users u where id = user_id) as user, sum(b.total) as total from bills b where month(b.end_date) group by b.user_id;", nativeQuery = true)
-//    public Iterable<IBillDTO> statisticalTechnicians();
 }

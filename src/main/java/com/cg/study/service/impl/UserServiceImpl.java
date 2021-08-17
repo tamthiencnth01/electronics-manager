@@ -41,11 +41,6 @@ public class UserServiceImpl implements UserService {
         UserPrincipal userPrincipal = new UserPrincipal();
         if (null != user) {
             Set<String> authorities = new HashSet<>();
-//            if (null != user.getRole()) user.getRole()(r -> {
-//                authorities.add(r.getRoleKey());
-//                r.getPermissions().forEach(p -> authorities.add(p.getPermissionKey()));
-//            });
-
             if (user.getRole() != null){
                 authorities.add(user.getRole().getCode());
             }

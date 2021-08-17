@@ -59,15 +59,6 @@ public class BillAPI {
         }
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
-//    @GetMapping("/month")
-//    private ResponseEntity<Iterable<IBillDTO>> selectAllBillsMonth(){
-//        Iterable<IBillDTO> bills = billService.statisticalTechnicians();
-//        if (((List) bills).isEmpty()){
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        return new ResponseEntity<>(bills, HttpStatus.OK);
-//    }
-
 
     @GetMapping("/statistical")
     private ResponseEntity<Iterable<Bill>> statisticalTechnicians(){
